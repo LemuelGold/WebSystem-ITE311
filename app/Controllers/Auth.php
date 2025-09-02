@@ -2,88 +2,196 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
-
 class Auth extends BaseController
 {
+    protected $session;
+    protected $validation;
+    protected $db;
+
+    public function __construct()
+    {
+        $this->session = \Config\Services::session();
+        $this->validation = \Config\Services::validation();
+        $this->db = \Config\Database::connect();
+    }
+
     public function register()
     {
-        helper(['form']);
-        $data = [];
+        // If user is already logged in, redirect to dashboard
+        if ($this->isLoggedIn()) {
+            return redirect()->to(base_url('dashboard'));
+        }
 
-        if ($this->request->getMethod() == 'post') {
-            // Define validation rules for registration
+        // Check if the form was submitted (POST request)
+        if ($this->request->getMethod() === 'POST') {
+            
+            // Set validation rules for the form fields
             $rules = [
-                'username'         => 'required|min_length[3]|max_length[50]|is_unique[users.username]',
-                'first_name'       => 'required|min_length[2]|max_length[50]',
-                'last_name'        => 'required|min_length[2]|max_length[50]',
+                'name'             => 'required|min_length[3]|max_length[100]',
                 'email'            => 'required|valid_email|is_unique[users.email]',
-                'password'         => 'required|min_length[6]|max_length[255]',
-                'password_confirm' => 'matches[password]',
+                'password'         => 'required|min_length[6]',
+                'password_confirm' => 'required|matches[password]'
             ];
 
-            if ($this->validate($rules)) {
-                // Save user to database
-                $model = new UserModel();
+            $messages = [
+                'name' => [
+                    'required'   => 'Name is required.',
+                    'min_length' => 'Name must be at least 3 characters long.',
+                    'max_length' => 'Name cannot exceed 100 characters.'
+                ],
+                'email' => [
+                    'required'    => 'Email is required.',
+                    'valid_email' => 'Please enter a valid email address.',
+                    'is_unique'   => 'This email is already registered.'
+                ],
+                'password' => [
+                    'required'   => 'Password is required.',
+                    'min_length' => 'Password must be at least 6 characters long.'
+                ],
+                'password_confirm' => [
+                    'required' => 'Password confirmation is required.',
+                    'matches'  => 'Password confirmation does not match.'
+                ]
+            ];
+
+            // If validation passes
+            if ($this->validate($rules, $messages)) {
+                
+                // Hash the password using password_hash() function
+                $hashedPassword = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+
+                // Prepare user data to match your table structure
                 $userData = [
-                    'username'   => $this->request->getPost('username'),
+                    'name'       => $this->request->getPost('name'),
                     'email'      => $this->request->getPost('email'),
-                    'password'   => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT), // Hash password
-                    'first_name' => $this->request->getPost('first_name'),
-                    'last_name'  => $this->request->getPost('last_name'),
-                    'role'       => 'student', // Default role
-                    'status'     => 'active',
+                    'password'   => $hashedPassword,
+                    'role'       => 'user',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
                 ];
 
-                $model->save($userData);
-                session()->setFlashdata('success', 'Registration successful! Please login.');
-                return redirect()->to('/login');
+                // Save the user data to the users table
+                $builder = $this->db->table('users');
+                
+                if ($builder->insert($userData)) {
+                    $this->session->setFlashdata('success', 'Registration successful! Please login with your credentials.');
+                    return redirect()->to(base_url('login'));
+                } else {
+                    $this->session->setFlashdata('error', 'Registration failed. Please try again.');
+                }
             } else {
-                // Pass validation errors to view
-                $data['validation'] = $this->validator;
+                $this->session->setFlashdata('errors', $this->validation->getErrors());
             }
         }
 
-        return view('auth/register', $data);
+        return view('auth/register');
     }
 
     public function login()
     {
-        if ($this->request->getMethod() === 'post') {
+        // If user is already logged in, redirect to dashboard
+        if ($this->isLoggedIn()) {
+            return redirect()->to(base_url('dashboard'));
+        }
+
+        // Check for a POST request
+        if ($this->request->getMethod() === 'POST') {
+            
+            // Get the login field (can be email or username)
             $login = $this->request->getPost('login');
             $password = $this->request->getPost('password');
-            
-            if ($login === 'admin' && $password === '12345678') {
-                session()->set([
-                    'isLoggedIn' => true,
-                    'username' => 'admin',
-                    'userID' => 1,
-                    'name' => 'Administrator',
-                    'email' => 'admin@lms.com',
-                    'role' => 'admin'
-                ]);
-                
+
+            // Basic validation
+            if (empty($login) || empty($password)) {
+                $this->session->setFlashdata('error', 'Please enter both login and password.');
+                return view('auth/login');
+            }
+
+            // Check for hardcoded admin login
+            if ($login === 'admin' && $password === 'admin123') {
+                $sessionData = [
+                    'userID'     => 1,
+                    'name'       => 'Administrator',
+                    'email'      => 'admin@lms.com',
+                    'role'       => 'admin',
+                    'isLoggedIn' => true
+                ];
+                $this->session->set($sessionData);
+                $this->session->setFlashdata('success', 'Welcome back, Administrator!');
                 return redirect()->to(base_url('dashboard'));
+            }
+
+            // Check the database for a user using email or name
+            $builder = $this->db->table('users');
+            $user = $builder->where('email', $login)
+                           ->orWhere('name', $login)
+                           ->get()
+                           ->getRowArray();
+
+            // If user exists, verify the submitted password against the stored hash
+            if ($user && password_verify($password, $user['password'])) {
+                
+                $sessionData = [
+                    'userID'     => $user['id'],
+                    'name'       => $user['name'],
+                    'email'      => $user['email'],
+                    'role'       => $user['role'],
+                    'isLoggedIn' => true
+                ];
+
+                $this->session->set($sessionData);
+                $this->session->setFlashdata('success', 'Welcome back, ' . $user['name'] . '!');
+                return redirect()->to(base_url('dashboard'));
+                
             } else {
-                session()->setFlashdata('error', 'Invalid login credentials.');
-                return redirect()->to(base_url('login'));
+                $this->session->setFlashdata('error', 'Invalid login credentials.');
             }
         }
 
         return view('auth/login');
     }
-    
+
     public function logout()
     {
-        // Use CodeIgniter session to destroy
-        session()->destroy();
-        
-        // Redirect to login
+        $this->session->destroy();
+        $this->session->setFlashdata('success', 'You have been logged out successfully.');
         return redirect()->to(base_url('login'));
     }
 
     public function dashboard()
     {
-        return view('auth/dashboard');
+        if (!$this->isLoggedIn()) {
+            $this->session->setFlashdata('error', 'Please login to access the dashboard.');
+            return redirect()->to(base_url('login'));
+        }
+
+        $userData = [
+            'userID' => $this->session->get('userID'),
+            'name'   => $this->session->get('name'),
+            'email'  => $this->session->get('email'),
+            'role'   => $this->session->get('role')
+        ];
+        
+        $data = [
+            'user' => $userData,
+            'title' => 'Dashboard - MGOD LMS'
+        ];
+
+        return view('auth/dashboard', $data);
+    }
+
+    private function isLoggedIn(): bool
+    {
+        return $this->session->get('isLoggedIn') === true;
+    }
+
+    public function getCurrentUser(): array
+    {
+        return [
+            'userID' => $this->session->get('userID'),
+            'name'   => $this->session->get('name'),
+            'email'  => $this->session->get('email'),
+            'role'   => $this->session->get('role')
+        ];
     }
 }

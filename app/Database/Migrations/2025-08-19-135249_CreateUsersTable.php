@@ -10,54 +10,39 @@ class CreateUsersTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
-                'auto_increment' => true,
+                'type' => 'INT',
+                'constraint' => 5,
+                'unsigned' => true,
+                'auto_increment' => true
             ],
-            'username' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'unique'     => true,
+            'name' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
             ],
             'email' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
-                'unique'     => true,
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'unique' => true,
             ],
             'password' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
-            ],
-            'first_name' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-            ],
-            'last_name' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
+                'type' => 'VARCHAR',
+                'constraint' => '255',
             ],
             'role' => [
-                'type'       => 'ENUM',
-                'constraint' => ['admin', 'instructor', 'student'],
-                'default'    => 'student',
-            ],
-            'status' => [
-                'type'       => 'ENUM',
-                'constraint' => ['active', 'inactive'],
-                'default'    => 'active',
+                'type' => 'ENUM',
+                'constraint' => ['admin', 'user'],
+                'default' => 'user',
             ],
             'created_at' => [
-                'type' => 'TIMESTAMP',
+                'type' => 'DATETIME',
                 'null' => true,
             ],
             'updated_at' => [
-                'type' => 'TIMESTAMP',
+                'type' => 'DATETIME',
                 'null' => true,
             ],
         ]);
-
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
         $this->forge->createTable('users');
     }
 

@@ -1,26 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Login Page</h1>
-    
-    <form method="post" action="/ITE311-FUNDAR/public/login">
-        <div>
-            <label>Username:</label>
-            <input type="text" name="login" required>
+<body class="bg-light d-flex align-items-center min-vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <h2>LMS</h2>
+                            <p class="text-muted">Please sign in</p>
+                        </div>
+
+                        <?php if (session()->getFlashdata('success')): ?>
+                            <div class="alert alert-success">
+                                <?= session()->getFlashdata('success') ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if (session()->getFlashdata('error')): ?>
+                            <div class="alert alert-danger">
+                                <?= session()->getFlashdata('error') ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <form method="post" action="<?= base_url('login') ?>">
+                            <div class="mb-3">
+                                <label for="login" class="form-label">Email or Username</label>
+                                <input type="text" class="form-control" id="login" name="login" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            <span>Don't have an account? <a href="<?= base_url('register') ?>" class="btn btn-link p-0">Create Account</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div>
-            <label>Password:</label>
-            <input type="password" name="password" required>
-        </div>
-        
-        <button type="submit">Login</button>
-    </form>
-    
-    <p><a href="<?= base_url('register') ?>">Register</a></p>
-    <p><a href="<?= base_url('dashboard') ?>">Dashboard</a></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
