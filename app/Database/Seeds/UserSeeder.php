@@ -4,47 +4,46 @@ namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
+/**
+ * UserSeeder - Seeds the users table with sample data
+ */
 class UserSeeder extends Seeder
 {
     public function run()
     {
-        // Insert sample users
+        // Insert sample users matching the users table structure
         $data = [
             [
-                'username'   => 'admin',
+                'name'       => 'System Administrator',
                 'email'      => 'admin@lms.com',
                 'password'   => password_hash('admin123', PASSWORD_DEFAULT),
                 'role'       => 'admin',
-                'first_name' => 'System',
-                'last_name'  => 'Administrator',
                 'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'username'   => 'instructor1',
-                'email'      => 'instructor1@lms.com',
-                'password'   => password_hash('inst123', PASSWORD_DEFAULT),
-                'role'       => 'instructor',
-                'first_name' => 'John',
-                'last_name'  => 'Smith',
+                'name'       => 'John Smith',
+                'email'      => 'john@lms.com',
+                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'role'       => 'user',
                 'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'username'   => 'student1',
-                'email'      => 'student1@lms.com',
-                'password'   => password_hash('stud123', PASSWORD_DEFAULT),
-                'role'       => 'student',
-                'first_name' => 'Jane',
-                'last_name'  => 'Doe',
+                'name'       => 'Jane Doe',
+                'email'      => 'jane@lms.com',
+                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'role'       => 'user',
                 'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'username'   => 'student2',
-                'email'      => 'student2@lms.com',
-                'password'   => password_hash('stud123', PASSWORD_DEFAULT),
-                'role'       => 'student',
-                'first_name' => 'Bob',
-                'last_name'  => 'Johnson',
+                'name'       => 'Bob Johnson',
+                'email'      => 'bob@lms.com',
+                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'role'       => 'user',
                 'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
         ];
 

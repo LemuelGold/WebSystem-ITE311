@@ -17,6 +17,7 @@
         <a href="<?= base_url('/') ?>">Home</a>
         <a href="<?= base_url('/about') ?>">About</a>
         <a href="<?= base_url('/contact') ?>">Contact</a>
+        <a href="<?= base_url('/login') ?>">Login</a>
     </nav>
     
     <h1>About Us</h1>

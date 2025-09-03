@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+/**
+ * Auth Controller - Handles user authentication (login, register, logout, dashboard)
+ */
 class Auth extends BaseController
 {
     protected $session;
@@ -10,11 +13,15 @@ class Auth extends BaseController
 
     public function __construct()
     {
+        // Initialize session, validation, and database services
         $this->session = \Config\Services::session();
         $this->validation = \Config\Services::validation();
         $this->db = \Config\Database::connect();
     }
 
+    /**
+     * User registration - handles both GET (show form) and POST (process form)
+     */
     public function register()
     {
         // If user is already logged in, redirect to dashboard
@@ -50,7 +57,7 @@ class Auth extends BaseController
                 ],
                 'password_confirm' => [
                     'required' => 'Password confirmation is required.',
-                    'matches'  => 'Password confirmation does not match.'
+                    'matches'  => 'Wrong password please type the same password.'
                 ]
             ];
 
@@ -80,13 +87,18 @@ class Auth extends BaseController
                     $this->session->setFlashdata('error', 'Registration failed. Please try again.');
                 }
             } else {
+                // Validation failed - set errors and redirect back to form
                 $this->session->setFlashdata('errors', $this->validation->getErrors());
+                return redirect()->back()->withInput();
             }
         }
 
         return view('auth/register');
     }
 
+    /**
+     * User login - handles both GET (show form) and POST (authenticate user)
+     */
     public function login()
     {
         // If user is already logged in, redirect to dashboard
@@ -151,6 +163,9 @@ class Auth extends BaseController
         return view('auth/login');
     }
 
+    /**
+     * User logout - destroys session and redirects to login
+     */
     public function logout()
     {
         $this->session->destroy();
@@ -158,6 +173,9 @@ class Auth extends BaseController
         return redirect()->to(base_url('login'));
     }
 
+    /**
+     * Dashboard - shows user dashboard after login
+     */
     public function dashboard()
     {
         if (!$this->isLoggedIn()) {
@@ -174,17 +192,23 @@ class Auth extends BaseController
         
         $data = [
             'user' => $userData,
-            'title' => 'Dashboard - MGOD LMS'
+            'title' => 'LMS - Dashboard'
         ];
 
         return view('auth/dashboard', $data);
     }
 
+    /**
+     * Check if user is logged in
+     */
     private function isLoggedIn(): bool
     {
         return $this->session->get('isLoggedIn') === true;
     }
 
+    /**
+     * Get current logged-in user data
+     */
     public function getCurrentUser(): array
     {
         return [

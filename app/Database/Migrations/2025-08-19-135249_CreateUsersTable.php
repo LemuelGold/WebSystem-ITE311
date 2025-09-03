@@ -4,8 +4,14 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
+/**
+ * Migration to create users table for authentication
+ */
 class CreateUsersTable extends Migration
 {
+    /**
+     * Create users table with required fields
+     */
     public function up()
     {
         $this->forge->addField([
@@ -46,6 +52,9 @@ class CreateUsersTable extends Migration
         $this->forge->createTable('users');
     }
 
+    /**
+     * Drop users table
+     */
     public function down()
     {
         $this->forge->dropTable('users');
