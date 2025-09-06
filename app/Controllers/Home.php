@@ -6,6 +6,13 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('template');
+        return view('index');
+    }
+    public function about(): string
+    {
+        return view('about');
+    }public function cantact(): string
+    {
+        return view('contact');
     }
 }
