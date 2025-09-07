@@ -192,7 +192,7 @@ class Auth extends BaseController
         
         $data = [
             'user' => $userData,
-            'title' => 'LMS - Dashboard'
+            'title' => 'FUNDAR_ LMS - Dashboard'
         ];
 
         return view('auth/dashboard', $data);
