@@ -2,14 +2,20 @@
     include('template.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>contact</title>
-</head>
-<body>
-    <h1>Contact</h1>
-</body>
-</html>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Contact Header -->
+            <div class="card mb-5">
+                <div class="card-body text-center py-5">
+                    <h1 class="display-4 mb-4">
+                        <i class="fas fa-envelope me-3"></i>
+                        Contact Us
+                    </h1>
+                    <p class="lead">
+                        Get in touch with our team for support, inquiries, or feedback
+                    </p>
+                </div>
+            </div>
+
+           

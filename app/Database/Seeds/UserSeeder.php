@@ -10,8 +10,7 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'first_name' => 'Admin',
-                'last_name'  => 'User',
+                'name'       => 'Admin User',
                 'email'      => 'admin@gmail.com',
                 'password'   => password_hash('admin123', PASSWORD_BCRYPT),
                 'role'       => 'admin',
@@ -19,29 +18,26 @@ class UserSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s')
             ],
             [
-                'first_name' => 'Dale',
-                'last_name'  => 'Doe',
+                'name'       => 'Dale Doe',
                 'email'      => 'dale.doe@gmail.com',
                 'password'   => password_hash('teacher123', PASSWORD_BCRYPT),
-                'role'       => 'instructor',
+                'role'       => 'user',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
             [
-                'first_name' => 'Jane',
-                'last_name'  => 'Smith',
+                'name'       => 'Jane Smith',
                 'email'      => 'jane.smith@gmail.com',
                 'password'   => password_hash('student123', PASSWORD_BCRYPT),
-                'role'       => 'student',
+                'role'       => 'user',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
             [
-                'first_name' => 'Dale',
-                'last_name'  => 'Brown',
+                'name'       => 'David Brown',
                 'email'      => 'david.brown@gmail.com',
                 'password'   => password_hash('student123', PASSWORD_BCRYPT),
-                'role'       => 'student',
+                'role'       => 'user',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]
