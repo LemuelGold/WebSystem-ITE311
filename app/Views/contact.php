@@ -264,45 +264,8 @@
             <h1>Contact Us</h1>
             
             <div class="contact-content">
-                <p class="contact-intro">We'd love to hear from you! Get in touch with us for any inquiries about our ITE311 CodeIgniter project or if you have any questions about web development.</p>
-                
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h3>Get In Touch</h3>
-                        
-                        <div class="info-item">
-                            <span class="info-icon">📧</span>
-                            <div>
-                                <strong>Email:</strong><br>
-                                carlo.fundar@example.com
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <span class="info-icon">📱</span>
-                            <div>
-                                <strong>Phone:</strong><br>
-                                +63 123 456 7890
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <span class="info-icon">📍</span>
-                            <div>
-                                <strong>Location:</strong><br>
-                                General Santos City, Philippines
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <span class="info-icon">⏰</span>
-                            <div>
-                                <strong>Response Time:</strong><br>
-                                Within 24 hours
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p class="contact-intro">Call me ^_^.</p>
+
             </div>
         </div>
     </div>

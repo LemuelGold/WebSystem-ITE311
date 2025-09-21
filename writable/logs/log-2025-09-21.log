@@ -1,0 +1,120 @@
+ERROR - 2025-09-21 08:48:30 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'lms_fundar' in D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_fundar', 3306, '', 0)
+#1 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(1525): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#4 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(1545): CodeIgniter\Database\BaseConnection->listTables()
+#5 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\MigrationRunner.php(768): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#6 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\MigrationRunner.php(162): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 D:\XAMPP\htdocs\ITE311-FUNDAR\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 D:\XAMPP\htdocs\ITE311-FUNDAR\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 D:\XAMPP\htdocs\ITE311-FUNDAR\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'lms_fundar' in D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(1525): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#3 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(1545): CodeIgniter\Database\BaseConnection->listTables()
+#4 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\MigrationRunner.php(768): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#5 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Database\MigrationRunner.php(162): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 D:\XAMPP\htdocs\ITE311-FUNDAR\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#8 D:\XAMPP\htdocs\ITE311-FUNDAR\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#9 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 D:\XAMPP\htdocs\ITE311-FUNDAR\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 D:\XAMPP\htdocs\ITE311-FUNDAR\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-09-21 08:53:53 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin/manage_users.php"
+[Method: GET, Route: admin/users]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('admin/manage_users.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_users', [], true)
+ 3 APPPATH\Controllers\AdminController.php(114): view('admin/manage_users', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-21 09:15:51 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "student/my_courses.php"
+[Method: GET, Route: student/courses]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('student/my_courses.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('student/my_courses', [], true)
+ 3 APPPATH\Controllers\StudentController.php(140): view('student/my_courses', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\StudentController->viewCourses()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StudentController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-21 09:16:57 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin/manage_users.php"
+[Method: GET, Route: admin/users]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('admin/manage_users.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_users', [], true)
+ 3 APPPATH\Controllers\AdminController.php(114): view('admin/manage_users', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-21 09:24:49 --> TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given
+[Method: GET, Route: student/dashboard]
+in APPPATH\Views\student\dashboard.php on line 22.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('student/dashboard', [], true)
+ 4 APPPATH\Controllers\StudentController.php(34): view('student/dashboard', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\StudentController->dashboard()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StudentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-21 09:24:49 --> [Caused by] ErrorException: Undefined variable $courses
+in APPPATH\Views\student\dashboard.php on line 22.
+ 1 APPPATH\Views\student\dashboard.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $courses', 'D:\\XAMPP\\htdocs\\ITE311-FUNDAR\\app\\Views\\student\\dashboard.php', 22)
+ 2 SYSTEMPATH\View\View.php(226): include('D:\\XAMPP\\htdocs\\ITE311-FUNDAR\\app\\Views\\student\\dashboard.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('student/dashboard', [], true)
+ 5 APPPATH\Controllers\StudentController.php(34): view('student/dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\StudentController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StudentController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-21 09:25:27 --> TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given
+[Method: GET, Route: student/dashboard]
+in APPPATH\Views\student\dashboard.php on line 22.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('student/dashboard', [], true)
+ 4 APPPATH\Controllers\StudentController.php(34): view('student/dashboard', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\StudentController->dashboard()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StudentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-21 09:25:27 --> [Caused by] ErrorException: Undefined variable $courses
+in APPPATH\Views\student\dashboard.php on line 22.
+ 1 APPPATH\Views\student\dashboard.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $courses', 'D:\\XAMPP\\htdocs\\ITE311-FUNDAR\\app\\Views\\student\\dashboard.php', 22)
+ 2 SYSTEMPATH\View\View.php(226): include('D:\\XAMPP\\htdocs\\ITE311-FUNDAR\\app\\Views\\student\\dashboard.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('student/dashboard', [], true)
+ 5 APPPATH\Controllers\StudentController.php(34): view('student/dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\StudentController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StudentController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
