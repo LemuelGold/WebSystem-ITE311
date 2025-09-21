@@ -53,6 +53,13 @@
                         <div class="text-center mt-3">
                             <span>Don't have an account? <a href="<?= base_url('register') ?>" class="btn btn-link p-0">Create Account</a></span>
                         </div>
+                        
+                        <!-- Go back to homepage button -->
+                        <div class="text-center mt-2">
+                            <a href="<?= base_url('/') ?>" class="btn btn-outline-secondary btn-sm">
+                                Go Back to Homepage
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
