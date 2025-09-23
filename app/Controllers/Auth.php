@@ -77,12 +77,12 @@ class Auth extends BaseController
                 // Hash the password using password_hash() function
                 $hashedPassword = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
 
-                // Prepare user data to match your table structure
+                // Prepare user data with default student role for security
                 $userData = [
                     'name'       => $this->request->getPost('name'),
                     'email'      => $this->request->getPost('email'),
                     'password'   => $hashedPassword,
-                    'role'       => 'student', // Automatic role assignment: all new registrations are students
+                    'role'       => 'student', // Default role: all public registrations are students
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
@@ -147,26 +147,6 @@ class Auth extends BaseController
             // Sanitize inputs to prevent injection attacks
             $login = filter_var(trim($login), FILTER_SANITIZE_STRING);
             
-            // Check for hardcoded admin login (temporary - should be moved to database)
-            if ($login === 'admin' && $password === 'admin123') {
-                $sessionData = [
-                    'userID'     => 1,
-                    'name'       => 'Administrator',
-                    'email'      => 'admin@lms.com',
-                    'role'       => 'admin',
-                    'isLoggedIn' => true,
-                    'loginTime'  => time() // Track login time for security
-                ];
-                $this->session->set($sessionData);
-                $this->session->setFlashdata('success', 'Welcome back, Administrator!');
-                
-                // Log successful admin login
-                log_message('info', 'Admin login successful from IP: ' . $this->request->getIPAddress());
-                
-                // Role-based redirection for admin
-                return redirect()->to(base_url('admin/dashboard'));
-            }
-
             // Check the database for a user using email or name
             $builder = $this->db->table('users');
             $user = $builder->where('email', $login)
