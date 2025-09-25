@@ -31,7 +31,7 @@ class StudentController extends BaseController
         // Prepare student-specific dashboard data
         $data = $this->prepareStudentDashboardData();
         
-        return view('student/dashboard', $data);
+        return view('auth/dashboard', $data);
     }
 
     /**

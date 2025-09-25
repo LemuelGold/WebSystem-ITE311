@@ -31,7 +31,7 @@ class TeacherController extends BaseController
         // Prepare teacher-specific dashboard data
         $data = $this->prepareTeacherDashboardData();
         
-        return view('teacher/dashboard', $data);
+        return view('auth/dashboard', $data);
     }
 
     /**
@@ -54,6 +54,13 @@ class TeacherController extends BaseController
             ['student' => 'Jane Smith', 'course' => 'Database Management', 'assignment' => 'Lab Exercise 3', 'submitted' => '2025-09-19'],
             ['student' => 'Mike Johnson', 'course' => 'Software Engineering', 'assignment' => 'UML Diagrams', 'submitted' => '2025-09-18']
         ];
+        
+        // New assignment submissions that need teacher attention
+        $newSubmissions = [
+            ['student' => 'John Doe', 'assignment' => 'Final Project', 'time' => '2 hours'],
+            ['student' => 'Jane Smith', 'assignment' => 'Lab Exercise 3', 'time' => '5 hours'],
+            ['student' => 'Mike Johnson', 'assignment' => 'UML Diagrams', 'time' => '1 day']
+        ];
 
         // Get student count from database
         $studentsBuilder = $this->db->table('users');
@@ -74,7 +81,8 @@ class TeacherController extends BaseController
                 'pendingReviews' => count($pendingAssignments)
             ],
             'myCourses' => $myCourses,
-            'pendingAssignments' => $pendingAssignments
+            'pendingAssignments' => $pendingAssignments,
+            'newSubmissions' => $newSubmissions
         ];
     }
 

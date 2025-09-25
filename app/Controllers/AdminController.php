@@ -31,7 +31,7 @@ class AdminController extends BaseController
         // Gather statistics and data for admin dashboard
         $data = $this->prepareAdminDashboardData();
         
-        return view('admin/dashboard', $data);
+        return view('auth/dashboard', $data);
     }
 
     /**

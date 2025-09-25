@@ -25,7 +25,7 @@ class Auth extends BaseController
     public function register()
     {
         // If user is already logged in, redirect to appropriate dashboard based on role
-        if ($this->isLoggedIn()) {
+        if ($this->session->get('isLoggedIn') === true) {
             $role = $this->session->get('role');
             switch ($role) {
                 case 'admin':
@@ -112,7 +112,7 @@ class Auth extends BaseController
     public function login()
     {
         // If user is already logged in, redirect to appropriate dashboard based on role
-        if ($this->isLoggedIn()) {
+        if ($this->session->get('isLoggedIn') === true) {
             $role = $this->session->get('role');
             switch ($role) {
                 case 'admin':
@@ -130,8 +130,22 @@ class Auth extends BaseController
         if ($this->request->getMethod() === 'POST') {
             
             // Rate limiting - prevent brute force attacks
-            if (!$this->checkLoginAttempts()) {
+            $attempts = $this->session->get('login_attempts') ?? 0;
+            $lastAttempt = $this->session->get('login_last_attempt') ?? 0;
+            
+            // Block for 15 minutes after 5 failed attempts
+            if ($attempts >= 5 && (time() - $lastAttempt) < 900) {
+                $timeLeft = 900 - (time() - $lastAttempt);
+                $minutes = ceil($timeLeft / 60);
+                
+                $this->session->setFlashdata('error', "Too many failed login attempts. Please try again in {$minutes} minutes.");
                 return view('auth/login');
+            }
+            
+            // Reset attempts after 15 minutes
+            if ((time() - $lastAttempt) > 900) {
+                $this->session->remove('login_attempts');
+                $this->session->remove('login_last_attempt');
             }
             
             // Get the login field (can be email or username)
@@ -194,7 +208,11 @@ class Auth extends BaseController
                 log_message('warning', 'Failed login attempt for: ' . $login . ' from IP: ' . $this->request->getIPAddress());
                 
                 // Track failed attempts
-                $this->recordFailedAttempt();
+                $attempts = $this->session->get('login_attempts') ?? 0;
+                $this->session->set([
+                    'login_attempts' => $attempts + 1,
+                    'login_last_attempt' => time()
+                ]);
                 
                 $this->session->setFlashdata('error', 'Invalid login credentials.');
             }
@@ -218,12 +236,12 @@ class Auth extends BaseController
      */
     public function dashboard()
     {
-        if (!$this->isLoggedIn()) {
+        if (!($this->session->get('isLoggedIn') === true)) {
             $this->session->setFlashdata('error', 'Please login to access the dashboard.');
             return redirect()->to(base_url('login'));
         }
 
-        // Redirect to role-based dashboard instead of showing generic dashboard
+        // Redirect to role-based dashboard controllers
         $role = $this->session->get('role');
         switch ($role) {
             case 'admin':
@@ -237,64 +255,5 @@ class Auth extends BaseController
                 $this->session->setFlashdata('error', 'Invalid user role. Please contact administrator.');
                 return redirect()->to(base_url('login'));
         }
-    }
-
-    /**
-     * Check if user is logged in
-     */
-    private function isLoggedIn(): bool
-    {
-        return $this->session->get('isLoggedIn') === true;
-    }
-
-    /**
-     * Get current logged-in user data
-     */
-    public function getCurrentUser(): array
-    {
-        return [
-            'userID' => $this->session->get('userID'),
-            'name'   => $this->session->get('name'),
-            'email'  => $this->session->get('email'),
-            'role'   => $this->session->get('role')
-        ];
-    }
-
-    /**
-     * Check for excessive login attempts (rate limiting)
-     */
-    private function checkLoginAttempts(): bool
-    {
-        $attempts = $this->session->get('login_attempts') ?? 0;
-        $lastAttempt = $this->session->get('login_last_attempt') ?? 0;
-        
-        // Block for 15 minutes after 5 failed attempts
-        if ($attempts >= 5 && (time() - $lastAttempt) < 900) {
-            $timeLeft = 900 - (time() - $lastAttempt);
-            $minutes = ceil($timeLeft / 60);
-            
-            $this->session->setFlashdata('error', "Too many failed login attempts. Please try again in {$minutes} minutes.");
-            return false; // Indicate that login should be blocked
-        }
-        
-        // Reset attempts after 15 minutes
-        if ((time() - $lastAttempt) > 900) {
-            $this->session->remove('login_attempts');
-            $this->session->remove('login_last_attempt');
-        }
-        
-        return true; // Login attempts are within acceptable limits
-    }
-
-    /**
-     * Record failed login attempt for rate limiting
-     */
-    private function recordFailedAttempt(): void
-    {
-        $attempts = $this->session->get('login_attempts') ?? 0;
-        $this->session->set([
-            'login_attempts' => $attempts + 1,
-            'login_last_attempt' => time()
-        ]);
     }
 }
