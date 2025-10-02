@@ -26,7 +26,9 @@ $routes->get('/dashboard', 'Auth::dashboard');   // User dashboard (fallback)
 $routes->group('admin', function($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
     $routes->get('users', 'AdminController::manageUsers');
-    $routes->get('users/create', 'AdminController::createUser');
+    $routes->post('users/create', 'AdminController::createUser');
+    $routes->post('users/update', 'AdminController::updateUser');
+    $routes->post('users/delete', 'AdminController::deleteUser');
     $routes->get('courses', 'AdminController::manageCourses');
     $routes->get('reports', 'AdminController::viewReports');
 });

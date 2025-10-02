@@ -101,9 +101,13 @@ class AdminController extends BaseController
         $usersBuilder = $this->db->table('users');
         $users = $usersBuilder->orderBy('created_at', 'DESC')->get()->getResultArray();
 
+        // Get user statistics
+        $stats = $this->getUserStats();
+
         $data = [
             'title' => 'User Management - Admin Panel',
             'users' => $users,
+            'stats' => $stats,
             'user' => [
                 'userID' => $this->session->get('userID'),
                 'name'   => $this->session->get('name'),
@@ -112,5 +116,200 @@ class AdminController extends BaseController
         ];
 
         return view('admin/manage_users', $data);
+    }
+
+    /**
+     * Get user statistics for dashboard display
+     */
+    private function getUserStats(): array
+    {
+        $usersBuilder = $this->db->table('users');
+        $totalUsers = $usersBuilder->countAllResults();
+        
+        $usersBuilder = $this->db->table('users');
+        $adminCount = $usersBuilder->where('role', 'admin')->countAllResults();
+        
+        $usersBuilder = $this->db->table('users');
+        $teacherCount = $usersBuilder->where('role', 'teacher')->countAllResults();
+        
+        $usersBuilder = $this->db->table('users');
+        $studentCount = $usersBuilder->where('role', 'student')->countAllResults();
+
+        return [
+            'totalUsers' => $totalUsers,
+            'adminCount' => $adminCount,
+            'teacherCount' => $teacherCount,
+            'studentCount' => $studentCount
+        ];
+    }
+
+    /**
+     * Create new user (admin function)
+     */
+    public function createUser()
+    {
+        // Authorization check for admin role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Admin privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Only handle POST requests
+        if ($this->request->getMethod() === 'POST') {
+            // Validation rules
+            $rules = [
+                'name'     => 'required|min_length[3]|max_length[100]',
+                'email'    => 'required|valid_email|is_unique[users.email]',
+                'password' => 'required|min_length[6]',
+                'role'     => 'required|in_list[admin,teacher,student]'
+            ];
+
+            if ($this->validate($rules)) {
+                // Hash password
+                $hashedPassword = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+
+                // Prepare user data
+                $userData = [
+                    'name'       => $this->request->getPost('name'),
+                    'email'      => $this->request->getPost('email'),
+                    'password'   => $hashedPassword,
+                    'role'       => $this->request->getPost('role'),
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+
+                // Insert user into database
+                $usersBuilder = $this->db->table('users');
+                if ($usersBuilder->insert($userData)) {
+                    $this->session->setFlashdata('success', 'User created successfully!');
+                } else {
+                    $this->session->setFlashdata('error', 'Failed to create user. Please try again.');
+                }
+            } else {
+                $this->session->setFlashdata('error', 'Validation failed: ' . implode(', ', $this->validator->getErrors()));
+            }
+        }
+
+        return redirect()->to(base_url('admin/users'));
+    }
+
+    /**
+     * Update user information (admin function)
+     */
+    public function updateUser()
+    {
+        // Authorization check for admin role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Admin privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Only handle POST requests
+        if ($this->request->getMethod() === 'POST') {
+            $userId = $this->request->getPost('user_id');
+
+            // Get current user data to check if it's an admin
+            $usersBuilder = $this->db->table('users');
+            $currentUser = $usersBuilder->where('id', $userId)->get()->getRowArray();
+
+            if (!$currentUser) {
+                $this->session->setFlashdata('error', 'User not found.');
+                return redirect()->to(base_url('admin/users'));
+            }
+
+            // Prevent editing admin users (security measure)
+            if ($currentUser['role'] === 'admin') {
+                $this->session->setFlashdata('error', 'Cannot edit administrator accounts.');
+                return redirect()->to(base_url('admin/users'));
+            }
+
+            // Validation rules
+            $rules = [
+                'name'  => 'required|min_length[3]|max_length[100]',
+                'email' => "required|valid_email|is_unique[users.email,id,{$userId}]",
+                'role'  => 'required|in_list[teacher,student]' // Only allow teacher/student roles
+            ];
+
+            if ($this->validate($rules)) {
+                // Prepare update data
+                $updateData = [
+                    'name'       => $this->request->getPost('name'),
+                    'email'      => $this->request->getPost('email'),
+                    'role'       => $this->request->getPost('role'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+
+                // Update password if provided
+                $newPassword = $this->request->getPost('password');
+                if (!empty($newPassword)) {
+                    if (strlen($newPassword) >= 6) {
+                        $updateData['password'] = password_hash($newPassword, PASSWORD_DEFAULT);
+                    } else {
+                        $this->session->setFlashdata('error', 'Password must be at least 6 characters long.');
+                        return redirect()->to(base_url('admin/users'));
+                    }
+                }
+
+                // Update user in database
+                $usersBuilder = $this->db->table('users');
+                if ($usersBuilder->where('id', $userId)->update($updateData)) {
+                    $this->session->setFlashdata('success', 'User updated successfully!');
+                } else {
+                    $this->session->setFlashdata('error', 'Failed to update user. Please try again.');
+                }
+            } else {
+                $this->session->setFlashdata('error', 'Validation failed: ' . implode(', ', $this->validator->getErrors()));
+            }
+        }
+
+        return redirect()->to(base_url('admin/users'));
+    }
+
+    /**
+     * Delete user (admin function)
+     */
+    public function deleteUser()
+    {
+        // Authorization check for admin role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Admin privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Only handle POST requests
+        if ($this->request->getMethod() === 'POST') {
+            $userId = $this->request->getPost('user_id');
+
+            // Get user data to check role
+            $usersBuilder = $this->db->table('users');
+            $user = $usersBuilder->where('id', $userId)->get()->getRowArray();
+
+            if (!$user) {
+                $this->session->setFlashdata('error', 'User not found.');
+                return redirect()->to(base_url('admin/users'));
+            }
+
+            // Prevent deleting admin users (security measure)
+            if ($user['role'] === 'admin') {
+                $this->session->setFlashdata('error', 'Cannot delete administrator accounts.');
+                return redirect()->to(base_url('admin/users'));
+            }
+
+            // Prevent deleting yourself
+            if ($userId == $this->session->get('userID')) {
+                $this->session->setFlashdata('error', 'Cannot delete your own account.');
+                return redirect()->to(base_url('admin/users'));
+            }
+
+            // Delete user from database
+            $usersBuilder = $this->db->table('users');
+            if ($usersBuilder->where('id', $userId)->delete()) {
+                $this->session->setFlashdata('success', 'User deleted successfully!');
+            } else {
+                $this->session->setFlashdata('error', 'Failed to delete user. Please try again.');
+            }
+        }
+
+        return redirect()->to(base_url('admin/users'));
     }
 }
