@@ -41,26 +41,10 @@ class TeacherController extends BaseController
     {
         $teacherId = $this->session->get('userID');
         
-        // For demo purposes - simulated data (would come from courses/assignments tables)
-        $myCourses = [
-            ['id' => 1, 'name' => 'Web Development Fundamentals', 'students' => 25, 'status' => 'Active'],
-            ['id' => 2, 'name' => 'Database Management Systems', 'students' => 18, 'status' => 'Active'],
-            ['id' => 3, 'name' => 'Software Engineering', 'students' => 22, 'status' => 'Completed']
-        ];
-
-        // Simulated pending assignments for review
-        $pendingAssignments = [
-            ['student' => 'John Doe', 'course' => 'Web Development', 'assignment' => 'Final Project', 'submitted' => '2025-09-20'],
-            ['student' => 'Jane Smith', 'course' => 'Database Management', 'assignment' => 'Lab Exercise 3', 'submitted' => '2025-09-19'],
-            ['student' => 'Mike Johnson', 'course' => 'Software Engineering', 'assignment' => 'UML Diagrams', 'submitted' => '2025-09-18']
-        ];
-        
-        // New assignment submissions that need teacher attention
-        $newSubmissions = [
-            ['student' => 'John Doe', 'assignment' => 'Final Project', 'time' => '2 hours'],
-            ['student' => 'Jane Smith', 'assignment' => 'Lab Exercise 3', 'time' => '5 hours'],
-            ['student' => 'Mike Johnson', 'assignment' => 'UML Diagrams', 'time' => '1 day']
-        ];
+            // Empty arrays - ready for real data implementation
+        $myCourses = [];
+        $pendingAssignments = [];
+        $newSubmissions = [];
 
         // Get student count from database
         $studentsBuilder = $this->db->table('users');
@@ -76,7 +60,7 @@ class TeacherController extends BaseController
             ],
             'stats' => [
                 'totalCourses' => count($myCourses),
-                'activeCourses' => count(array_filter($myCourses, fn($course) => $course['status'] === 'Active')),
+                'activeCourses' => 0,
                 'totalStudents' => $totalStudents,
                 'pendingReviews' => count($pendingAssignments)
             ],

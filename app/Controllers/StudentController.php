@@ -41,27 +41,10 @@ class StudentController extends BaseController
     {
         $studentId = $this->session->get('userID');
         
-        // For demo purposes - simulated enrollment data (would come from enrollments/courses tables)
-        $enrolledCourses = [
-            ['id' => 1, 'name' => 'Web Development Fundamentals', 'teacher' => 'Prof. Garcia', 'progress' => 75, 'grade' => 'A'],
-            ['id' => 2, 'name' => 'Database Management Systems', 'teacher' => 'Prof. Santos', 'progress' => 60, 'grade' => 'B+'],
-            ['id' => 3, 'name' => 'Software Engineering', 'teacher' => 'Prof. Reyes', 'progress' => 90, 'grade' => 'A-'],
-            ['id' => 4, 'name' => 'Computer Networks', 'teacher' => 'Prof. Cruz', 'progress' => 45, 'grade' => 'B']
-        ];
-
-        // Simulated upcoming deadlines
-        $upcomingDeadlines = [
-            ['course' => 'Web Development', 'assignment' => 'Final Project', 'due_date' => '2025-09-25', 'status' => 'pending'],
-            ['course' => 'Database Management', 'assignment' => 'Lab Exercise 4', 'due_date' => '2025-09-23', 'status' => 'pending'],
-            ['course' => 'Software Engineering', 'assignment' => 'System Design', 'due_date' => '2025-09-28', 'status' => 'in_progress']
-        ];
-
-        // Simulated recent grades
-        $recentGrades = [
-            ['course' => 'Web Development', 'assignment' => 'Midterm Project', 'grade' => 'A', 'date' => '2025-09-15'],
-            ['course' => 'Database Management', 'assignment' => 'Quiz 3', 'grade' => 'B+', 'date' => '2025-09-12'],
-            ['course' => 'Software Engineering', 'assignment' => 'Lab 5', 'grade' => 'A-', 'date' => '2025-09-10']
-        ];
+        // Empty arrays - ready for real data implementation
+        $enrolledCourses = [];
+        $upcomingDeadlines = [];
+        $recentGrades = [];
 
         return [
             'title' => 'Student Dashboard - ITE311 FUNDAR',
@@ -73,7 +56,7 @@ class StudentController extends BaseController
             ],
             'stats' => [
                 'enrolledCourses' => count($enrolledCourses),
-                'completedCourses' => count(array_filter($enrolledCourses, fn($course) => $course['progress'] >= 100)),
+                'completedCourses' => 0,
                 'averageGrade' => $this->calculateAverageGrade($enrolledCourses),
                 'pendingAssignments' => count($upcomingDeadlines)
             ],

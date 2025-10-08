@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+q<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -175,11 +175,15 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="addName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="addName" name="name" required>
+                            <input type="text" class="form-control" id="addName" name="name" required 
+                                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+" 
+                                   title="Name can only contain letters, spaces, and Spanish characters (ñÑáéíóúÁÉÍÓÚüÜ)"
+                                   placeholder="e.g., María José, Juan Ñuñez">
                         </div>
                         <div class="mb-3">
                             <label for="addEmail" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="addEmail" name="email" required>
+                            <input type="email" class="form-control" id="addEmail" name="email" required
+                                   placeholder="e.g., maria.jose@gmail.com">
                         </div>
                         <div class="mb-3">
                             <label for="addPassword" class="form-label">Password</label>
@@ -217,7 +221,9 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="editName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="editName" name="name" required>
+                            <input type="text" class="form-control" id="editName" name="name" required
+                                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+" 
+                                   title="Name can only contain letters, spaces, and Spanish characters (ñÑáéíóúÁÉÍÓÚüÜ)">
                         </div>
                         <div class="mb-3">
                             <label for="editEmail" class="form-label">Email Address</label>

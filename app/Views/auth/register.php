@@ -51,7 +51,11 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" id="name" name="name" 
-                                       value="<?= old('name') ?>" required>
+                                       value="<?= old('name') ?>" required
+                                       pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+" 
+                                       title="Name can only contain letters, spaces, and Spanish characters (ñÑáéíóúÁÉÍÓÚüÜ)"
+                                       placeholder="e.g., María José, Juan Ñuñez">
+                                <div class="form-text">Only letters and Spanish characters allowed</div>
                                 <?php if (session()->getFlashdata('errors') && isset(session()->getFlashdata('errors')['name'])): ?>
                                     <div class="text-danger mt-1"><?= session()->getFlashdata('errors')['name'] ?></div>
                                 <?php endif; ?>
@@ -60,7 +64,8 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
                                 <input type="email" class="form-control" id="email" name="email" 
-                                       value="<?= old('email') ?>" required>
+                                       value="<?= old('email') ?>" required
+                                       placeholder="e.g., maria.jose@gmail.com">
                                 <?php if (session()->getFlashdata('errors') && isset(session()->getFlashdata('errors')['email'])): ?>
                                     <div class="text-danger mt-1"><?= session()->getFlashdata('errors')['email'] ?></div>
                                 <?php endif; ?>

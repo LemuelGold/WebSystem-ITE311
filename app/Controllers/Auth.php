@@ -44,7 +44,7 @@ class Auth extends BaseController
             
             // Set validation rules for the form fields
             $rules = [
-                'name'             => 'required|min_length[3]|max_length[100]',
+                'name'             => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/]',
                 'email'            => 'required|valid_email|is_unique[users.email]',
                 'password'         => 'required|min_length[6]',
                 'password_confirm' => 'required|matches[password]'
@@ -52,9 +52,10 @@ class Auth extends BaseController
 
             $messages = [
                 'name' => [
-                    'required'   => 'Name is required.',
-                    'min_length' => 'Name must be at least 3 characters long.',
-                    'max_length' => 'Name cannot exceed 100 characters.'
+                    'required'     => 'Name is required.',
+                    'min_length'   => 'Name must be at least 3 characters long.',
+                    'max_length'   => 'Name cannot exceed 100 characters.',
+                    'regex_match'  => 'Name can only contain letters, spaces, and Spanish characters (ñÑáéíóúÁÉÍÓÚüÜ).'
                 ],
                 'email' => [
                     'required'    => 'Email is required.',

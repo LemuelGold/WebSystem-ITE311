@@ -156,15 +156,30 @@ class AdminController extends BaseController
 
         // Only handle POST requests
         if ($this->request->getMethod() === 'POST') {
-            // Validation rules
+            // Validation rules with custom name validation
             $rules = [
-                'name'     => 'required|min_length[3]|max_length[100]',
+                'name'     => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/]',
                 'email'    => 'required|valid_email|is_unique[users.email]',
                 'password' => 'required|min_length[6]',
                 'role'     => 'required|in_list[admin,teacher,student]'
             ];
 
-            if ($this->validate($rules)) {
+            // Custom validation messages
+            $messages = [
+                'name' => [
+                    'required'     => 'Full name is required.',
+                    'min_length'   => 'Name must be at least 3 characters long.',
+                    'max_length'   => 'Name cannot exceed 100 characters.',
+                    'regex_match'  => 'Name can only contain letters, spaces, and Spanish characters (ñÑáéíóúÁÉÍÓÚüÜ).'
+                ],
+                'email' => [
+                    'required'    => 'Email address is required.',
+                    'valid_email' => 'Please enter a valid email address.',
+                    'is_unique'   => 'This email address is already registered.'
+                ]
+            ];
+
+            if ($this->validate($rules, $messages)) {
                 // Hash password
                 $hashedPassword = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
 
@@ -223,14 +238,29 @@ class AdminController extends BaseController
                 return redirect()->to(base_url('admin/users'));
             }
 
-            // Validation rules
+            // Validation rules with custom name validation
             $rules = [
-                'name'  => 'required|min_length[3]|max_length[100]',
+                'name'  => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/]',
                 'email' => "required|valid_email|is_unique[users.email,id,{$userId}]",
                 'role'  => 'required|in_list[teacher,student]' // Only allow teacher/student roles
             ];
 
-            if ($this->validate($rules)) {
+            // Custom validation messages
+            $updateMessages = [
+                'name' => [
+                    'required'     => 'Full name is required.',
+                    'min_length'   => 'Name must be at least 3 characters long.',
+                    'max_length'   => 'Name cannot exceed 100 characters.',
+                    'regex_match'  => 'Name can only contain letters, spaces, and Spanish characters (ñÑáéíóúÁÉÍÓÚüÜ).'
+                ],
+                'email' => [
+                    'required'    => 'Email address is required.',
+                    'valid_email' => 'Please enter a valid email address.',
+                    'is_unique'   => 'This email address is already registered.'
+                ]
+            ];
+
+            if ($this->validate($rules, $updateMessages)) {
                 // Prepare update data
                 $updateData = [
                     'name'       => $this->request->getPost('name'),
