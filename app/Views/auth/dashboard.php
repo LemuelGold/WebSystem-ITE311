@@ -273,25 +273,33 @@
                             <h5 class="mb-0">My Courses</h5>
                         </div>
                         <div class="card-body">
-                            <!-- Loop through all teacher's courses -->
-                            <?php foreach ($myCourses as $course): ?>
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <h6><?= esc($course['name']) ?></h6>
-                                                <small class="text-muted"><?= $course['students'] ?> students</small>
-                                            </div>
-                                            <div class="col-md-4 text-end">
-                                                <!-- Status badge - green for active, gray for completed -->
-                                                <span class="badge bg-<?= $course['status'] === 'Active' ? 'success' : 'secondary' ?>">
-                                                    <?= $course['status'] ?>
-                                                </span>
+                            <!-- Show message if no courses exist -->
+                            <?php if (empty($myCourses)): ?>
+                                <div class="text-center py-4">
+                                    <p class="text-muted mb-3">No courses created yet</p>
+                                    <a href="<?= base_url('teacher/courses/create') ?>" class="btn btn-primary">Create Your First Course</a>
+                                </div>
+                            <?php else: ?>
+                                <!-- Loop through all teacher's courses -->
+                                <?php foreach ($myCourses as $course): ?>
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-8">
+                                                    <h6><?= esc($course['name']) ?></h6>
+                                                    <small class="text-muted"><?= $course['students'] ?> students</small>
+                                                </div>
+                                                <div class="col-md-4 text-end">
+                                                    <!-- Status badge - green for active, gray for completed -->
+                                                    <span class="badge bg-<?= $course['status'] === 'Active' ? 'success' : 'secondary' ?>">
+                                                        <?= $course['status'] ?>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -317,22 +325,24 @@
                     </div>
 
                     <!-- Notifications for new assignment submissions -->
-                    <?php if (isset($newSubmissions)): ?>
                     <div class="card mb-3">
                         <div class="card-header bg-warning text-dark">
                             <h5 class="mb-0">New Submissions</h5>
                         </div>
                         <div class="card-body">
-                            <?php foreach ($newSubmissions as $submission): ?>
-                                <div class="alert alert-info p-2 mb-2">
-                                    <strong><?= esc($submission['student']) ?></strong> submitted<br>
-                                    <small><?= esc($submission['assignment']) ?></small>
-                                    <small class="text-muted d-block"><?= $submission['time'] ?> ago</small>
-                                </div>
-                            <?php endforeach; ?>
+                            <?php if (isset($newSubmissions) && !empty($newSubmissions)): ?>
+                                <?php foreach ($newSubmissions as $submission): ?>
+                                    <div class="alert alert-info p-2 mb-2">
+                                        <strong><?= esc($submission['student']) ?></strong> submitted<br>
+                                        <small><?= esc($submission['assignment']) ?></small>
+                                        <small class="text-muted d-block"><?= $submission['time'] ?> ago</small>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-muted text-center">No new submissions</p>
+                            <?php endif; ?>
                         </div>
                     </div>
-                    <?php endif; ?>
 
                     <!-- Pending reviews section -->
                     <div class="card">
@@ -340,13 +350,15 @@
                             <h5 class="mb-0">Pending Reviews</h5>
                         </div>
                         <div class="card-body">
-                            <?php if (isset($pendingAssignments)): ?>
+                            <?php if (isset($pendingAssignments) && !empty($pendingAssignments)): ?>
                                 <?php foreach ($pendingAssignments as $assignment): ?>
                                     <div class="mb-3">
                                         <h6><?= esc($assignment['student']) ?></h6>
                                         <small class="text-muted"><?= esc($assignment['assignment']) ?></small>
                                     </div>
                                 <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-muted text-center">No pending reviews</p>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -362,72 +374,84 @@
                             <h5 class="mb-0">My Courses</h5>
                         </div>
                         <div class="card-body">
-                            <!-- Show each course the student is enrolled in -->
-                            <?php foreach ($enrolledCourses as $course): ?>
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-6">
-                                                <h6><?= esc($course['name']) ?></h6>
-                                                <small class="text-muted"><?= esc($course['teacher']) ?></small>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <!-- Progress bar showing course completion -->
-                                                <div class="progress mb-1">
-                                                    <div class="progress-bar" style="width: <?= $course['progress'] ?>%"></div>
+                            <!-- Show message if no courses enrolled -->
+                            <?php if (empty($enrolledCourses)): ?>
+                                <div class="text-center py-4">
+                                    <p class="text-muted mb-3">No courses enrolled yet</p>
+                                    <a href="<?= base_url('student/courses') ?>" class="btn btn-primary">Browse Available Courses</a>
+                                </div>
+                            <?php else: ?>
+                                <!-- Show each course the student is enrolled in -->
+                                <?php foreach ($enrolledCourses as $course): ?>
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-6">
+                                                    <h6><?= esc($course['name']) ?></h6>
+                                                    <small class="text-muted"><?= esc($course['teacher']) ?></small>
                                                 </div>
-                                                <small><?= $course['progress'] ?>% Complete</small>
-                                            </div>
-                                            <div class="col-md-3 text-end">
-                                                <!-- Current grade badge -->
-                                                <span class="badge bg-success"><?= $course['grade'] ?></span>
+                                                <div class="col-md-3">
+                                                    <!-- Progress bar showing course completion -->
+                                                    <div class="progress mb-1">
+                                                        <div class="progress-bar" style="width: <?= $course['progress'] ?>%"></div>
+                                                    </div>
+                                                    <small><?= $course['progress'] ?>% Complete</small>
+                                                </div>
+                                                <div class="col-md-3 text-end">
+                                                    <!-- Current grade badge -->
+                                                    <span class="badge bg-success"><?= $course['grade'] ?></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <?php if (isset($upcomingDeadlines)): ?>
                     <!-- Deadlines section - helps students keep track of what's due -->
                     <div class="card mb-3">
                         <div class="card-header bg-warning text-dark">
                             <h5 class="mb-0">Upcoming Deadlines</h5>
                         </div>
                         <div class="card-body">
-                            <?php foreach ($upcomingDeadlines as $deadline): ?>
-                                <!-- Each deadline gets a warning alert box -->
-                                <div class="alert alert-warning p-2 mb-2">
-                                    <strong><?= esc($deadline['assignment']) ?></strong><br>
-                                    <small><?= esc($deadline['course']) ?></small>
-                                </div>
-                            <?php endforeach; ?>
+                            <?php if (isset($upcomingDeadlines) && !empty($upcomingDeadlines)): ?>
+                                <?php foreach ($upcomingDeadlines as $deadline): ?>
+                                    <!-- Each deadline gets a warning alert box -->
+                                    <div class="alert alert-warning p-2 mb-2">
+                                        <strong><?= esc($deadline['assignment']) ?></strong><br>
+                                        <small><?= esc($deadline['course']) ?></small>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-muted text-center">No upcoming deadlines</p>
+                            <?php endif; ?>
                         </div>
                     </div>
-                    <?php endif; ?>
                     
-                    <?php if (isset($recentGrades)): ?>
                     <!-- Recent grades - shows the latest assignment scores -->
                     <div class="card">
                         <div class="card-header bg-success text-white">
                             <h5 class="mb-0">Recent Grades</h5>
                         </div>
                         <div class="card-body">
-                            <?php foreach ($recentGrades as $grade): ?>
-                                <!-- Each grade shows assignment name, course, and the actual grade -->
-                                <div class="d-flex justify-content-between mb-2">
-                                    <div>
-                                        <h6 class="mb-1"><?= esc($grade['assignment']) ?></h6>
-                                        <small class="text-muted"><?= esc($grade['course']) ?></small>
+                            <?php if (isset($recentGrades) && !empty($recentGrades)): ?>
+                                <?php foreach ($recentGrades as $grade): ?>
+                                    <!-- Each grade shows assignment name, course, and the actual grade -->
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div>
+                                            <h6 class="mb-1"><?= esc($grade['assignment']) ?></h6>
+                                            <small class="text-muted"><?= esc($grade['course']) ?></small>
+                                        </div>
+                                        <span class="badge bg-success"><?= $grade['grade'] ?></span>
                                     </div>
-                                    <span class="badge bg-success"><?= $grade['grade'] ?></span>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-muted text-center">No grades available</p>
+                            <?php endif; ?>
                         </div>
                     </div>
-                    <?php endif; ?>
                 </div>
             </div>
         <?php endif; ?>

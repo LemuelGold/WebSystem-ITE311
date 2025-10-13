@@ -158,8 +158,8 @@ class AdminController extends BaseController
         if ($this->request->getMethod() === 'POST') {
             // Validation rules with custom name validation
             $rules = [
-                'name'     => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/]',
-                'email'    => 'required|valid_email|is_unique[users.email]',
+                'name'     => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/]',
+                'email'    => 'required|valid_email|is_unique[users.email]|regex_match[/^[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$/]',
                 'password' => 'required|min_length[6]',
                 'role'     => 'required|in_list[admin,teacher,student]'
             ];
@@ -170,12 +170,13 @@ class AdminController extends BaseController
                     'required'     => 'Full name is required.',
                     'min_length'   => 'Name must be at least 3 characters long.',
                     'max_length'   => 'Name cannot exceed 100 characters.',
-                    'regex_match'  => 'Name can only contain letters, spaces, and Spanish characters (ñÑáéíóúÁÉÍÓÚüÜ).'
+                    'regex_match'  => 'Name cannot contain quotes (\' \") or asterisks (*). Only letters, spaces, and Spanish characters allowed.'
                 ],
                 'email' => [
                     'required'    => 'Email address is required.',
                     'valid_email' => 'Please enter a valid email address.',
-                    'is_unique'   => 'This email address is already registered.'
+                    'is_unique'   => 'This email address is already registered.',
+                    'regex_match' => 'Email cannot contain quotes (\' \") or asterisks (*). Only standard email characters allowed.'
                 ]
             ];
 
@@ -240,8 +241,8 @@ class AdminController extends BaseController
 
             // Validation rules with custom name validation
             $rules = [
-                'name'  => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/]',
-                'email' => "required|valid_email|is_unique[users.email,id,{$userId}]",
+                'name'  => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/]',
+                'email' => "required|valid_email|is_unique[users.email,id,{$userId}]|regex_match[/^[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$/]",
                 'role'  => 'required|in_list[teacher,student]' // Only allow teacher/student roles
             ];
 
@@ -251,12 +252,13 @@ class AdminController extends BaseController
                     'required'     => 'Full name is required.',
                     'min_length'   => 'Name must be at least 3 characters long.',
                     'max_length'   => 'Name cannot exceed 100 characters.',
-                    'regex_match'  => 'Name can only contain letters, spaces, and Spanish characters (ñÑáéíóúÁÉÍÓÚüÜ).'
+                    'regex_match'  => 'Name cannot contain quotes (\' \") or asterisks (*). Only letters, spaces, and Spanish characters allowed.'
                 ],
                 'email' => [
                     'required'    => 'Email address is required.',
                     'valid_email' => 'Please enter a valid email address.',
-                    'is_unique'   => 'This email address is already registered.'
+                    'is_unique'   => 'This email address is already registered.',
+                    'regex_match' => 'Email cannot contain quotes (\' \") or asterisks (*). Only standard email characters allowed.'
                 ]
             ];
 

@@ -64,7 +64,7 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
                                 <input type="email" class="form-control" id="email" name="email" 
-                                       value="<?= old('email') ?>" required
+                                       value="<?= old('email') ?>" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                                        placeholder="e.g., maria.jose@gmail.com">
                                 <?php if (session()->getFlashdata('errors') && isset(session()->getFlashdata('errors')['email'])): ?>
                                     <div class="text-danger mt-1"><?= session()->getFlashdata('errors')['email'] ?></div>

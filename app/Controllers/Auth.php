@@ -44,8 +44,8 @@ class Auth extends BaseController
             
             // Set validation rules for the form fields
             $rules = [
-                'name'             => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/]',
-                'email'            => 'required|valid_email|is_unique[users.email]',
+                'name'             => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/]',
+                'email'            => 'required|valid_email|is_unique[users.email]|regex_match[/^[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$/]',
                 'password'         => 'required|min_length[6]',
                 'password_confirm' => 'required|matches[password]'
             ];
@@ -55,12 +55,13 @@ class Auth extends BaseController
                     'required'     => 'Name is required.',
                     'min_length'   => 'Name must be at least 3 characters long.',
                     'max_length'   => 'Name cannot exceed 100 characters.',
-                    'regex_match'  => 'Name can only contain letters, spaces, and Spanish characters (ñÑáéíóúÁÉÍÓÚüÜ).'
+                    'regex_match'  => 'Name cannot contain quotes (\' \") or asterisks (*). Only letters, spaces, and Spanish characters allowed.'
                 ],
                 'email' => [
                     'required'    => 'Email is required.',
                     'valid_email' => 'Please enter a valid email address.',
-                    'is_unique'   => 'This email is already registered.'
+                    'is_unique'   => 'This email is already registered.',
+                    'regex_match' => 'Email cannot contain quotes (\' \") or asterisks (*). Only standard email characters allowed.'
                 ],
                 'password' => [
                     'required'   => 'Password is required.',
@@ -75,13 +76,26 @@ class Auth extends BaseController
             // If validation passes
             if ($this->validate($rules, $messages)) {
                 
+                // Additional security: sanitize inputs to prevent injection attacks
+                $name = htmlspecialchars(strip_tags(trim($this->request->getPost('name'))), ENT_QUOTES, 'UTF-8');
+                $email = filter_var(trim($this->request->getPost('email')), FILTER_SANITIZE_EMAIL);
+                
+                // Double-check email format and reject suspicious patterns
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL) || 
+                    preg_match('/[\'"`<>\\\\;(){}]/', $email) || 
+                    strpos($email, '=') !== false ||
+                    strpos($email, '--') !== false) {
+                    $this->session->setFlashdata('error', 'Invalid email format detected. Please use a standard email address.');
+                    return redirect()->back()->withInput();
+                }
+                
                 // Hash the password using password_hash() function
                 $hashedPassword = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
 
                 // Prepare user data with default student role for security
                 $userData = [
-                    'name'       => $this->request->getPost('name'),
-                    'email'      => $this->request->getPost('email'),
+                    'name'       => $name,
+                    'email'      => $email,
                     'password'   => $hashedPassword,
                     'role'       => 'student', // Default role: all public registrations are students
                     'created_at' => date('Y-m-d H:i:s'),
@@ -159,13 +173,33 @@ class Auth extends BaseController
                 return view('auth/login');
             }
 
-            // Sanitize inputs to prevent injection attacks
-            $login = filter_var(trim($login), FILTER_SANITIZE_STRING);
+            // Enhanced input sanitization to prevent injection attacks
+            $login = htmlspecialchars(strip_tags(trim($login)), ENT_QUOTES, 'UTF-8');
             
-            // Check the database for a user using email or name
+            // Detect and block malicious patterns in login attempts
+            if (preg_match('/[\'"`<>\\\\;(){}=]/', $login) || 
+                strpos($login, '--') !== false ||
+                strpos($login, 'union') !== false ||
+                strpos($login, 'select') !== false ||
+                strpos($login, 'drop') !== false ||
+                strpos($login, 'delete') !== false ||
+                strpos($login, 'insert') !== false ||
+                strpos($login, 'update') !== false) {
+                
+                // Log suspicious activity
+                log_message('critical', 'SQL injection attempt detected from IP: ' . $this->request->getIPAddress() . ' with input: ' . $login);
+                
+                $this->session->setFlashdata('error', 'Invalid login format detected. Please use a valid email or username.');
+                return view('auth/login');
+            }
+            
+            // Check the database for a user using email or name (with prepared statements)
             $builder = $this->db->table('users');
-            $user = $builder->where('email', $login)
-                           ->orWhere('name', $login)
+            $user = $builder->groupStart()
+                               ->where('email', $login)
+                               ->orWhere('name', $login)
+                           ->groupEnd()
+                           ->limit(1)
                            ->get()
                            ->getRowArray();
 
