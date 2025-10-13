@@ -55,3 +55,7 @@ $routes->group('student', function($routes) {
     $routes->get('grades', 'StudentController::viewGrades');
     $routes->get('profile', 'StudentController::profile');
 });
+
+// Course Enrollment Routes 
+$routes->post('/course/enroll', 'Course::enroll');
+$routes->get('/course/available', 'Course::getAvailableCourses');

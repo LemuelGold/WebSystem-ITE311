@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\EnrollmentModel;
+
 /**
  * StudentController - Handles student-specific functionality and dashboard
  */
@@ -9,12 +11,14 @@ class StudentController extends BaseController
 {
     protected $session;
     protected $db;
+    protected $enrollmentModel;
 
     public function __construct()
     {
         // Initialize services for student operations
         $this->session = \Config\Services::session();
         $this->db = \Config\Database::connect();
+        $this->enrollmentModel = new EnrollmentModel();
     }
 
     /**
@@ -41,8 +45,13 @@ class StudentController extends BaseController
     {
         $studentId = $this->session->get('userID');
         
-        // Empty arrays - ready for real data implementation
-        $enrolledCourses = [];
+        // Get enrolled courses using EnrollmentModel
+        $enrolledCourses = $this->enrollmentModel->getUserEnrollments($studentId);
+        
+        // Get available courses (not enrolled in)
+        $availableCourses = $this->getAvailableCourses($studentId);
+        
+        // For now, empty arrays for these features (can be implemented later)
         $upcomingDeadlines = [];
         $recentGrades = [];
 
@@ -61,6 +70,7 @@ class StudentController extends BaseController
                 'pendingAssignments' => count($upcomingDeadlines)
             ],
             'enrolledCourses' => $enrolledCourses,
+            'availableCourses' => $availableCourses,
             'upcomingDeadlines' => $upcomingDeadlines,
             'recentGrades' => $recentGrades
         ];
@@ -73,22 +83,32 @@ class StudentController extends BaseController
     {
         if (empty($courses)) return 'N/A';
         
-        // Convert letter grades to points for calculation
-        $gradePoints = ['A' => 4.0, 'A-' => 3.7, 'B+' => 3.3, 'B' => 3.0, 'B-' => 2.7, 'C+' => 2.3, 'C' => 2.0];
-        $totalPoints = 0;
-        $validGrades = 0;
-        
-        foreach ($courses as $course) {
-            if (isset($gradePoints[$course['grade']])) {
-                $totalPoints += $gradePoints[$course['grade']];
-                $validGrades++;
-            }
-        }
-        
-        if ($validGrades === 0) return 'N/A';
-        
-        $average = $totalPoints / $validGrades;
-        return number_format($average, 2);
+        // Since grades are not implemented yet in the enrollment system,
+        // return placeholder for now. This can be expanded later when
+        // grades/assignments are added to the system.
+        return 'N/A';
+    }
+
+    /**
+     * Get available courses for enrollment (courses student is NOT enrolled in)
+     */
+    private function getAvailableCourses(int $studentId): array
+    {
+        $builder = $this->db->table('courses');
+        $courses = $builder
+            ->select('courses.id, courses.title, courses.description, users.name as instructor_name')
+            ->join('users', 'users.id = courses.instructor_id', 'left')
+            ->where('courses.status', 'active')
+            ->whereNotIn('courses.id', function($builder) use ($studentId) {
+                return $builder->select('course_id')
+                              ->from('enrollments')
+                              ->where('student_id', $studentId);
+            })
+            ->orderBy('courses.title', 'ASC')
+            ->get()
+            ->getResultArray();
+
+        return $courses ?? [];
     }
 
     /**
