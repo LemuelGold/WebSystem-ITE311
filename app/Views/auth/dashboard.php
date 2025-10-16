@@ -51,7 +51,12 @@
                     <?php elseif ($user['role'] === 'teacher'): ?>
                         <!-- Teacher navigation - keep it simple, main tools are in dashboard cards -->
                     <?php elseif ($user['role'] === 'student'): ?>
-                        <!-- Student navigation - keep it simple, main tools are in dashboard cards -->
+                        <!-- Student navigation -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('student/courses') ?>">
+                                My Courses
+                            </a>
+                        </li>
                     <?php endif; ?>
                 </ul>
                 
@@ -396,14 +401,18 @@
                                     <div class="list-group list-group-flush">
                                         <?php foreach ($enrolledCourses as $course): ?>
                                             <div class="list-group-item">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <div>
+                                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                                    <div class="flex-grow-1">
                                                         <h6 class="mb-1"><?= esc($course['title']) ?></h6>
                                                         <p class="mb-1 text-muted"><?= esc($course['description']) ?></p>
                                                         <small class="text-muted">Instructor: <?= esc($course['instructor_name']) ?></small>
                                                     </div>
-                                                    <div>
+                                                    <div class="d-flex align-items-center gap-2">
                                                         <span class="badge bg-success">Enrolled</span>
+                                                        <a href="<?= base_url('student/course/' . $course['course_id']) ?>" 
+                                                           class="btn btn-outline-primary btn-sm">
+                                                            View Course
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>

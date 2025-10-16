@@ -130,16 +130,79 @@ class StudentController extends BaseController
             return redirect()->to(base_url('login'));
         }
 
-        // This would typically fetch enrollments from database where student_id = current user
+        $studentId = $this->session->get('userID');
+        $enrolledCourses = $this->enrollmentModel->getUserEnrollments($studentId);
+
         $data = [
             'title' => 'My Courses - Student Panel',
             'user' => [
                 'userID' => $this->session->get('userID'),
                 'name'   => $this->session->get('name'),
                 'role'   => $this->session->get('role')
-            ]
+            ],
+            'enrolledCourses' => $enrolledCourses
         ];
 
         return view('student/my_courses', $data);
+    }
+
+    /**
+     * View specific course details
+     */
+    public function viewCourse($courseId)
+    {
+        // Authorization check for student role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'student') {
+            $this->session->setFlashdata('error', 'Access denied. Student privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        $studentId = $this->session->get('userID');
+        $courseId = (int)$courseId; // Cast to integer for safety
+        
+        // Check if student is enrolled in this course
+        if (!$this->enrollmentModel->isAlreadyEnrolled($studentId, $courseId)) {
+            $this->session->setFlashdata('error', 'You are not enrolled in this course.');
+            return redirect()->to(base_url('student/dashboard'));
+        }
+
+        // Get course details
+        $courseDetails = $this->getCourseDetails($courseId);
+        if (!$courseDetails) {
+            $this->session->setFlashdata('error', 'Course not found.');
+            return redirect()->to(base_url('student/dashboard'));
+        }
+
+        $data = [
+            'title' => 'Course: ' . $courseDetails['title'],
+            'user' => [
+                'userID' => $this->session->get('userID'),
+                'name'   => $this->session->get('name'),
+                'role'   => $this->session->get('role')
+            ],
+            'course' => $courseDetails
+        ];
+
+        return view('student/course_detail', $data);
+    }
+
+    // Assignments and grades functionality will be added later
+    // For now, focusing on core course enrollment and viewing functionality
+
+    /**
+     * Get course details by ID
+     */
+    private function getCourseDetails(int $courseId): array
+    {
+        $builder = $this->db->table('courses');
+        $course = $builder
+            ->select('courses.*, users.name as instructor_name')
+            ->join('users', 'users.id = courses.instructor_id', 'left')
+            ->where('courses.id', $courseId)
+            ->where('courses.status', 'active')
+            ->get()
+            ->getRowArray();
+
+        return $course ?? [];
     }
 }
