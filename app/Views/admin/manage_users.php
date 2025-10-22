@@ -1,4 +1,4 @@
-q<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -126,6 +126,9 @@ q<!DOCTYPE html>
                                         <td><?= $user['id'] ?></td>
                                         <td>
                                             <strong><?= esc($user['name']) ?></strong>
+                                            <?php if ($user['id'] == $currentUserId): ?>
+                                                <span class="badge bg-info ms-2">You</span>
+                                            <?php endif; ?>
                                         </td>
                                         <td><?= esc($user['email']) ?></td>
                                         <td>
@@ -135,18 +138,29 @@ q<!DOCTYPE html>
                                         </td>
                                         <td><?= date('M j, Y', strtotime($user['created_at'])) ?></td>
                                         <td>
-                                            <?php if ($user['role'] !== 'admin'): ?>
-                                                <!-- Only allow editing non-admin users -->
+                                            <?php if ($user['id'] != $currentUserId): ?>
+                                                <!-- Can edit other users (including other admins) -->
                                                 <button class="btn btn-sm btn-primary" 
                                                         onclick="editUser(<?= $user['id'] ?>, '<?= esc($user['name']) ?>', '<?= esc($user['email']) ?>', '<?= $user['role'] ?>')">
                                                     Edit
                                                 </button>
-                                                <button class="btn btn-sm btn-danger" 
-                                                        onclick="deleteUser(<?= $user['id'] ?>, '<?= esc($user['name']) ?>')">
-                                                    Delete
-                                                </button>
+                                                
+                                                <?php if ($user['role'] != 'admin'): ?>
+                                                    <!-- Can only delete non-admin users -->
+                                                    <button class="btn btn-sm btn-danger" 
+                                                            onclick="deleteUser(<?= $user['id'] ?>, '<?= esc($user['name']) ?>')">
+                                                        Delete
+                                                    </button>
+                                                <?php else: ?>
+                                                    <!-- Cannot delete admin accounts -->
+                                                    <button class="btn btn-sm btn-secondary" disabled 
+                                                            title="Admin accounts cannot be deleted">
+                                                        <i class="bi bi-shield-lock"></i> Protected
+                                                    </button>
+                                                <?php endif; ?>
                                             <?php else: ?>
-                                                <span class="text-muted">Protected</span>
+                                                <!-- Current user - cannot edit or delete self -->
+                                                <span class="badge bg-secondary">Your Account (Protected)</span>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
@@ -195,7 +209,7 @@ q<!DOCTYPE html>
                                 <option value="">Select Role...</option>
                                 <option value="student">Student</option>
                                 <option value="teacher">Teacher</option>
-                                <option value="admin">Administrator</option>
+                                <option value="admin">Admin</option>
                             </select>
                         </div>
                     </div>
@@ -234,6 +248,7 @@ q<!DOCTYPE html>
                             <select class="form-select" id="editRole" name="role" required>
                                 <option value="student">Student</option>
                                 <option value="teacher">Teacher</option>
+                                <option value="admin">Admin</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -254,13 +269,13 @@ q<!DOCTYPE html>
     <div class="modal fade" id="deleteUserModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-danger text-white">
                     <h5 class="modal-title">Confirm Delete</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <p>Are you sure you want to delete user <strong id="deleteUserName"></strong>?</p>
-                    <p class="text-danger">This action cannot be undone.</p>
+                    <p class="text-danger mb-0"><i class="bi bi-exclamation-triangle"></i> This action cannot be undone.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
