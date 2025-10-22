@@ -112,7 +112,9 @@ class AdminController extends BaseController
                 'userID' => $this->session->get('userID'),
                 'name'   => $this->session->get('name'),
                 'role'   => $this->session->get('role')
-            ]
+            ],
+            // ADDED: Pass the current admin's ID to the view for comparison
+            'currentUserId' => $this->session->get('userID')
         ];
 
         return view('admin/manage_users', $data);
@@ -223,8 +225,15 @@ class AdminController extends BaseController
         // Only handle POST requests
         if ($this->request->getMethod() === 'POST') {
             $userId = $this->request->getPost('user_id');
+            $currentAdminId = $this->session->get('userID');
 
-            // Get current user data to check if it's an admin
+            // FIXED: Prevent admin from editing their own account
+            if ($userId == $currentAdminId) {
+                $this->session->setFlashdata('error', 'You cannot edit your own account for security reasons.');
+                return redirect()->to(base_url('admin/users'));
+            }
+
+            // Get current user data
             $usersBuilder = $this->db->table('users');
             $currentUser = $usersBuilder->where('id', $userId)->get()->getRowArray();
 
@@ -233,18 +242,12 @@ class AdminController extends BaseController
                 return redirect()->to(base_url('admin/users'));
             }
 
-            // Prevent editing admin users (security measure)
-            if ($currentUser['role'] === 'admin') {
-                $this->session->setFlashdata('error', 'Cannot edit administrator accounts.');
-                return redirect()->to(base_url('admin/users'));
-            }
-
-            // Validation rules with custom name validation
+            // Validation rules - allows editing all roles (admin, teacher, student)
             $rules = [
                 'name'  => 'required|min_length[3]|max_length[100]|regex_match[/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/]',
                 'email' => "required|valid_email|is_unique[users.email,id,{$userId}]|regex_match[/^[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$/]",
-                'role'  => 'required|in_list[teacher,student]' // Only allow teacher/student roles
-            ];
+                'role'  => 'required|in_list[admin,teacher,student]'
+            ];  
 
             // Custom validation messages
             $updateMessages = [
@@ -311,6 +314,13 @@ class AdminController extends BaseController
         // Only handle POST requests
         if ($this->request->getMethod() === 'POST') {
             $userId = $this->request->getPost('user_id');
+            $currentAdminId = $this->session->get('userID');
+
+            // Prevent deleting yourself
+            if ($userId == $currentAdminId) {
+                $this->session->setFlashdata('error', 'You cannot delete your own account for security reasons.');
+                return redirect()->to(base_url('admin/users'));
+            }
 
             // Get user data to check role
             $usersBuilder = $this->db->table('users');
@@ -321,19 +331,13 @@ class AdminController extends BaseController
                 return redirect()->to(base_url('admin/users'));
             }
 
-            // Prevent deleting admin users (security measure)
+            // UPDATED: Prevent deleting admin accounts
             if ($user['role'] === 'admin') {
-                $this->session->setFlashdata('error', 'Cannot delete administrator accounts.');
+                $this->session->setFlashdata('error', 'Admin accounts cannot be deleted for security reasons.');
                 return redirect()->to(base_url('admin/users'));
             }
 
-            // Prevent deleting yourself
-            if ($userId == $this->session->get('userID')) {
-                $this->session->setFlashdata('error', 'Cannot delete your own account.');
-                return redirect()->to(base_url('admin/users'));
-            }
-
-            // Delete user from database
+            // Delete user from database (only teachers and students)
             $usersBuilder = $this->db->table('users');
             if ($usersBuilder->where('id', $userId)->delete()) {
                 $this->session->setFlashdata('success', 'User deleted successfully!');
@@ -341,7 +345,6 @@ class AdminController extends BaseController
                 $this->session->setFlashdata('error', 'Failed to delete user. Please try again.');
             }
         }
-
         return redirect()->to(base_url('admin/users'));
     }
 }
