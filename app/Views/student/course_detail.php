@@ -34,7 +34,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Dashboard</li>
-                <li class="breadcrumb-item">My Courses</li>
+                <li class="breadcrumb-item">My Coursess</li>
                 <li class="breadcrumb-item active" aria-current="page"><?= esc($course['title']) ?></li>
             </ol>
         </nav>
