@@ -45,6 +45,46 @@ class UserSeeder extends Seeder
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
+            [
+                'name'       => 'Sarah Martinez',
+                'email'      => 'sarah@lms.com',
+                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'role'       => 'teacher',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'       => 'Michael Chen',
+                'email'      => 'michael@lms.com',
+                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'role'       => 'teacher',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'       => 'Emily Brown',
+                'email'      => 'emily@lms.com',
+                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'role'       => 'student',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'       => 'David Wilson',
+                'email'      => 'david@lms.com',
+                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'role'       => 'student',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'       => 'Lisa Anderson',
+                'email'      => 'lisa@lms.com',
+                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'role'       => 'student',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
         ];
 
         // Insert data into users table

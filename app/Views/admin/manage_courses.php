@@ -182,16 +182,25 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Start Date</label>
-                                <input type="date" class="form-control" name="start_date">
+                                <input type="date" class="form-control" name="start_date" min="<?= date('Y-m-d') ?>">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">End Date</label>
-                                <input type="date" class="form-control" name="end_date">
+                                <input type="date" class="form-control" name="end_date" min="<?= date('Y-m-d') ?>">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Academic Year</label>
-                            <input type="text" class="form-control" name="academic_year" placeholder="e.g., 2024-2025" maxlength="20">
+                            <select class="form-select" name="academic_year">
+                                <option value="">-- Select Year --</option>
+                                <?php 
+                                $currentYear = (int)date('Y');
+                                for ($year = $currentYear; $year <= 2099; $year++): 
+                                ?>
+                                    <option value="<?= $year ?>"><?= $year ?> - <?= $year + 1 ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <small class="text-muted">Select the starting year of the academic year</small>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Status *</label>
@@ -246,16 +255,25 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Start Date</label>
-                                <input type="date" class="form-control" name="start_date" id="edit_start_date">
+                                <input type="date" class="form-control" name="start_date" id="edit_start_date" min="<?= date('Y-m-d') ?>">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">End Date</label>
-                                <input type="date" class="form-control" name="end_date" id="edit_end_date">
+                                <input type="date" class="form-control" name="end_date" id="edit_end_date" min="<?= date('Y-m-d') ?>">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Academic Year</label>
-                            <input type="text" class="form-control" name="academic_year" id="edit_academic_year" placeholder="e.g., 2024-2025" maxlength="20">
+                            <select class="form-select" name="academic_year" id="edit_academic_year">
+                                <option value="">-- Select Year --</option>
+                                <?php 
+                                $currentYear = (int)date('Y');
+                                for ($year = $currentYear; $year <= 2099; $year++): 
+                                ?>
+                                    <option value="<?= $year ?>"><?= $year ?> - <?= $year + 1 ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <small class="text-muted">Select the starting year of the academic year</small>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Status *</label>

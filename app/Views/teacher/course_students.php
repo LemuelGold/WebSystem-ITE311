@@ -35,8 +35,8 @@
             <div class="col-md-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?= base_url('teacher/dashboard') ?>">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="<?= base_url('teacher/courses') ?>">My Courses</a></li>
+                        <li class="breadcrumb-item">Dashboard</li>
+                        <li class="breadcrumb-item">My Courses</li>
                         <li class="breadcrumb-item active"><?= esc($course['title']) ?></li>
                     </ol>
                 </nav>
