@@ -30,15 +30,18 @@ $routes->group('admin', function($routes) {
     $routes->post('users/update', 'AdminController::updateUser');
     $routes->post('users/delete', 'AdminController::deleteUser');
     $routes->get('courses', 'AdminController::manageCourses');
+    $routes->post('courses/create', 'AdminController::createCourse');
+    $routes->post('courses/update', 'AdminController::updateCourse');
+    $routes->post('courses/delete', 'AdminController::deleteCourse');
     $routes->get('reports', 'AdminController::viewReports');
 });
 
 $routes->group('teacher', function($routes) {
     $routes->get('dashboard', 'TeacherController::dashboard');
     $routes->get('courses', 'TeacherController::manageCourses');
-    $routes->get('courses/create', 'TeacherController::createCourse');
-    $routes->get('course/(:num)', 'TeacherController::viewCourse/$1');
-    $routes->get('course/(:num)/edit', 'TeacherController::editCourse/$1');
+    $routes->get('course/(:num)/students', 'TeacherController::viewCourseStudents/$1');
+    $routes->post('course/student/add', 'TeacherController::addStudentToCourse');
+    $routes->post('course/student/remove', 'TeacherController::removeStudentFromCourse');
     $routes->get('assignments', 'TeacherController::manageAssignments');
     $routes->get('assignments/create', 'TeacherController::createAssignment');
     $routes->get('students', 'TeacherController::viewStudents');

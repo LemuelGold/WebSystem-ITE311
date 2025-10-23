@@ -316,8 +316,8 @@
                         </div>
                         <div class="card-body">
                             <div class="d-grid gap-2">
-                                <a href="<?= base_url('teacher/courses/create') ?>" class="btn btn-outline-primary">
-                                    Create New Course
+                                <a href="<?= base_url('teacher/courses') ?>" class="btn btn-outline-primary">
+                                    My Courses
                                 </a>
                                 <a href="<?= base_url('teacher/lessons/create') ?>" class="btn btn-outline-success">
                                     Create New Lesson

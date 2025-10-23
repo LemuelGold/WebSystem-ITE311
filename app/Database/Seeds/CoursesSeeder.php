@@ -23,57 +23,85 @@ class CoursesSeeder extends Seeder
         // Sample courses matching the courses table structure
         $data = [
             [
+                'id'            => 1001,
                 'title'         => 'Web Development Fundamentals',
                 'description'   => 'Learn the basics of HTML, CSS, and JavaScript. Build responsive websites and understand modern web development practices.',
                 'instructor_id' => $teachers[0]['id'], // First teacher
+                'start_date'    => '2024-08-15',
+                'end_date'      => '2024-12-15',
+                'academic_year' => '2024-2025',
                 'status'        => 'active',
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
             [
+                'id'            => 1002,
                 'title'         => 'Database Management Systems',
                 'description'   => 'Introduction to SQL, database design, normalization, and database administration using MySQL and other systems.',
                 'instructor_id' => $teachers[0]['id'], // First teacher
+                'start_date'    => '2024-08-15',
+                'end_date'      => '2024-12-15',
+                'academic_year' => '2024-2025',
                 'status'        => 'active',
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
             [
+                'id'            => 2001,
                 'title'         => 'Software Engineering Principles',
                 'description'   => 'Software development lifecycle, methodologies, project management, and best practices in software engineering.',
                 'instructor_id' => count($teachers) > 1 ? $teachers[1]['id'] : $teachers[0]['id'], // Second teacher if available
+                'start_date'    => '2025-01-10',
+                'end_date'      => '2025-05-10',
+                'academic_year' => '2024-2025',
                 'status'        => 'active',
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
             [
+                'id'            => 2002,
                 'title'         => 'Computer Networks and Security',
                 'description'   => 'Network protocols, security fundamentals, ethical hacking, and cybersecurity best practices.',
                 'instructor_id' => count($teachers) > 1 ? $teachers[1]['id'] : $teachers[0]['id'], // Second teacher if available
+                'start_date'    => '2025-01-10',
+                'end_date'      => '2025-05-10',
+                'academic_year' => '2024-2025',
                 'status'        => 'active',
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
             [
+                'id'            => 3001,
                 'title'         => 'Data Structures and Algorithms',
                 'description'   => 'Fundamental data structures, algorithmic thinking, complexity analysis, and problem-solving techniques.',
                 'instructor_id' => $teachers[0]['id'], // First teacher
+                'start_date'    => '2025-08-15',
+                'end_date'      => '2025-12-15',
+                'academic_year' => '2025-2026',
                 'status'        => 'active',
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
             [
+                'id'            => 3002,
                 'title'         => 'Mobile App Development',
                 'description'   => 'Build native and cross-platform mobile applications using modern frameworks and development tools.',
                 'instructor_id' => count($teachers) > 1 ? $teachers[1]['id'] : $teachers[0]['id'], // Second teacher if available
+                'start_date'    => '2025-08-15',
+                'end_date'      => '2025-12-15',
+                'academic_year' => '2025-2026',
                 'status'        => 'active',
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
             [
+                'id'            => 9999,
                 'title'         => 'Inactive Course Example',
                 'description'   => 'This course is inactive and should not appear in available courses for enrollment.',
                 'instructor_id' => $teachers[0]['id'], // First teacher
+                'start_date'    => '2023-08-15',
+                'end_date'      => '2023-12-15',
+                'academic_year' => '2023-2024',
                 'status'        => 'inactive',
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),

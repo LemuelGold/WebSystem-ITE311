@@ -13,7 +13,7 @@ class CreateCoursesTable extends Migration
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
-                'auto_increment' => true,
+                'auto_increment' => false,
             ],
             'title' => [
                 'type'       => 'VARCHAR',
@@ -27,6 +27,19 @@ class CreateCoursesTable extends Migration
                 'type'       => 'INT',
                 'constraint' => 11,
                 'unsigned'   => true,
+            ],
+            'start_date' => [
+                'type' => 'DATE',
+                'null' => true,
+            ],
+            'end_date' => [
+                'type' => 'DATE',
+                'null' => true,
+            ],
+            'academic_year' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
+                'null'       => true,
             ],
             'status' => [
                 'type'       => 'ENUM',

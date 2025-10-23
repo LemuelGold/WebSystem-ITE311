@@ -347,4 +347,283 @@ class AdminController extends BaseController
         }
         return redirect()->to(base_url('admin/users'));
     }
+
+    /**
+     * Course Management - List all courses (admin function)
+     */
+    public function manageCourses()
+    {
+        // Authorization check for admin role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Admin privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Get all courses with instructor information
+        $coursesBuilder = $this->db->table('courses');
+        $courses = $coursesBuilder
+            ->select('courses.*, users.name as instructor_name, users.email as instructor_email')
+            ->join('users', 'users.id = courses.instructor_id', 'left')
+            ->orderBy('courses.created_at', 'DESC')
+            ->get()
+            ->getResultArray();
+        
+        // Get all teachers for the dropdown
+        $teachersBuilder = $this->db->table('users');
+        $teachers = $teachersBuilder->where('role', 'teacher')
+            ->orderBy('name', 'ASC')
+            ->get()
+            ->getResultArray();
+
+        $data = [
+            'title' => 'Course Management - Admin Panel',
+            'courses' => $courses,
+            'teachers' => $teachers,
+            'user' => [
+                'userID' => $this->session->get('userID'),
+                'name'   => $this->session->get('name'),
+                'role'   => $this->session->get('role')
+            ]
+        ];
+
+        return view('admin/manage_courses', $data);
+    }
+
+    /**
+     * Create new course (admin function)
+     */
+    public function createCourse()
+    {
+        // Authorization check for admin role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Admin privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Only handle POST requests
+        if ($this->request->getMethod() === 'POST') {
+            // Validation rules
+            $rules = [
+                'course_id'     => 'required|exact_length[4]|numeric|is_unique[courses.id]',
+                'title'         => 'required|min_length[3]|max_length[255]',
+                'description'   => 'permit_empty|max_length[1000]',
+                'instructor_id' => 'required|integer',
+                'start_date'    => 'permit_empty|valid_date',
+                'end_date'      => 'permit_empty|valid_date',
+                'academic_year' => 'permit_empty|max_length[20]',
+                'status'        => 'required|in_list[active,inactive]'
+            ];
+
+            // Custom validation messages
+            $messages = [
+                'course_id' => [
+                    'required'     => 'Course ID is required.',
+                    'exact_length' => 'Course ID must be exactly 4 digits.',
+                    'numeric'      => 'Course ID must contain only numbers.',
+                    'is_unique'    => 'This Course ID already exists.'
+                ],
+                'title' => [
+                    'required'   => 'Course title is required.',
+                    'min_length' => 'Course title must be at least 3 characters long.',
+                    'max_length' => 'Course title cannot exceed 255 characters.'
+                ],
+                'instructor_id' => [
+                    'required' => 'An instructor must be assigned to the course.',
+                    'integer'  => 'Invalid instructor selection.'
+                ],
+                'start_date' => [
+                    'valid_date' => 'Start date must be a valid date.'
+                ],
+                'end_date' => [
+                    'valid_date' => 'End date must be a valid date.'
+                ],
+                'status' => [
+                    'required' => 'Course status is required.',
+                    'in_list'  => 'Invalid status value.'
+                ]
+            ];
+
+            if ($this->validate($rules, $messages)) {
+                // Verify instructor exists and is a teacher
+                $instructorId = $this->request->getPost('instructor_id');
+                $usersBuilder = $this->db->table('users');
+                $instructor = $usersBuilder->where('id', $instructorId)
+                    ->where('role', 'teacher')
+                    ->get()
+                    ->getRowArray();
+
+                if (!$instructor) {
+                    $this->session->setFlashdata('error', 'Invalid instructor selected. Only teachers can be assigned to courses.');
+                    return redirect()->to(base_url('admin/courses'));
+                }
+
+                // Prepare course data
+                $courseData = [
+                    'id'            => $this->request->getPost('course_id'),
+                    'title'         => $this->request->getPost('title'),
+                    'description'   => $this->request->getPost('description'),
+                    'instructor_id' => $instructorId,
+                    'start_date'    => $this->request->getPost('start_date') ?: null,
+                    'end_date'      => $this->request->getPost('end_date') ?: null,
+                    'academic_year' => $this->request->getPost('academic_year') ?: null,
+                    'status'        => $this->request->getPost('status')
+                ];
+
+                // Insert course into database
+                $coursesBuilder = $this->db->table('courses');
+                if ($coursesBuilder->insert($courseData)) {
+                    $this->session->setFlashdata('success', 'Course created successfully!');
+                } else {
+                    $this->session->setFlashdata('error', 'Failed to create course. Please try again.');
+                }
+            } else {
+                $this->session->setFlashdata('error', 'Validation failed: ' . implode(', ', $this->validator->getErrors()));
+            }
+        }
+
+        return redirect()->to(base_url('admin/courses'));
+    }
+
+    /**
+     * Update course information (admin function)
+     */
+    public function updateCourse()
+    {
+        // Authorization check for admin role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Admin privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Only handle POST requests
+        if ($this->request->getMethod() === 'POST') {
+            $courseId = $this->request->getPost('course_id');
+
+            // Get current course data
+            $coursesBuilder = $this->db->table('courses');
+            $currentCourse = $coursesBuilder->where('id', $courseId)->get()->getRowArray();
+
+            if (!$currentCourse) {
+                $this->session->setFlashdata('error', 'Course not found.');
+                return redirect()->to(base_url('admin/courses'));
+            }
+
+            // Validation rules
+            $rules = [
+                'title'         => 'required|min_length[3]|max_length[255]',
+                'description'   => 'permit_empty|max_length[1000]',
+                'instructor_id' => 'required|integer',
+                'start_date'    => 'permit_empty|valid_date',
+                'end_date'      => 'permit_empty|valid_date',
+                'academic_year' => 'permit_empty|max_length[20]',
+                'status'        => 'required|in_list[active,inactive]'
+            ];
+
+            // Custom validation messages
+            $messages = [
+                'title' => [
+                    'required'   => 'Course title is required.',
+                    'min_length' => 'Course title must be at least 3 characters long.',
+                    'max_length' => 'Course title cannot exceed 255 characters.'
+                ],
+                'instructor_id' => [
+                    'required' => 'An instructor must be assigned to the course.',
+                    'integer'  => 'Invalid instructor selection.'
+                ],
+                'start_date' => [
+                    'valid_date' => 'Start date must be a valid date.'
+                ],
+                'end_date' => [
+                    'valid_date' => 'End date must be a valid date.'
+                ],
+                'status' => [
+                    'required' => 'Course status is required.',
+                    'in_list'  => 'Invalid status value.'
+                ]
+            ];
+
+            if ($this->validate($rules, $messages)) {
+                // Verify instructor exists and is a teacher
+                $instructorId = $this->request->getPost('instructor_id');
+                $usersBuilder = $this->db->table('users');
+                $instructor = $usersBuilder->where('id', $instructorId)
+                    ->where('role', 'teacher')
+                    ->get()
+                    ->getRowArray();
+
+                if (!$instructor) {
+                    $this->session->setFlashdata('error', 'Invalid instructor selected. Only teachers can be assigned to courses.');
+                    return redirect()->to(base_url('admin/courses'));
+                }
+
+                // Prepare update data
+                $updateData = [
+                    'title'         => $this->request->getPost('title'),
+                    'description'   => $this->request->getPost('description'),
+                    'instructor_id' => $instructorId,
+                    'start_date'    => $this->request->getPost('start_date') ?: null,
+                    'end_date'      => $this->request->getPost('end_date') ?: null,
+                    'academic_year' => $this->request->getPost('academic_year') ?: null,
+                    'status'        => $this->request->getPost('status')
+                ];
+
+                // Update course in database
+                $coursesBuilder = $this->db->table('courses');
+                if ($coursesBuilder->where('id', $courseId)->update($updateData)) {
+                    $this->session->setFlashdata('success', 'Course updated successfully!');
+                } else {
+                    $this->session->setFlashdata('error', 'Failed to update course. Please try again.');
+                }
+            } else {
+                $this->session->setFlashdata('error', 'Validation failed: ' . implode(', ', $this->validator->getErrors()));
+            }
+        }
+
+        return redirect()->to(base_url('admin/courses'));
+    }
+
+    /**
+     * Delete course (admin function)
+     */
+    public function deleteCourse()
+    {
+        // Authorization check for admin role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Admin privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Only handle POST requests
+        if ($this->request->getMethod() === 'POST') {
+            $courseId = $this->request->getPost('course_id');
+
+            // Get course data
+            $coursesBuilder = $this->db->table('courses');
+            $course = $coursesBuilder->where('id', $courseId)->get()->getRowArray();
+
+            if (!$course) {
+                $this->session->setFlashdata('error', 'Course not found.');
+                return redirect()->to(base_url('admin/courses'));
+            }
+
+            // Check if course has enrolled students
+            $enrollmentsBuilder = $this->db->table('enrollments');
+            $enrollmentCount = $enrollmentsBuilder->where('course_id', $courseId)->countAllResults();
+
+            if ($enrollmentCount > 0) {
+                $this->session->setFlashdata('error', "Cannot delete course. It has {$enrollmentCount} enrolled student(s). Please remove all students first.");
+                return redirect()->to(base_url('admin/courses'));
+            }
+
+            // Delete course from database
+            $coursesBuilder = $this->db->table('courses');
+            if ($coursesBuilder->where('id', $courseId)->delete()) {
+                $this->session->setFlashdata('success', 'Course deleted successfully!');
+            } else {
+                $this->session->setFlashdata('error', 'Failed to delete course. Please try again.');
+            }
+        }
+
+        return redirect()->to(base_url('admin/courses'));
+    }
 }
