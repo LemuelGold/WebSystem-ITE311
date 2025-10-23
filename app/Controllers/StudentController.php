@@ -186,6 +186,36 @@ class StudentController extends BaseController
         return view('student/course_detail', $data);
     }
 
+    /**
+     * View downloadable materials for enrolled courses
+     */
+    public function viewMaterials()
+    {
+        // Authorization check
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'student') {
+            $this->session->setFlashdata('error', 'Access denied. Student privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        $studentId = $this->session->get('userID');
+
+        // Get materials for student's enrolled courses
+        $materialModel = new \App\Models\MaterialModel();
+        $materials = $materialModel->getMaterialsForStudent($studentId);
+
+        $data = [
+            'title' => 'Course Materials',
+            'materials' => $materials,
+            'user' => [
+                'userID' => $this->session->get('userID'),
+                'name'   => $this->session->get('name'),
+                'role'   => $this->session->get('role')
+            ]
+        ];
+
+        return view('materials/student_materials', $data);
+    }
+
     // Assignments and grades functionality will be added later
     // For now, focusing on core course enrollment and viewing functionality
 

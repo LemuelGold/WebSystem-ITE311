@@ -20,11 +20,10 @@
             </div>
             
             <div class="navbar-nav">
-                <span class="navbar-text me-3">
+                <span class="navbar-text">
                     <?= esc($user['name']) ?> 
                     <span class="badge bg-light text-dark">STUDENT</span>
                 </span>
-                <a class="nav-link" href="<?= base_url('logout') ?>">Logout</a>
             </div>
         </div>
     </nav>

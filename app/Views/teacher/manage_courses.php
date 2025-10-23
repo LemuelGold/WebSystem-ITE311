@@ -89,6 +89,10 @@
                                        class="btn btn-primary">
                                         Manage Students
                                     </a>
+                                    <a href="<?= base_url("teacher/course/{$course['id']}/upload") ?>" 
+                                       class="btn btn-success">
+                                        Upload Materials
+                                    </a>
                                 </div>
                             </div>
                         </div>

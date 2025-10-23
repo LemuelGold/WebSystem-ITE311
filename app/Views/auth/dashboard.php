@@ -57,6 +57,11 @@
                                 My Courses
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('student/materials') ?>">
+                                Materials
+                            </a>
+                        </li>
                     <?php endif; ?>
                 </ul>
                 

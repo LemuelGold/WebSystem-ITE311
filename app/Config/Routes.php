@@ -34,6 +34,9 @@ $routes->group('admin', function($routes) {
     $routes->post('courses/update', 'AdminController::updateCourse');
     $routes->post('courses/delete', 'AdminController::deleteCourse');
     $routes->get('reports', 'AdminController::viewReports');
+    // Material upload routes for admin
+    $routes->get('course/(:num)/upload', 'Materials::upload/$1');
+    $routes->post('course/(:num)/upload', 'Materials::upload/$1');
 });
 
 $routes->group('teacher', function($routes) {
@@ -48,6 +51,9 @@ $routes->group('teacher', function($routes) {
     $routes->get('reviews', 'TeacherController::pendingReviews');
     $routes->get('gradebook', 'TeacherController::gradebook');
     $routes->get('announcements', 'TeacherController::announcements');
+    // Material upload routes for teachers (uses same controller as admin)
+    $routes->get('course/(:num)/upload', 'Materials::upload/$1');
+    $routes->post('course/(:num)/upload', 'Materials::upload/$1');
 });
 
 $routes->group('student', function($routes) {
@@ -57,7 +63,12 @@ $routes->group('student', function($routes) {
     $routes->get('assignments', 'StudentController::viewAssignments');
     $routes->get('grades', 'StudentController::viewGrades');
     $routes->get('profile', 'StudentController::profile');
+    $routes->get('materials', 'StudentController::viewMaterials');
 });
+
+// Materials Routes (accessible to all authenticated users based on role)
+$routes->get('materials/download/(:num)', 'Materials::download/$1');
+$routes->get('materials/delete/(:num)', 'Materials::delete/$1');
 
 // Course Enrollment Routes 
 $routes->post('/course/enroll', 'Course::enroll');

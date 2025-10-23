@@ -125,14 +125,19 @@
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-sm btn-primary" 
-                                                    onclick="editCourse(<?= htmlspecialchars(json_encode($course), ENT_QUOTES, 'UTF-8') ?>)">
-                                                Edit
-                                            </button>
-                                            <button class="btn btn-sm btn-danger" 
-                                                    onclick="deleteCourse(<?= $course['id'] ?>, '<?= esc($course['title']) ?>')">
-                                                Delete
-                                            </button>
+                                            <div class="btn-group" role="group">
+                                                <a href="<?= base_url("admin/course/{$course['id']}/upload") ?>" class="btn btn-sm btn-success" title="Upload Materials">
+                                                    Materials
+                                                </a>
+                                                <button class="btn btn-sm btn-primary" 
+                                                        onclick="editCourse(<?= htmlspecialchars(json_encode($course), ENT_QUOTES, 'UTF-8') ?>)">
+                                                    Edit
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" 
+                                                        onclick="deleteCourse(<?= $course['id'] ?>, '<?= esc($course['title']) ?>')">
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
