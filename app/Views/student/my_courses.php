@@ -31,11 +31,11 @@
                     </li>
                 </ul>
                 
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <span class="navbar-text">
-                            <?= esc($user['name']) ?> 
-                            <span class="badge bg-light text-dark">STUDENT</span>
+                        <span class="navbar-text text-dark">
+                            <?= esc($user['name']) ?>
+                            <span class="badge bg-dark ms-2">STUDENT</span>
                         </span>
                     </li>
                 </ul>
@@ -47,10 +47,10 @@
         <!-- Page Header -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="card bg-primary text-white">
+                <div class="card bg-info text-dark">
                     <div class="card-body">
-                        <h1 class="card-title mb-0">📚 My Courses</h1>
-                        <p class="card-text mb-0">View and access all your enrolled courses</p>
+                        <h2 class="mb-0">📚 My Courses</h2>
+                        <p class="mb-0">View and access all your enrolled courses</p>
                     </div>
                 </div>
             </div>

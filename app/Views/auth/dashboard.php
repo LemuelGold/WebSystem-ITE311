@@ -16,6 +16,15 @@
             background-color: <?= $user['role'] === 'admin' ? '#dc3545' : ($user['role'] === 'teacher' ? '#ffc107' : '#0d6efd') ?> !important; 
             color: <?= $user['role'] === 'teacher' ? '#000' : '#fff' ?> !important;
         }
+        /* Force navbar text to be dark for teacher and student */
+        .role-teacher .navbar .nav-link,
+        .role-teacher .navbar .navbar-brand,
+        .role-teacher .navbar .navbar-text,
+        .role-student .navbar .nav-link,
+        .role-student .navbar .navbar-brand,
+        .role-student .navbar .navbar-text {
+            color: #000 !important;
+        }
         /* Simple hover effect for the stat cards - makes it feel more interactive */
         .stat-card {
             transition: transform 0.2s;
@@ -27,7 +36,7 @@
 </head>
 <body class="bg-light role-<?= $user['role'] ?>">
     <!-- I made this navbar dynamic - it shows different links depending on who's logged in -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg <?= $user['role'] === 'admin' ? 'navbar-dark' : 'navbar-light' ?>">
         <div class="container">
             <!-- Simple text branding without fancy icons -->
             <a class="navbar-brand fw-bold" href="<?= base_url('dashboard') ?>">
@@ -81,12 +90,12 @@
                 </ul>
                 
                 <!-- User menu on the right side - shows name and role badge -->
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                             <?= esc($user['name']) ?>
                             <!-- This badge shows the user's role - pretty neat visual cue -->
-                            <span class="badge bg-light text-dark ms-2"><?= strtoupper($user['role']) ?></span>
+                            <span class="badge <?= $user['role'] === 'admin' ? 'bg-light text-dark' : 'bg-dark' ?> ms-2"><?= strtoupper($user['role']) ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -338,12 +347,6 @@
                             <div class="d-grid gap-2">
                                 <a href="<?= base_url('teacher/courses') ?>" class="btn btn-outline-primary">
                                     My Courses
-                                </a>
-                                <a href="<?= base_url('teacher/lessons/create') ?>" class="btn btn-outline-success">
-                                    Create New Lesson
-                                </a>
-                                <a href="<?= base_url('teacher/assignments/create') ?>" class="btn btn-outline-info">
-                                    Create Assignment
                                 </a>
                             </div>
                         </div>

@@ -25,6 +25,9 @@ class Materials extends BaseController
      */
     public function upload($course_id)
     {
+        // Clear any old flash messages first
+        $this->session->markAsFlashdata([]);
+        
         // Authorization check - only admin and teachers can upload
         if (!$this->isLoggedIn() || !in_array($this->session->get('role'), ['admin', 'teacher'])) {
             $this->session->setFlashdata('error', 'Access denied. Only admins and teachers can upload materials.');

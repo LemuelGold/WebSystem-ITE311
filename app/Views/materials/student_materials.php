@@ -15,14 +15,13 @@
     </style>
 </head>
 <body class="bg-light">
-    <!-- Navigation - Matching Dashboard Style -->
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid px-4">
+        <div class="container">
             <a class="navbar-brand fw-bold" href="<?= base_url('student/dashboard') ?>">
                 ITE311 FUNDAR LMS
             </a>
             
-            <!-- Main Navigation Links -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -40,12 +39,11 @@
                     </li>
                 </ul>
                 
-                <!-- User Info on Right -->
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <span class="navbar-text">
+                        <span class="navbar-text text-dark">
                             <?= esc($user['name']) ?>
-                            <span class="badge bg-light text-dark ms-2">STUDENT</span>
+                            <span class="badge bg-dark ms-2">STUDENT</span>
                         </span>
                     </li>
                 </ul>
@@ -53,14 +51,14 @@
         </div>
     </nav>
 
-    <div class="container-fluid px-4 mt-4">
-        <!-- Page Header - Matching Dashboard Style -->
+    <div class="container mt-4">
+        <!-- Page Header -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="card bg-primary text-white">
+                <div class="card bg-info text-dark">
                     <div class="card-body">
-                        <h1 class="card-title mb-0">📚 Course Materials</h1>
-                        <p class="card-text mb-0">Download materials from your enrolled courses</p>
+                        <h2 class="mb-0">📚 Course Materials</h2>
+                        <p class="mb-0">Download materials from your enrolled courses</p>
                     </div>
                 </div>
             </div>

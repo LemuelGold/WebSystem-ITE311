@@ -48,11 +48,11 @@
                     </li>
                 </ul>
                 
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <span class="navbar-text">
+                        <span class="navbar-text text-white">
                             Admin Panel
-                            <span class="badge bg-light text-dark">ADMIN</span>
+                            <span class="badge bg-light text-dark ms-2">ADMIN</span>
                         </span>
                     </li>
                 </ul>
@@ -63,14 +63,18 @@
     <div class="container mt-4">
         <!-- Page header with add user button -->
         <div class="row mb-4">
-            <div class="col-md-8">
-                <h2>User Management</h2>
-                <p class="text-muted">Manage all system users - add, edit, and view user information</p>
-            </div>
-            <div class="col-md-4 text-end">
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                    Add New User
-                </button>
+            <div class="col-12">
+                <div class="card bg-danger text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h2 class="mb-0">User Management</h2>
+                            <p class="mb-0">Manage all system users - add, edit, and view user information</p>
+                        </div>
+                        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            Add New User
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 

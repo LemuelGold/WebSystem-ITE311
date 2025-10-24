@@ -8,9 +8,9 @@
 </head>
 <body class="bg-light">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark <?= $user['role'] === 'admin' ? 'bg-danger' : 'bg-warning' ?>">
+    <nav class="navbar navbar-expand-lg <?= $user['role'] === 'admin' ? 'navbar-dark bg-danger' : 'navbar-light bg-warning' ?>">
         <div class="container">
-            <a class="navbar-brand fw-bold <?= $user['role'] === 'admin' ? '' : 'text-dark' ?>" href="<?= base_url($user['role'] . '/dashboard') ?>">
+            <a class="navbar-brand fw-bold text-dark" href="<?= base_url($user['role'] . '/dashboard') ?>">
                 ITE311 FUNDAR LMS
             </a>
             
@@ -21,20 +21,20 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link <?= $user['role'] === 'admin' ? '' : 'text-dark' ?>" href="<?= base_url($user['role'] . '/dashboard') ?>">Dashboard</a>
+                        <a class="nav-link text-dark" href="<?= base_url($user['role'] . '/dashboard') ?>">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= $user['role'] === 'admin' ? '' : 'text-dark' ?>" href="<?= base_url($user['role'] . '/courses') ?>">
+                        <a class="nav-link text-dark" href="<?= base_url($user['role'] . '/courses') ?>">
                             <?= $user['role'] === 'admin' ? 'Courses' : 'My Courses' ?>
                         </a>
                     </li>
                 </ul>
                 
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <span class="navbar-text <?= $user['role'] === 'admin' ? '' : 'text-dark' ?>">
-                            <?= esc($user['name']) ?> 
-                            <span class="badge <?= $user['role'] === 'admin' ? 'bg-light text-dark' : 'bg-dark' ?>"><?= strtoupper($user['role']) ?></span>
+                        <span class="navbar-text text-dark">
+                            <?= esc($user['name']) ?>
+                            <span class="badge <?= $user['role'] === 'admin' ? 'bg-light text-dark' : 'bg-dark' ?> ms-2"><?= strtoupper($user['role']) ?></span>
                         </span>
                     </li>
                 </ul>
@@ -45,9 +45,13 @@
     <div class="container mt-4">
         <!-- Page Header -->
         <div class="row mb-4">
-            <div class="col-md-12">
-                <h2><?= esc($course['title']) ?></h2>
-                <p class="text-muted">Upload and manage course materials</p>
+            <div class="col-12">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body">
+                        <h2 class="mb-0"><?= esc($course['title']) ?></h2>
+                        <p class="mb-0">Upload and manage course materials</p>
+                    </div>
+                </div>
             </div>
         </div>
 

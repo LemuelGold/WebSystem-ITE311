@@ -31,11 +31,11 @@
                     </li>
                 </ul>
                 
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <span class="navbar-text">
-                            <?= esc($user['name']) ?> 
-                            <span class="badge bg-light text-dark">STUDENT</span>
+                        <span class="navbar-text text-dark">
+                            <?= esc($user['name']) ?>
+                            <span class="badge bg-dark ms-2">STUDENT</span>
                         </span>
                     </li>
                 </ul>
@@ -45,10 +45,10 @@
 
     <div class="container mt-4">
         <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">Dashboard</li>
-                <li class="breadcrumb-item">My Coursess</li>
+                <li class="breadcrumb-item"><a href="<?= base_url('student/dashboard') ?>">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('student/courses') ?>">My Courses</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><?= esc($course['title']) ?></li>
             </ol>
         </nav>
@@ -71,7 +71,7 @@
         <!-- Course Header -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="card bg-primary text-white">
+                <div class="card bg-info text-dark">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-md-8">

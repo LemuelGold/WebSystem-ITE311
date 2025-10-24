@@ -17,7 +17,7 @@
 </head>
 <body class="bg-light">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
         <div class="container">
             <a class="navbar-brand fw-bold text-dark" href="<?= base_url('teacher/dashboard') ?>">
                 ITE311 FUNDAR LMS
@@ -33,15 +33,15 @@
                         <a class="nav-link text-dark" href="<?= base_url('teacher/dashboard') ?>">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-dark fw-bold" href="<?= base_url('teacher/courses') ?>">My Courses</a>
+                        <a class="nav-link text-dark" href="<?= base_url('teacher/courses') ?>">My Courses</a>
                     </li>
                 </ul>
                 
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <span class="navbar-text text-dark">
-                            <?= esc($user['name']) ?> 
-                            <span class="badge bg-dark">TEACHER</span>
+                            <?= esc($user['name']) ?>
+                            <span class="badge bg-dark ms-2">TEACHER</span>
                         </span>
                     </li>
                 </ul>
@@ -52,9 +52,13 @@
     <div class="container mt-4">
         <!-- Page header -->
         <div class="row mb-4">
-            <div class="col-md-12">
-                <h2>My Courses</h2>
-                <p class="text-muted">Manage your courses and enrolled students</p>
+            <div class="col-12">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body">
+                        <h2 class="mb-0">My Courses</h2>
+                        <p class="mb-0">Manage your courses and enrolled students</p>
+                    </div>
+                </div>
             </div>
         </div>
 

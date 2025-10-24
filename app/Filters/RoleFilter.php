@@ -38,20 +38,24 @@ class RoleFilter implements FilterInterface
         }
         
         $userRole = $session->get('role');
-        $uri = $request->getUri()->getPath();
         
-        // Role-based access control
-        if (strpos($uri, 'admin/') !== false && $userRole !== 'admin') {
+        // Get the URI segments properly (without base path)
+        $uri = service('uri');
+        $segment1 = $uri->getSegment(1); // First segment after base URL
+        
+        // Role-based access control using first URI segment
+        // Only block if user is trying to access a different role's area
+        if ($segment1 === 'admin' && $userRole !== 'admin') {
             $session->setFlashdata('error', 'Access denied. Administrator privileges required.');
             return $this->redirectToRoleDashboard($userRole);
         }
         
-        if (strpos($uri, 'teacher/') !== false && $userRole !== 'teacher') {
+        if ($segment1 === 'teacher' && $userRole !== 'teacher') {
             $session->setFlashdata('error', 'Access denied. Teacher privileges required.');
             return $this->redirectToRoleDashboard($userRole);
         }
         
-        if (strpos($uri, 'student/') !== false && $userRole !== 'student') {
+        if ($segment1 === 'student' && $userRole !== 'student') {
             $session->setFlashdata('error', 'Access denied. Student privileges required.');
             return $this->redirectToRoleDashboard($userRole);
         }
