@@ -69,6 +69,9 @@ $routes->group('student', function($routes) {
 // Materials Routes (accessible to all authenticated users based on role)
 $routes->get('materials/download/(:num)', 'Materials::download/$1');
 $routes->get('materials/delete/(:num)', 'Materials::delete/$1');
+$routes->get('materials/approve/(:num)', 'Materials::approve/$1');
+$routes->get('materials/reject/(:num)', 'Materials::reject/$1');
+$routes->get('materials/pending', 'Materials::pending');
 
 // Course Enrollment Routes 
 $routes->post('/course/enroll', 'Course::enroll');

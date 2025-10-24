@@ -20,10 +20,31 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
         <div class="container">
             <a class="navbar-brand fw-bold text-dark" href="<?= base_url('teacher/dashboard') ?>">
-                ITE311 FUNDAR LMS - Teacher Panel
+                ITE311 FUNDAR LMS
             </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link text-dark" href="<?= base_url('teacher/dashboard') ?>">Dashboard</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="<?= base_url('teacher/dashboard') ?>">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-dark fw-bold" href="<?= base_url('teacher/courses') ?>">My Courses</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="navbar-text text-dark">
+                            <?= esc($user['name']) ?> 
+                            <span class="badge bg-dark">TEACHER</span>
+                        </span>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

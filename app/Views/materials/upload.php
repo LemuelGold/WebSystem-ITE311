@@ -11,16 +11,33 @@
     <nav class="navbar navbar-expand-lg navbar-dark <?= $user['role'] === 'admin' ? 'bg-danger' : 'bg-warning' ?>">
         <div class="container">
             <a class="navbar-brand fw-bold <?= $user['role'] === 'admin' ? '' : 'text-dark' ?>" href="<?= base_url($user['role'] . '/dashboard') ?>">
-                ITE311 FUNDAR LMS - <?= ucfirst($user['role']) ?> Panel
+                ITE311 FUNDAR LMS
             </a>
-            <div class="navbar-nav ms-auto">
-                <?php if ($user['role'] === 'admin'): ?>
-                    <a class="nav-link" href="<?= base_url('admin/courses') ?>">Courses</a>
-                    <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">Dashboard</a>
-                <?php else: ?>
-                    <a class="nav-link text-dark" href="<?= base_url('teacher/courses') ?>">My Courses</a>
-                    <a class="nav-link text-dark" href="<?= base_url('teacher/dashboard') ?>">Dashboard</a>
-                <?php endif; ?>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link <?= $user['role'] === 'admin' ? '' : 'text-dark' ?>" href="<?= base_url($user['role'] . '/dashboard') ?>">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= $user['role'] === 'admin' ? '' : 'text-dark' ?>" href="<?= base_url($user['role'] . '/courses') ?>">
+                            <?= $user['role'] === 'admin' ? 'Courses' : 'My Courses' ?>
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="navbar-text <?= $user['role'] === 'admin' ? '' : 'text-dark' ?>">
+                            <?= esc($user['name']) ?> 
+                            <span class="badge <?= $user['role'] === 'admin' ? 'bg-light text-dark' : 'bg-dark' ?>"><?= strtoupper($user['role']) ?></span>
+                        </span>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -92,18 +109,34 @@
                                     <div class="list-group-item">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div class="flex-grow-1">
-                                                <h6 class="mb-1"><?= esc($material['file_name']) ?></h6>
+                                                <div class="d-flex align-items-center mb-1">
+                                                    <h6 class="mb-0 me-2"><?= esc($material['file_name']) ?></h6>
+                                                    <?php if (isset($material['status'])): ?>
+                                                        <?php if ($material['status'] === 'approved'): ?>
+                                                            <span class="badge bg-success">Approved</span>
+                                                        <?php elseif ($material['status'] === 'pending'): ?>
+                                                            <span class="badge bg-warning text-dark">Pending Approval</span>
+                                                        <?php elseif ($material['status'] === 'rejected'): ?>
+                                                            <span class="badge bg-danger">Rejected</span>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                </div>
                                                 <small class="text-muted">
                                                     Uploaded: <?= date('M d, Y H:i', strtotime($material['created_at'])) ?>
+                                                    <?php if (isset($material['uploaded_by']) && $user['role'] === 'admin'): ?>
+                                                        <br>By: User #<?= $material['uploaded_by'] ?>
+                                                    <?php endif; ?>
                                                 </small>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <a href="<?= base_url("materials/download/{$material['id']}") ?>" class="btn btn-sm btn-outline-primary">
                                                     Download
                                                 </a>
-                                                <button onclick="deleteMaterial(<?= $material['id'] ?>, '<?= esc($material['file_name']) ?>')" class="btn btn-sm btn-outline-danger">
-                                                    Delete
-                                                </button>
+                                                <?php if ($user['role'] === 'admin' || $user['role'] === 'teacher'): ?>
+                                                    <button onclick="deleteMaterial(<?= $material['id'] ?>, '<?= esc($material['file_name']) ?>')" class="btn btn-sm btn-outline-danger">
+                                                        Delete
+                                                    </button>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>

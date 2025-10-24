@@ -25,11 +25,34 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <div class="container">
             <a class="navbar-brand fw-bold" href="<?= base_url('admin/dashboard') ?>">
-                ITE311 FUNDAR LMS - Admin Panel
+                ITE311 FUNDAR LMS
             </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="<?= base_url('admin/users') ?>">Manage Users</a>
-                <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">Dashboard</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('admin/users') ?>">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="<?= base_url('admin/courses') ?>">Courses</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="navbar-text">
+                            Admin Panel
+                            <span class="badge bg-light text-dark">ADMIN</span>
+                        </span>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

@@ -47,9 +47,24 @@
                         </a>
                     </li>
                     <?php if ($user['role'] === 'admin'): ?>
-                        <!-- Admin navigation - keep it simple, main tools are in dashboard cards -->
+                        <!-- Admin navigation -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('admin/users') ?>">
+                                Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('admin/courses') ?>">
+                                Courses
+                            </a>
+                        </li>
                     <?php elseif ($user['role'] === 'teacher'): ?>
-                        <!-- Teacher navigation - keep it simple, main tools are in dashboard cards -->
+                        <!-- Teacher navigation -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('teacher/courses') ?>">
+                                My Courses
+                            </a>
+                        </li>
                     <?php elseif ($user['role'] === 'student'): ?>
                         <!-- Student navigation -->
                         <li class="nav-item">

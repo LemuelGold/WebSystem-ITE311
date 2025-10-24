@@ -58,8 +58,13 @@ class Materials extends BaseController
             return $this->handleUpload($course_id);
         }
 
-        // Get existing materials
-        $materials = $this->materialModel->getMaterialsByCourse($course_id);
+        // Get existing materials - admin sees all, teachers see their own
+        if ($this->session->get('role') === 'admin') {
+            $materials = $this->materialModel->getMaterialsByCourse($course_id);
+        } else {
+            // Teachers only see approved and their own pending materials
+            $materials = $this->materialModel->getMaterialsByCourse($course_id);
+        }
 
         // Display upload form
         $data = [
@@ -108,11 +113,19 @@ class Materials extends BaseController
             
             // Move file to upload directory
             if ($file->move($uploadPath, $newName)) {
+                // Both admin and teachers can upload with auto-approval
+                // Only other roles would need approval (if added in future)
+                $status = 'approved';
+                
                 // Prepare data for database
                 $materialData = [
                     'course_id' => $course_id,
+                    'uploaded_by' => $this->session->get('userID'),
                     'file_name' => $file->getClientName(),
-                    'file_path' => 'uploads/materials/' . $newName
+                    'file_path' => 'uploads/materials/' . $newName,
+                    'status' => $status,
+                    'approved_by' => $this->session->get('userID'),
+                    'approved_at' => date('Y-m-d H:i:s')
                 ];
 
                 // Save to database
@@ -130,7 +143,9 @@ class Materials extends BaseController
             $this->session->setFlashdata('error', 'Invalid file or file already moved.');
         }
 
-        return redirect()->to(base_url("admin/course/{$course_id}/upload"));
+        // Redirect based on user role
+        $role = $this->session->get('role');
+        return redirect()->to(base_url("{$role}/course/{$course_id}/upload"));
     }
 
     /**
@@ -173,7 +188,9 @@ class Materials extends BaseController
             $this->session->setFlashdata('error', 'Failed to delete material.');
         }
 
-        return redirect()->to(base_url("admin/course/{$material['course_id']}/upload"));
+        // Redirect based on user role
+        $role = $this->session->get('role');
+        return redirect()->to(base_url("{$role}/course/{$material['course_id']}/upload"));
     }
 
     /**
@@ -192,6 +209,12 @@ class Materials extends BaseController
 
         if (!$material) {
             $this->session->setFlashdata('error', 'Material not found.');
+            return redirect()->back();
+        }
+
+        // Check material status - only students need approved materials
+        if ($this->session->get('role') === 'student' && $material['status'] !== 'approved') {
+            $this->session->setFlashdata('error', 'This material is pending admin approval and is not yet available for download.');
             return redirect()->back();
         }
 
@@ -235,6 +258,86 @@ class Materials extends BaseController
         }
 
         return $this->response->download($filePath, null)->setFileName($material['file_name']);
+    }
+
+    /**
+     * Approve a pending material (Admin only)
+     */
+    public function approve($material_id)
+    {
+        // Authorization check - only admin
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Only admins can approve materials.');
+            return redirect()->to(base_url('login'));
+        }
+
+        if ($this->materialModel->approveMaterial($material_id, $this->session->get('userID'))) {
+            $this->session->setFlashdata('success', 'Material approved successfully!');
+        } else {
+            $this->session->setFlashdata('error', 'Failed to approve material.');
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * Reject a pending material (Admin only)
+     */
+    public function reject($material_id)
+    {
+        // Authorization check - only admin
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Only admins can reject materials.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Get material info before rejecting
+        $material = $this->materialModel->find($material_id);
+        
+        if ($material) {
+            // Reject in database
+            if ($this->materialModel->rejectMaterial($material_id, $this->session->get('userID'))) {
+                // Optionally delete the file
+                $filePath = FCPATH . $material['file_path'];
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+                
+                $this->session->setFlashdata('success', 'Material rejected and removed.');
+            } else {
+                $this->session->setFlashdata('error', 'Failed to reject material.');
+            }
+        } else {
+            $this->session->setFlashdata('error', 'Material not found.');
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * View pending materials for approval (Admin only)
+     */
+    public function pending()
+    {
+        // Authorization check - only admin
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'admin') {
+            $this->session->setFlashdata('error', 'Access denied. Only admins can view pending materials.');
+            return redirect()->to(base_url('login'));
+        }
+
+        $pendingMaterials = $this->materialModel->getPendingMaterials();
+
+        $data = [
+            'title' => 'Pending Materials - Admin Approval',
+            'materials' => $pendingMaterials,
+            'user' => [
+                'userID' => $this->session->get('userID'),
+                'name'   => $this->session->get('name'),
+                'role'   => $this->session->get('role')
+            ]
+        ];
+
+        return view('materials/pending', $data);
     }
 
     /**

@@ -20,6 +20,12 @@ class CreateMaterialsTable extends Migration
                 'constraint' => 11,
                 'unsigned'   => true,
             ],
+            'uploaded_by' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'unsigned'   => true,
+                'null'       => true,
+            ],
             'file_name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
@@ -27,6 +33,21 @@ class CreateMaterialsTable extends Migration
             'file_path' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
+            ],
+            'status' => [
+                'type'       => 'ENUM',
+                'constraint' => ['pending', 'approved', 'rejected'],
+                'default'    => 'pending',
+            ],
+            'approved_by' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'unsigned'   => true,
+                'null'       => true,
+            ],
+            'approved_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',

@@ -14,16 +14,31 @@
                 ITE311 FUNDAR LMS
             </a>
             
-            <div class="navbar-nav me-auto">
-                <a class="nav-link" href="<?= base_url('student/dashboard') ?>">Dashboard</a>
-                <a class="nav-link active" href="<?= base_url('student/courses') ?>">My Courses</a>
-            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             
-            <div class="navbar-nav">
-                <span class="navbar-text">
-                    <?= esc($user['name']) ?> 
-                    <span class="badge bg-light text-dark">STUDENT</span>
-                </span>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('student/dashboard') ?>">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="<?= base_url('student/courses') ?>">My Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('student/materials') ?>">Materials</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="navbar-text">
+                            <?= esc($user['name']) ?> 
+                            <span class="badge bg-light text-dark">STUDENT</span>
+                        </span>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

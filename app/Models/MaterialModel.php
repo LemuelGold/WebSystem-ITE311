@@ -18,7 +18,7 @@ class MaterialModel extends Model
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
-        'course_id', 'file_name', 'file_path', 'created_at'
+        'course_id', 'uploaded_by', 'file_name', 'file_path', 'status', 'approved_by', 'approved_at', 'created_at'
     ];
 
     protected $useTimestamps = false;
@@ -66,13 +66,18 @@ class MaterialModel extends Model
     /**
      * Get all materials for a specific course
      * @param int $course_id The course ID
+     * @param string|null $status Filter by status (null = all, 'approved', 'pending', 'rejected')
      * @return array Array of materials
      */
-    public function getMaterialsByCourse(int $course_id): array
+    public function getMaterialsByCourse(int $course_id, ?string $status = null): array
     {
-        return $this->where('course_id', $course_id)
-                    ->orderBy('created_at', 'DESC')
-                    ->findAll();
+        $builder = $this->where('course_id', $course_id);
+        
+        if ($status !== null) {
+            $builder = $builder->where('status', $status);
+        }
+        
+        return $builder->orderBy('created_at', 'DESC')->findAll();
     }
 
     /**
@@ -111,8 +116,60 @@ class MaterialModel extends Model
                       ->join('courses', 'courses.id = materials.course_id')
                       ->join('enrollments', 'enrollments.course_id = courses.id')
                       ->where('enrollments.student_id', $student_id)
+                      ->where('materials.status', 'approved')  // Only show approved materials to students
                       ->orderBy('materials.created_at', 'DESC')
                       ->get()
                       ->getResultArray();
+    }
+
+    /**
+     * Get pending materials for admin approval
+     * @return array Array of pending materials with course and uploader information
+     */
+    public function getPendingMaterials(): array
+    {
+        $builder = $this->db->table($this->table);
+        
+        return $builder->select('materials.*, courses.title as course_title, users.name as uploaded_by_name')
+                      ->join('courses', 'courses.id = materials.course_id')
+                      ->join('users', 'users.id = materials.uploaded_by', 'left')
+                      ->where('materials.status', 'pending')
+                      ->orderBy('materials.created_at', 'DESC')
+                      ->get()
+                      ->getResultArray();
+    }
+
+    /**
+     * Approve a material
+     * @param int $material_id Material ID
+     * @param int $admin_id Admin user ID
+     * @return bool Success status
+     */
+    public function approveMaterial(int $material_id, int $admin_id): bool
+    {
+        $data = [
+            'status' => 'approved',
+            'approved_by' => $admin_id,
+            'approved_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->update($material_id, $data);
+    }
+
+    /**
+     * Reject a material
+     * @param int $material_id Material ID
+     * @param int $admin_id Admin user ID
+     * @return bool Success status
+     */
+    public function rejectMaterial(int $material_id, int $admin_id): bool
+    {
+        $data = [
+            'status' => 'rejected',
+            'approved_by' => $admin_id,
+            'approved_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->update($material_id, $data);
     }
 }
