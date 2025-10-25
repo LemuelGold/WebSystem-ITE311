@@ -45,8 +45,32 @@ class TeacherController extends BaseController
     {
         $teacherId = $this->session->get('userID');
         
-            // Empty arrays - ready for real data implementation
-        $myCourses = [];
+        // Get actual courses that belong to this teacher
+        $coursesBuilder = $this->db->table('courses');
+        $myCourses = $coursesBuilder
+            ->where('instructor_id', $teacherId)
+            ->orderBy('created_at', 'DESC')
+            ->get()
+            ->getResultArray();
+        
+        // Get enrollment count for each course
+        foreach ($myCourses as &$course) {
+            $enrollmentCount = $this->db->table('enrollments')
+                ->where('course_id', $course['id'])
+                ->countAllResults();
+            $course['students'] = $enrollmentCount;
+            $course['name'] = $course['title']; // Add name field for compatibility
+        }
+        
+        // Count active courses
+        $activeCourses = 0;
+        foreach ($myCourses as $course) {
+            if ($course['status'] === 'active') {
+                $activeCourses++;
+            }
+        }
+        
+        // For now, keep these as empty arrays - can be implemented later
         $pendingAssignments = [];
         $newSubmissions = [];
 
@@ -64,7 +88,7 @@ class TeacherController extends BaseController
             ],
             'stats' => [
                 'totalCourses' => count($myCourses),
-                'activeCourses' => 0,
+                'activeCourses' => $activeCourses,
                 'totalStudents' => $totalStudents,
                 'pendingReviews' => count($pendingAssignments)
             ],
@@ -309,5 +333,41 @@ class TeacherController extends BaseController
         }
 
         return redirect()->to(base_url("teacher/course/{$courseId}/students"));
+    }
+    
+    /**
+     * Clean up duplicate courses for a teacher
+     */
+    public function cleanupDuplicates()
+    {
+        $teacherId = $this->session->get('userID');
+        
+        // Get all courses for this teacher
+        $courses = $this->db->table('courses')
+            ->where('instructor_id', $teacherId)
+            ->orderBy('created_at', 'ASC')
+            ->get()
+            ->getResultArray();
+        
+        $seenTitles = [];
+        $duplicatesToDelete = [];
+        
+        foreach ($courses as $course) {
+            if (in_array($course['title'], $seenTitles)) {
+                // This is a duplicate, mark for deletion
+                $duplicatesToDelete[] = $course['id'];
+            } else {
+                // First time seeing this title
+                $seenTitles[] = $course['title'];
+            }
+        }
+        
+        // Delete duplicates
+        foreach ($duplicatesToDelete as $courseId) {
+            $this->db->table('courses')->where('id', $courseId)->delete();
+        }
+        
+        $this->session->setFlashdata('success', 'Duplicate courses cleaned up successfully!');
+        return redirect()->to(base_url('teacher/dashboard'));
     }
 }

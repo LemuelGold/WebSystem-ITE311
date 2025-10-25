@@ -51,6 +51,7 @@ $routes->group('teacher', function($routes) {
     $routes->get('reviews', 'TeacherController::pendingReviews');
     $routes->get('gradebook', 'TeacherController::gradebook');
     $routes->get('announcements', 'TeacherController::announcements');
+    $routes->get('cleanup-duplicates', 'TeacherController::cleanupDuplicates');
     // Material upload routes for teachers (uses same controller as admin)
     $routes->get('course/(:num)/upload', 'Materials::upload/$1');
     $routes->post('course/(:num)/upload', 'Materials::upload/$1');
@@ -76,3 +77,4 @@ $routes->get('materials/pending', 'Materials::pending');
 // Course Enrollment Routes 
 $routes->post('/course/enroll', 'Course::enroll');
 $routes->get('/course/available', 'Course::getAvailableCourses');
+$routes->get('/debug/database', 'DebugController::checkDatabase');

@@ -51,7 +51,24 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?= base_url('dashboard') ?>">
+                        <?php 
+                        // Make dashboard link role-specific to avoid unnecessary redirects through filter
+                        $dashboardUrl = base_url('dashboard');
+                        if (isset($user['role'])) {
+                            switch($user['role']) {
+                                case 'admin':
+                                    $dashboardUrl = base_url('admin/dashboard');
+                                    break;
+                                case 'teacher':
+                                    $dashboardUrl = base_url('teacher/dashboard');
+                                    break;
+                                case 'student':
+                                    $dashboardUrl = base_url('student/dashboard');
+                                    break;
+                            }
+                        }
+                        ?>
+                        <a class="nav-link active" href="<?= $dashboardUrl ?>">
                             Dashboard
                         </a>
                     </li>
@@ -117,9 +134,35 @@
             </div>
         <?php endif; ?>
 
-        <?php if (session()->getFlashdata('error')): ?>
+        <?php 
+        // Smart error filtering - only show errors relevant to the current user's role
+        $errorMsg = session()->getFlashdata('error');
+        $showError = false;
+        
+        if ($errorMsg) {
+            // Don't show admin privilege errors to non-admin users
+            if (strpos($errorMsg, 'Administrator privileges') !== false && $user['role'] !== 'admin') {
+                // This is an admin error but user is not admin - don't show it
+                $showError = false;
+            }
+            // Don't show teacher privilege errors to non-teacher users
+            elseif (strpos($errorMsg, 'Teacher privileges') !== false && $user['role'] !== 'teacher') {
+                $showError = false;
+            }
+            // Don't show student privilege errors to non-student users
+            elseif (strpos($errorMsg, 'Student privileges') !== false && $user['role'] !== 'student') {
+                $showError = false;
+            }
+            // Show all other errors
+            else {
+                $showError = true;
+            }
+        }
+        ?>
+        
+        <?php if ($showError): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?= session()->getFlashdata('error') ?>
+                <?= $errorMsg ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         <?php endif; ?>
@@ -316,18 +359,31 @@
                             <?php else: ?>
                                 <!-- Loop through all teacher's courses -->
                                 <?php foreach ($myCourses as $course): ?>
-                                    <div class="card mb-3">
+                                    <div class="card mb-3 border-start border-warning border-3">
                                         <div class="card-body">
                                             <div class="row align-items-center">
                                                 <div class="col-md-8">
-                                                    <h6><?= esc($course['name']) ?></h6>
-                                                    <small class="text-muted"><?= $course['students'] ?> students</small>
+                                                    <h6 class="mb-1"><?= esc($course['title']) ?></h6>
+                                                    <?php if (!empty($course['description'])): ?>
+                                                        <p class="text-muted mb-2 small"><?= esc(substr($course['description'], 0, 100)) ?><?= strlen($course['description']) > 100 ? '...' : '' ?></p>
+                                                    <?php endif; ?>
+                                                    <div class="d-flex gap-3">
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-users"></i> <?= $course['students'] ?> students
+                                                        </small>
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-calendar"></i> Created <?= date('M j, Y', strtotime($course['created_at'])) ?>
+                                                        </small>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-4 text-end">
                                                     <!-- Status badge - green for active, gray for completed -->
-                                                    <span class="badge bg-<?= $course['status'] === 'Active' ? 'success' : 'secondary' ?>">
-                                                        <?= $course['status'] ?>
+                                                    <span class="badge bg-<?= strtolower($course['status']) === 'active' ? 'success' : 'secondary' ?> mb-2">
+                                                        <?= ucfirst($course['status']) ?>
                                                     </span>
+                                                    <div>
+                                                        <small class="text-muted d-block">Course ID: <?= $course['id'] ?></small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

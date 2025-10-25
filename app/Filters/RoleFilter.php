@@ -39,23 +39,45 @@ class RoleFilter implements FilterInterface
         
         $userRole = $session->get('role');
         
-        // Get the URI segments properly (without base path)
-        $uri = service('uri');
-        $segment1 = $uri->getSegment(1); // First segment after base URL
+        // Get the current URL path without the base URL for better parsing
+        $currentUrl = current_url();
+        $baseUrl = base_url();
+        $relativePath = str_replace($baseUrl, '', $currentUrl);
         
-        // Role-based access control using first URI segment
-        // Only block if user is trying to access a different role's area
+        // Extract the first path segment (role area)
+        $pathParts = explode('/', trim($relativePath, '/'));
+        $segment1 = $pathParts[0] ?? '';
+        
+        // DEBUG: Log what we're detecting
+        log_message('debug', 'RoleFilter - URL: ' . $currentUrl . ' | Segment1: ' . $segment1 . ' | User Role: ' . $userRole);
+        
+        // If empty segment or not a role-specific route, allow access
+        if (empty($segment1) || !in_array($segment1, ['admin', 'teacher', 'student'])) {
+            log_message('debug', 'RoleFilter - Allowing non-role route: ' . $segment1);
+            return null;
+        }
+        
+        // Allow users to access their own role area
+        if ($segment1 === $userRole) {
+            log_message('debug', 'RoleFilter - Allowing ' . $userRole . ' to access their own area');
+            return null;
+        }
+        
+        // Block access to other role areas
         if ($segment1 === 'admin' && $userRole !== 'admin') {
+            log_message('warning', 'Access denied: User "' . $session->get('name') . '" (role: ' . $userRole . ') tried to access admin area: ' . $currentUrl);
             $session->setFlashdata('error', 'Access denied. Administrator privileges required.');
             return $this->redirectToRoleDashboard($userRole);
         }
         
         if ($segment1 === 'teacher' && $userRole !== 'teacher') {
+            log_message('warning', 'Access denied: User "' . $session->get('name') . '" (role: ' . $userRole . ') tried to access teacher area: ' . $currentUrl);
             $session->setFlashdata('error', 'Access denied. Teacher privileges required.');
             return $this->redirectToRoleDashboard($userRole);
         }
         
         if ($segment1 === 'student' && $userRole !== 'student') {
+            log_message('warning', 'Access denied: User "' . $session->get('name') . '" (role: ' . $userRole . ') tried to access student area: ' . $currentUrl);
             $session->setFlashdata('error', 'Access denied. Student privileges required.');
             return $this->redirectToRoleDashboard($userRole);
         }

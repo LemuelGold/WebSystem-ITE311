@@ -113,6 +113,11 @@ class Filters extends BaseFilters
                 'admin/*',
                 'teacher/*',
                 'student/*'
+            ],
+            'except' => [
+                // Materials controller handles its own auth, no need for role filter
+                'teacher/course/*/upload',
+                'admin/course/*/upload'
             ]
         ]
     ];

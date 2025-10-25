@@ -78,7 +78,11 @@
                         <h5 class="mb-0">Upload New Material</h5>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url("admin/course/{$course['id']}/upload") ?>" method="POST" enctype="multipart/form-data">
+                        <?php
+                        // Make form action role-aware - teachers post to teacher route, admins to admin route
+                        $uploadAction = base_url("{$user['role']}/course/{$course['id']}/upload");
+                        ?>
+                        <form action="<?= $uploadAction ?>" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="material_file" class="form-label">Select File *</label>
                                 <input type="file" class="form-control" id="material_file" name="material_file" required accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.zip,.rar">
