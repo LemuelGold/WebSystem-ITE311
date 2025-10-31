@@ -118,10 +118,20 @@ class Course extends BaseController
                 // Success: Get course details for response
                 $courseDetails = $this->getCourseDetails((int)$courseId);
                 
+                // Get student name for teacher notification
+                $studentName = $this->session->get('name');
+                
                 // Create notification for the student
                 $courseTitle = $courseDetails['title'] ?? 'Course';
                 $notificationMessage = "You have been successfully enrolled in {$courseTitle}";
                 $this->notificationModel->createNotification((int)$userId, $notificationMessage);
+                
+                // Create notification for the teacher
+                $teacherId = $courseDetails['instructor_id'] ?? null;
+                if ($teacherId) {
+                    $teacherNotificationMessage = "{$studentName} has enrolled in your course: {$courseTitle}";
+                    $this->notificationModel->createNotification((int)$teacherId, $teacherNotificationMessage);
+                }
                 
                 // Log successful enrollment for security auditing
                 log_message('info', "User {$userId} successfully enrolled in course {$courseId}");

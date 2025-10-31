@@ -683,7 +683,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Notification System Script -->
-    <script src="<?= base_url('js/notifications.js') ?>"></script>
+    <script src="<?= base_url('public/js/notifications.js') ?>"></script>
 
     <!-- Course Enrollment AJAX Script (Step 5 implementation) -->
     <script>

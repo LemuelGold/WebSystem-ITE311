@@ -13,18 +13,24 @@
     const NotificationManager = {
         // Fetch notifications from server
         fetchNotifications: function() {
+            console.log('Fetching notifications from:', baseUrl + '/notifications');
             $.ajax({
                 url: baseUrl + '/notifications',
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
+                    console.log('Notifications response:', response);
                     if (response.success) {
+                        console.log('Unread count:', response.unread_count);
+                        console.log('Notifications:', response.notifications);
                         NotificationManager.updateBadge(response.unread_count);
                         NotificationManager.renderNotifications(response.notifications);
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('Failed to fetch notifications:', error);
+                    console.error('XHR:', xhr);
+                    console.error('Status:', status);
                 }
             });
         },

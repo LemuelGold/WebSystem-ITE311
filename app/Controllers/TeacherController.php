@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\EnrollmentModel;
+use App\Models\NotificationModel;
 
 /**
  * TeacherController - Handles teacher-specific functionality and dashboard
@@ -12,6 +13,7 @@ class TeacherController extends BaseController
     protected $session;
     protected $db;
     protected $enrollmentModel;
+    protected $notificationModel;
 
     public function __construct()
     {
@@ -19,6 +21,7 @@ class TeacherController extends BaseController
         $this->session = \Config\Services::session();
         $this->db = \Config\Database::connect();
         $this->enrollmentModel = new EnrollmentModel();
+        $this->notificationModel = new NotificationModel();
     }
 
     /**
@@ -45,13 +48,31 @@ class TeacherController extends BaseController
     {
         $teacherId = $this->session->get('userID');
         
-        // Get actual courses that belong to this teacher
-        $coursesBuilder = $this->db->table('courses');
-        $myCourses = $coursesBuilder
+        // Get actual courses that belong to this teacher (only active courses)
+        $myCourses = $this->db->table('courses')
+            ->select('*')
             ->where('instructor_id', $teacherId)
-            ->orderBy('created_at', 'DESC')
+            ->where('status', 'active')
+            ->orderBy('id', 'ASC')
             ->get()
             ->getResultArray();
+        
+        // Remove any duplicate courses based on course ID (safety check)
+        $uniqueCourses = [];
+        $seenIds = [];
+        foreach ($myCourses as $course) {
+            if (!in_array($course['id'], $seenIds)) {
+                $seenIds[] = $course['id'];
+                $uniqueCourses[] = $course;
+            }
+        }
+        $myCourses = $uniqueCourses;
+        
+        // Debug: Log the courses to check for duplicates
+        log_message('debug', 'Teacher ' . $teacherId . ' courses count: ' . count($myCourses));
+        foreach ($myCourses as $debugCourse) {
+            log_message('debug', 'Course ID: ' . $debugCourse['id'] . ' - ' . $debugCourse['title']);
+        }
         
         // Get enrollment count for each course
         foreach ($myCourses as &$course) {
@@ -61,6 +82,7 @@ class TeacherController extends BaseController
             $course['students'] = $enrollmentCount;
             $course['name'] = $course['title']; // Add name field for compatibility
         }
+        unset($course); // Break the reference
         
         // Count active courses
         $activeCourses = 0;
@@ -286,6 +308,19 @@ class TeacherController extends BaseController
             ];
 
             if ($this->enrollmentModel->enrollUser($enrollmentData)) {
+                // Get course title and teacher name for notifications
+                $courseTitle = $courseCheck['title'] ?? 'a course';
+                $teacherName = $this->session->get('name');
+                $studentName = $student['name'];
+                
+                // Create notification for the STUDENT (added by teacher)
+                $studentNotificationMessage = "You have been added to the course: {$courseTitle} by {$teacherName}";
+                $this->notificationModel->createNotification((int)$studentId, $studentNotificationMessage);
+                
+                // Create notification for the TEACHER (confirmation)
+                $teacherNotificationMessage = "You successfully added {$studentName} to {$courseTitle}";
+                $this->notificationModel->createNotification((int)$teacherId, $teacherNotificationMessage);
+                
                 $this->session->setFlashdata('success', 'Student added to course successfully!');
             } else {
                 $this->session->setFlashdata('error', 'Failed to add student to course. Please try again.');
@@ -326,6 +361,25 @@ class TeacherController extends BaseController
 
             // Remove enrollment
             if ($this->enrollmentModel->dropEnrollment($studentId, $courseId)) {
+                // Get course and student details for notification
+                $courseTitle = $courseCheck['title'] ?? 'a course';
+                
+                // Get student name
+                $studentData = $this->db->table('users')
+                    ->select('name')
+                    ->where('id', $studentId)
+                    ->get()
+                    ->getRowArray();
+                $studentName = $studentData['name'] ?? 'Student';
+                
+                // Create notification for the student
+                $studentNotificationMessage = "You have been removed from the course: {$courseTitle}";
+                $this->notificationModel->createNotification((int)$studentId, $studentNotificationMessage);
+                
+                // Create notification for the teacher
+                $teacherNotificationMessage = "You removed {$studentName} from {$courseTitle}";
+                $this->notificationModel->createNotification((int)$teacherId, $teacherNotificationMessage);
+                
                 $this->session->setFlashdata('success', 'Student removed from course successfully!');
             } else {
                 $this->session->setFlashdata('error', 'Failed to remove student from course. Please try again.');
