@@ -78,3 +78,8 @@ $routes->get('materials/pending', 'Materials::pending');
 $routes->post('/course/enroll', 'Course::enroll');
 $routes->get('/course/available', 'Course::getAvailableCourses');
 $routes->get('/debug/database', 'DebugController::checkDatabase');
+
+// Notification Routes (AJAX API endpoints)
+$routes->get('/notifications', 'Notifications::get');
+$routes->post('/notifications/mark_read/(:num)', 'Notifications::mark_as_read/$1');
+$routes->post('/notifications/mark_all_read', 'Notifications::mark_all_as_read');

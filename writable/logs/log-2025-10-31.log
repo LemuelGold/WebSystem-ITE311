@@ -1,0 +1,1376 @@
+ERROR - 2025-10-31 07:04:50 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:04:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:50 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:50 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:04:52 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:04:52 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:52 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:52 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:04:52 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:04:52 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:52 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:52 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:04:52 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:04:52 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:52 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:52 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:04:54 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:04:54 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:54 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:54 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:04:59 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:04:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:59 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:04:59 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:04:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:59 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:04:59 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:04:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:04:59 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:05:00 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:05:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:00 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:05:01 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:05:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:01 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:05:01 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:05:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:01 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:05:01 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:05:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:01 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:05:02 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:05:02 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:02 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:02 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:05:02 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:05:02 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:02 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:02 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:05:05 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:05:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:05 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:05 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 07:05:24 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause' in D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT...', 0)
+#1 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 D:\XAMPP\htdocs\ITE311-Fundar\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\XAMPP\htdocs\ITE311-Fundar\app\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+#6 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+#7 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+#8 D:\XAMPP\htdocs\ITE311-Fundar\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 D:\XAMPP\htdocs\ITE311-Fundar\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\XAMPP\htdocs\ITE311-Fundar\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-10-31 07:05:24 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+[Method: GET, Route: teacher/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 2 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:24 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 4 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 07:05:24 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = \'3\'
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT *
+FROM `courses`
+WHERE `instructor_id` = :instructor_id:
+AND `deleted_at` IS NULL
+ORDER BY `id` ASC', [...], false)
+ 5 APPPATH\Controllers\TeacherController.php(55): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\TeacherController.php(36): App\Controllers\TeacherController->prepareTeacherDashboardData()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

@@ -32,6 +32,44 @@
         .stat-card:hover {
             transform: translateY(-5px);
         }
+        
+        /* Notification styles */
+        .notification-dropdown {
+            padding: 0;
+        }
+        .notification-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+        .notification-item.unread {
+            background-color: #e7f3ff;
+        }
+        .notification-item.unread:hover {
+            background-color: #d1e8ff;
+        }
+        .notification-message {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        .notification-time {
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
+        .notification-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .notification-actions .btn {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+        }
     </style>
 </head>
 <body class="bg-light role-<?= $user['role'] ?>">
@@ -106,8 +144,35 @@
                     <?php endif; ?>
                 </ul>
                 
+                <!-- Notification Bell Icon -->
+                <ul class="navbar-nav ms-auto me-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link position-relative" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                            </svg>
+                            <span id="notificationBadge" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill" style="display: none; font-size: 0.65rem;">0</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationDropdown" style="width: 350px; max-height: 500px; overflow-y: auto;">
+                            <div class="dropdown-header d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; padding: 12px 16px;">
+                                <span class="fw-bold">Notifications</span>
+                                <button class="btn btn-sm btn-link text-decoration-none p-0" id="markAllRead" style="display: none; font-size: 0.85rem;">Mark all as read</button>
+                            </div>
+                            <div class="dropdown-divider m-0"></div>
+                            <div id="notificationList" class="notification-list">
+                                <div class="text-center py-4 text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-bell-slash mb-2 opacity-25" viewBox="0 0 16 16">
+                                        <path d="M5.164 14H15c-.299-.199-.557-.553-.78-1-.9-1.8-1.22-5.12-1.22-6 0-.264-.02-.523-.06-.776l-.938.938c.02.708.157 2.154.457 3.58.161.767.377 1.566.663 2.258H6.164l-1 1zm5.581-9.91a3.986 3.986 0 0 0-1.948-1.01L8 2.917l-.797.161A4.002 4.002 0 0 0 4 7c0 .628-.134 2.197-.459 3.742-.05.238-.105.479-.166.718l-1.653 1.653c.02-.037.04-.074.059-.113C2.679 11.2 3 7.88 3 7c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0c.942.19 1.788.645 2.457 1.284l-.707.707zM10 15a2 2 0 1 1-4 0h4zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75L.625 15.625z"/>
+                                    </svg>
+                                    <p class="mb-0 small">No notifications</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                
                 <!-- User menu on the right side - shows name and role badge -->
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                             <?= esc($user['name']) ?>
@@ -616,6 +681,9 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- Bootstrap JS for dropdown menus and interactive stuff -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Notification System Script -->
+    <script src="<?= base_url('js/notifications.js') ?>"></script>
 
     <!-- Course Enrollment AJAX Script (Step 5 implementation) -->
     <script>

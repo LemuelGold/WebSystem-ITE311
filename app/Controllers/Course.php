@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\EnrollmentModel;
+use App\Models\NotificationModel;
 
 /**
  * Course Controller - Handles course-related operations including enrollment
@@ -11,6 +12,7 @@ class Course extends BaseController
 {
     protected $session;
     protected $enrollmentModel;
+    protected $notificationModel;
     protected $db;
 
     public function __construct()
@@ -18,6 +20,7 @@ class Course extends BaseController
         // Initialize required services
         $this->session = \Config\Services::session();
         $this->enrollmentModel = new EnrollmentModel();
+        $this->notificationModel = new NotificationModel();
         $this->db = \Config\Database::connect();
     }
 
@@ -115,6 +118,11 @@ class Course extends BaseController
                 // Success: Get course details for response
                 $courseDetails = $this->getCourseDetails((int)$courseId);
                 
+                // Create notification for the student
+                $courseTitle = $courseDetails['title'] ?? 'Course';
+                $notificationMessage = "You have been successfully enrolled in {$courseTitle}";
+                $this->notificationModel->createNotification((int)$userId, $notificationMessage);
+                
                 // Log successful enrollment for security auditing
                 log_message('info', "User {$userId} successfully enrolled in course {$courseId}");
 
@@ -124,7 +132,7 @@ class Course extends BaseController
                     'data' => [
                         'enrollment_id' => $enrollmentId,
                         'course_id' => (int)$courseId,
-                        'course_title' => $courseDetails['title'] ?? 'Course',
+                        'course_title' => $courseTitle,
                         'enrollment_date' => date('Y-m-d H:i:s')
                     ]
                 ])->setStatusCode(200);

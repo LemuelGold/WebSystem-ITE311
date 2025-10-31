@@ -103,6 +103,29 @@ $userName = $session->get('name');
                     <?php endif; ?>
                 </ul>
                 
+                <!-- Notifications dropdown -->
+                <ul class="navbar-nav me-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link position-relative" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span id="notificationBadge" class="badge bg-danger position-absolute top-0 start-100 translate-middle" style="display: none;">0</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationDropdown" style="width: 350px; max-height: 500px; overflow-y: auto;">
+                            <div class="dropdown-header d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">Notifications</span>
+                                <button class="btn btn-sm btn-link text-decoration-none" id="markAllRead" style="display: none;">Mark all as read</button>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div id="notificationList" class="notification-list">
+                                <div class="text-center py-3 text-muted">
+                                    <i class="fas fa-bell-slash fa-2x mb-2"></i>
+                                    <p class="mb-0">No notifications</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                
                 <!-- User dropdown menu -->
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
@@ -188,5 +211,70 @@ $userName = $session->get('name');
 .nav-link.active {
     color: #0d6efd !important;
     font-weight: 500;
+}
+
+/* Notification styles */
+.notification-dropdown {
+    padding: 0;
+}
+
+.notification-dropdown .dropdown-header {
+    padding: 12px 16px;
+    background-color: #f8f9fa;
+}
+
+.notification-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background-color: #f8f9fa;
+}
+
+.notification-item.unread {
+    background-color: #e7f3ff;
+}
+
+.notification-item.unread:hover {
+    background-color: #d1e8ff;
+}
+
+.notification-message {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.notification-time {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+.notification-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.notification-actions .btn {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+}
+
+#notificationBadge {
+    font-size: 0.65rem;
+    padding: 0.25em 0.5em;
+    border-radius: 10px;
+}
+
+.notification-list:empty::after {
+    content: "No notifications";
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
 }
 </style>
