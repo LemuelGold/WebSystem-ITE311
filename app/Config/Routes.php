@@ -19,3 +19,6 @@ $routes->post('/login', 'Auth::login');
 //Logout and Dashboard
 $routes->get('/logout', 'Auth::logout');
 $routes->get('/dashboard', 'Auth::dashboard');
+
+// Course Enrollment
+$routes->post('/course/enroll', 'Course::enroll');

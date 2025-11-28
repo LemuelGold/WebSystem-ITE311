@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\EnrollmentModel;
+use App\Models\CourseModel;
 
 class Auth extends BaseController
 {
@@ -136,6 +138,11 @@ class Auth extends BaseController
         }
     
         $role = strtolower((string) $session->get('role'));
+        // Treat generic "user" role as "student" for dashboard purposes
+        if ($role === 'user') {
+            $role = 'student';
+            $session->set('role', 'student');
+        }
         $userId = (int) $session->get('userID');
         $userModel = new UserModel();
     
@@ -146,10 +153,47 @@ class Auth extends BaseController
             'email' => $session->get('email'),
             'role' => $role
         ];
+
+        // For students, get enrolled courses and available courses
+        $enrolledCourses = [];
+        $availableCourses = [];
+        
+        if ($role === 'student') {
+            $enrollmentModel = new EnrollmentModel();
+            $courseModel = new CourseModel();
+            
+            // Get enrolled courses
+            $enrolledCourses = $enrollmentModel->getUserEnrollments($userId);
+            if (!is_array($enrolledCourses)) {
+                $enrolledCourses = [];
+            }
+            
+            // Get all courses
+            $allCourses = $courseModel->getAllCourses();
+            if (!is_array($allCourses)) {
+                $allCourses = [];
+            }
+            
+            // Get enrolled course IDs
+            $enrolledCourseIds = [];
+            if (!empty($enrolledCourses)) {
+                $enrolledCourseIds = array_column($enrolledCourses, 'course_id');
+            }
+            
+            // Filter available courses (courses not enrolled in)
+            $availableCourses = [];
+            foreach ($allCourses as $course) {
+                if (!empty($course['id']) && !in_array($course['id'], $enrolledCourseIds)) {
+                    $availableCourses[] = $course;
+                }
+            }
+        }
     
         return view('auth/dashboard', [
             'role' => $role,
             'data' => $data,
+            'enrolledCourses' => $enrolledCourses,
+            'availableCourses' => $availableCourses,
         ]);
     }
     
