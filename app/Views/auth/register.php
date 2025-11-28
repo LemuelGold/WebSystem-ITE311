@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - LMS</title>
+    <title>Register - LMS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome --> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,7 +23,8 @@
         <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="<?= base_url('/about') ?>">About</a></li>
         <li class="nav-item"><a class="nav-link" href="<?= base_url('/contact') ?>">Contact</a></li>
-        <li class="nav-item"><a class="nav-link active" href="<?= base_url('/login') ?>">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url('/login') ?>">Login</a></li>
+        <li class="nav-item"><a class="nav-link active" href="<?= base_url('/register') ?>">Register</a></li>
       </ul>
     </div>
   </div>
@@ -31,10 +32,10 @@
 
 <div class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 76px); padding: 20px 0;">
 
-    <div class="card shadow p-4" style="max-width: 380px; width: 100%; border: 2px solid #000 !important;">
+    <div class="card shadow p-4" style="max-width: 420px; width: 100%; border: 2px solid #000 !important;">
 
         <h3 class="text-center fw-bold mb-1 text-dark">LMS</h3>
-        <p class="text-center mb-4 text-muted">Welcome back — sign in</p>
+        <p class="text-center mb-4 text-muted">Create your account</p>
 
         <!-- Success Message -->
         <?php if (session()->getFlashdata('success')): ?>
@@ -50,14 +51,34 @@
             </div>
         <?php endif; ?>
 
-        <form method="post" action="<?= base_url('login') ?>">
+        <form method="post" action="<?= base_url('register') ?>">
             <?= csrf_field() ?>
 
             <div class="mb-3">
-                <label class="form-label text-dark">Email or Username</label>
+                <label class="form-label text-dark">Full Name</label>
                 <input 
                     type="text" 
-                    name="login" 
+                    name="name" 
+                    class="form-control" style="border: 2px solid #000 !important;" 
+                    required
+                >
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label text-dark">Email</label>
+                <input 
+                    type="email" 
+                    name="email" 
+                    class="form-control" style="border: 2px solid #000 !important;" 
+                    required
+                >
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label text-dark">Username</label>
+                <input 
+                    type="text" 
+                    name="username" 
                     class="form-control" style="border: 2px solid #000 !important;" 
                     required
                 >
@@ -73,15 +94,25 @@
                 >
             </div>
 
+            <div class="mb-3">
+                <label class="form-label text-dark">Confirm Password</label>
+                <input 
+                    type="password" 
+                    name="confirm_password" 
+                    class="form-control" style="border: 2px solid #000 !important;" 
+                    required
+                >
+            </div>
+
             <button type="submit" class="btn btn-dark w-100 fw-semibold mt-2" style="border: 2px solid #000;">
-                Sign In
+                Create Account
             </button>
         </form>
 
         <div class="text-center mt-3">
-            <span class="text-muted">Don't have an account?</span>
-            <a href="<?= base_url('register') ?>" class="fw-semibold text-dark text-decoration-none">
-                Register
+            <span class="text-muted">Already have an account?</span>
+            <a href="<?= base_url('login') ?>" class="fw-semibold text-dark text-decoration-none">
+                Sign In
             </a>
         </div>
 
@@ -92,3 +123,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

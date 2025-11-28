@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
                 'name'       => 'Dale Doe',
                 'email'      => 'dale.doe@gmail.com',
                 'password'   => password_hash('teacher123', PASSWORD_BCRYPT),
-                'role'       => 'user',
+                'role'       => 'teacher',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
                 'name'       => 'Jane Smith',
                 'email'      => 'jane.smith@gmail.com',
                 'password'   => password_hash('student123', PASSWORD_BCRYPT),
-                'role'       => 'user',
+                'role'       => 'student',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
                 'name'       => 'David Brown',
                 'email'      => 'david.brown@gmail.com',
                 'password'   => password_hash('student123', PASSWORD_BCRYPT),
-                'role'       => 'user',
+                'role'       => 'student',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]
