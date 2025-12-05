@@ -6,6 +6,7 @@ $isStudent = ($userRole === 'student');
 
 // Role-specific content
 if ($isAdmin) {
+    $manageUsersUrl = base_url('admin/users');
     $role_content = '
       <!-- Admin Features -->
       <div class="row g-4 mb-4">
@@ -14,7 +15,7 @@ if ($isAdmin) {
             <div class="card-body">
               <h5 class="fw-bold mb-3"><i class="fas fa-users-cog me-2 text-danger"></i>User Management</h5>
               <p class="text-muted mb-3">Manage all users, roles, and permissions in the system.</p>
-              <a href="#" class="btn btn-outline-danger" style="border: 2px solid #000;">Manage Users</a>
+              <a href="' . $manageUsersUrl . '" class="btn btn-outline-danger" style="border: 2px solid #000;">Manage Users</a>
             </div>
           </div>
         </div>
@@ -172,9 +173,14 @@ if ($isAdmin) {
           const csrfToken = $("meta[name=\"csrf-token\"]").attr("content") || "";
           
           // Make AJAX POST request
-          $.post("' . base_url('course/enroll') . '", {
-            course_id: courseId,
-            csrf_test_name: csrfToken
+          $.ajax({
+            url: "' . site_url('course/enroll') . '",
+            type: \"POST\",
+            data: {
+              course_id: courseId,
+              csrf_test_name: csrfToken
+            },
+            dataType: \"json\"
           })
           .done(function(data) {
             if (data.success) {
@@ -259,11 +265,29 @@ if ($isAdmin) {
             }
           })
           .fail(function(xhr, status, error) {
-            console.error("Error:", error);
+            console.error("Error:", error, "Status:", xhr.status, "Response:", xhr.responseText);
+            
+            let errorMessage = "An error occurred. Please try again.";
+            
+            // Handle specific error cases
+            if (xhr.status === 405) {
+              errorMessage = "Method not allowed. Please refresh the page and try again.";
+            } else if (xhr.status === 401) {
+              errorMessage = "Please log in to enroll in courses.";
+            } else if (xhr.status === 400) {
+              try {
+                const response = JSON.parse(xhr.responseText);
+                errorMessage = response.message || errorMessage;
+              } catch (e) {
+                errorMessage = "Invalid request. Please check your input.";
+              }
+            } else if (xhr.status === 500) {
+              errorMessage = "Server error. Please try again later.";
+            }
             
             // Show Bootstrap error alert
             const alertHtml = "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">" +
-              "<i class=\"fas fa-exclamation-circle me-2\"></i>An error occurred. Please try again." +
+              "<i class=\"fas fa-exclamation-circle me-2\"></i>" + errorMessage +
               "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>" +
               "</div>";
             $("#enrollment-alert-container").html(alertHtml);
@@ -291,4 +315,3 @@ $title = 'Dashboard - LMS';
 // Include the template
 include(APPPATH . 'Views/template.php');
 ?>
-

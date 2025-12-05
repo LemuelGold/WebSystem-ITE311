@@ -22,3 +22,10 @@ $routes->get('/dashboard', 'Auth::dashboard');
 
 // Course Enrollment
 $routes->post('/course/enroll', 'Course::enroll');
+
+$routes->get('admin/users', 'Admin::users');
+$routes->get('admin/users/add', 'Admin::addUser');
+$routes->post('admin/users/store', 'Admin::storeUser');
+$routes->get('admin/users/edit/(:num)', 'Admin::editUser/$1');
+$routes->post('admin/users/update/(:num)', 'Admin::updateUser/$1');
+$routes->get('admin/users/delete/(:num)', 'Admin::deleteUser/$1');
