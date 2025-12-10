@@ -22,7 +22,7 @@ class AdminController extends BaseController
     }
 
     /**
-     * Admin Dashboard - displays admin-specific information and controls
+     * Admin Dashboard -- displays admin-specific information and controls
      */
     public function dashboard()
     {
