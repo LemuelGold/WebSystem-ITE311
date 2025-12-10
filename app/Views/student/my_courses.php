@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?? 'My Courses - LMS' ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body class="bg-light">
     <!-- Navigation -->
@@ -52,6 +53,16 @@
                         <h2 class="mb-0">📚 My Courses</h2>
                         <p class="mb-0">View and access all your enrolled courses</p>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="row mb-4">
+            <div class="col-md-6 mx-auto">
+                <div class="input-group">
+                    <input type="text" id="courseSearch" class="form-control" placeholder="Search courses by title or instructor...">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
                 </div>
             </div>
         </div>

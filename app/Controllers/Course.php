@@ -243,4 +243,64 @@ class Course extends BaseController
 
         return $course ?? [];
     }
+
+    /**
+     * Display courses listing page with search functionality
+     */
+    public function index()
+    {
+        // Get all active courses with instructor information
+        $builder = $this->db->table('courses');
+        $courses = $builder
+            ->select('courses.*, users.name as instructor_name')
+            ->join('users', 'users.id = courses.instructor_id', 'left')
+            ->where('courses.status', 'active')
+            ->orderBy('courses.title', 'ASC')
+            ->get()
+            ->getResultArray();
+
+        $data = [
+            'title' => 'Course Search',
+            'courses' => $courses
+        ];
+
+        return view('courses/courses', $data);
+    }
+
+    /**
+     * Search courses functionality
+     * Accepts GET or POST requests with a search term parameter
+     * Returns JSON for AJAX requests or renders a view for regular requests
+     */
+    public function search()
+    {
+        // Get search term from GET or POST request
+        $searchTerm = $this->request->getGet('search_term') ?? $this->request->getPost('search_term');
+
+        // Build query for courses with instructor information
+        $builder = $this->db->table('courses');
+        $builder->select('courses.*, users.name as instructor_name')
+                ->join('users', 'users.id = courses.instructor_id', 'left')
+                ->where('courses.status', 'active');
+
+        // If search term is provided, add LIKE conditions
+        if (!empty($searchTerm)) {
+            $builder->groupStart()
+                    ->like('courses.title', $searchTerm)
+                    ->orLike('courses.description', $searchTerm)
+                    ->groupEnd();
+        }
+
+        $courses = $builder->orderBy('courses.title', 'ASC')
+                          ->get()
+                          ->getResultArray();
+
+        // Check if this is an AJAX request
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON(['courses' => $courses, 'searchTerm' => $searchTerm]);
+        }
+
+        // For regular requests, render the search results view
+        return view('courses/search_results', ['courses' => $courses, 'searchTerm' => $searchTerm]);
+    }
 }

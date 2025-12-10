@@ -77,6 +77,12 @@ $routes->get('materials/pending', 'Materials::pending');
 // Course Enrollment Routes 
 $routes->post('/course/enroll', 'Course::enroll');
 $routes->get('/course/available', 'Course::getAvailableCourses');
+
+// Course Search Routes
+$routes->get('/courses', 'Course::index');
+$routes->get('/courses/search', 'Course::search');
+$routes->post('/courses/search', 'Course::search');
+
 $routes->get('/debug/database', 'DebugController::checkDatabase');
 
 // Notification Routes (AJAX API endpoints)

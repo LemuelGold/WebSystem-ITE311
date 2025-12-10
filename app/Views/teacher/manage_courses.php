@@ -6,6 +6,7 @@
     <title><?= $title ?? 'My Courses - Teacher Panel' ?></title>
     <!-- Bootstrap for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         .course-card {
             transition: transform 0.2s;
@@ -58,6 +59,16 @@
                         <h2 class="mb-0">My Courses</h2>
                         <p class="mb-0">Manage your courses and enrolled students</p>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="row mb-4">
+            <div class="col-md-6 mx-auto">
+                <div class="input-group">
+                    <input type="text" id="courseSearch" class="form-control" placeholder="Search courses by title...">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
                 </div>
             </div>
         </div>
@@ -158,5 +169,22 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Search Script -->
+    <script>
+        document.getElementById('courseSearch').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const courseCards = document.querySelectorAll('.col-md-6.mb-4');
+            
+            courseCards.forEach(function(card) {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
