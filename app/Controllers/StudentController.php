@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CourseModel;
 use App\Models\EnrollmentModel;
 
 /**
@@ -11,6 +12,7 @@ class StudentController extends BaseController
 {
     protected $session;
     protected $db;
+    protected $courseModel;
     protected $enrollmentModel;
 
     public function __construct()
@@ -18,6 +20,7 @@ class StudentController extends BaseController
         // Initialize services for student operations
         $this->session = \Config\Services::session();
         $this->db = \Config\Database::connect();
+        $this->courseModel = new CourseModel();
         $this->enrollmentModel = new EnrollmentModel();
     }
 
@@ -94,8 +97,7 @@ class StudentController extends BaseController
      */
     private function getAvailableCourses(int $studentId): array
     {
-        $builder = $this->db->table('courses');
-        $courses = $builder
+        $courses = $this->courseModel
             ->select('courses.id, courses.title, courses.description, users.name as instructor_name')
             ->join('users', 'users.id = courses.instructor_id', 'left')
             ->where('courses.status', 'active')
@@ -105,8 +107,7 @@ class StudentController extends BaseController
                               ->where('student_id', $studentId);
             })
             ->orderBy('courses.title', 'ASC')
-            ->get()
-            ->getResultArray();
+            ->findAll();
 
         return $courses ?? [];
     }

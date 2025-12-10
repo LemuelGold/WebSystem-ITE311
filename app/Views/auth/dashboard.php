@@ -6,6 +6,7 @@
     <title><?= $title ?? 'Dashboard - LMS' ?></title>
     <!-- Just using Bootstrap for styling - much easier than writing custom CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         /* This changes navbar color based on user role - pretty cool trick I learned */
         .role-<?= $user['role'] ?> .navbar { 
@@ -534,6 +535,14 @@
                         </div>
                         <div class="collapse" id="enrolledCoursesCollapse">
                             <div class="card-body">
+                                <!-- Search Bar for Enrolled Courses -->
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <input type="text" id="enrolledCoursesSearch" class="form-control" placeholder="Search enrolled courses...">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    </div>
+                                </div>
+                                
                                 <!-- Show message if no courses enrolled -->
                                 <?php if (empty($enrolledCourses)): ?>
                                     <div class="text-center py-4">
@@ -585,6 +594,14 @@
                         </div>
                         <div class="collapse" id="availableCoursesCollapse">
                             <div class="card-body">
+                                <!-- Search Bar for Available Courses -->
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <input type="text" id="availableCoursesSearch" class="form-control" placeholder="Search available courses...">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    </div>
+                                </div>
+                                
                                 <!-- Show message if no available courses -->
                                 <?php if (empty($availableCourses)): ?>
                                     <div class="text-center py-4">
@@ -823,6 +840,32 @@
                 const currentCount = parseInt($statsCard.find('h3').text());
                 $statsCard.find('h3').text(currentCount + 1);
             }
+            
+            // Search functionality for Enrolled Courses
+            $('#enrolledCoursesSearch').on('keyup', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                $('#enrolledCoursesCollapse .list-group-item').each(function() {
+                    const text = $(this).text().toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+            
+            // Search functionality for Available Courses
+            $('#availableCoursesSearch').on('keyup', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                $('#availableCoursesCollapse .list-group-item').each(function() {
+                    const text = $(this).text().toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
         });
     </script>
 </body>

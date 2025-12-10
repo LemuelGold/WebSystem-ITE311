@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\CourseModel;
+
 /**
  * AdminController - Handles admin-specific functionality and dashboard
  */
@@ -9,12 +11,14 @@ class AdminController extends BaseController
 {
     protected $session;
     protected $db;
+    protected $courseModel;
 
     public function __construct()
     {
         // Initialize services for admin operations
         $this->session = \Config\Services::session();
         $this->db = \Config\Database::connect();
+        $this->courseModel = new CourseModel();
     }
 
     /**

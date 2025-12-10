@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CourseModel;
 use App\Models\EnrollmentModel;
 use App\Models\NotificationModel;
 
@@ -12,6 +13,7 @@ class TeacherController extends BaseController
 {
     protected $session;
     protected $db;
+    protected $courseModel;
     protected $enrollmentModel;
     protected $notificationModel;
 
@@ -20,6 +22,7 @@ class TeacherController extends BaseController
         // Initialize services for teacher operations
         $this->session = \Config\Services::session();
         $this->db = \Config\Database::connect();
+        $this->courseModel = new CourseModel();
         $this->enrollmentModel = new EnrollmentModel();
         $this->notificationModel = new NotificationModel();
     }
@@ -49,13 +52,12 @@ class TeacherController extends BaseController
         $teacherId = $this->session->get('userID');
         
         // Get actual courses that belong to this teacher (only active courses)
-        $myCourses = $this->db->table('courses')
-            ->select('*')
-            ->where('instructor_id', $teacherId)
-            ->where('status', 'active')
-            ->orderBy('id', 'ASC')
-            ->get()
-            ->getResultArray();
+        $myCourses = $this->courseModel->getCoursesByInstructor($teacherId);
+        
+        // Filter to only active courses
+        $myCourses = array_filter($myCourses, function($course) {
+            return $course['status'] === 'active';
+        });
         
         // Remove any duplicate courses based on course ID (safety check)
         $uniqueCourses = [];

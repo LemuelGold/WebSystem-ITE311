@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CourseModel;
 use App\Models\EnrollmentModel;
 use App\Models\NotificationModel;
 
@@ -11,17 +12,17 @@ use App\Models\NotificationModel;
 class Course extends BaseController
 {
     protected $session;
+    protected $courseModel;
     protected $enrollmentModel;
     protected $notificationModel;
-    protected $db;
 
     public function __construct()
     {
         // Initialize required services
         $this->session = \Config\Services::session();
+        $this->courseModel = new CourseModel();
         $this->enrollmentModel = new EnrollmentModel();
         $this->notificationModel = new NotificationModel();
-        $this->db = \Config\Database::connect();
     }
 
     /**
@@ -186,8 +187,7 @@ class Course extends BaseController
         $userId = $this->session->get('userID');
 
         // Get courses that user is NOT enrolled in
-        $builder = $this->db->table('courses');
-        $courses = $builder
+        $courses = $this->courseModel
             ->select('courses.id, courses.title, courses.description, users.name as instructor_name')
             ->join('users', 'users.id = courses.instructor_id', 'left')
             ->where('courses.status', 'active')
@@ -197,8 +197,7 @@ class Course extends BaseController
                               ->where('student_id', $userId);
             })
             ->orderBy('courses.title', 'ASC')
-            ->get()
-            ->getResultArray();
+            ->findAll();
 
         return $this->response->setJSON([
             'success' => true,
@@ -219,11 +218,10 @@ class Course extends BaseController
      */
     private function courseExists(int $courseId): bool
     {
-        $builder = $this->db->table('courses');
-        $course = $builder->where([
+        $course = $this->courseModel->where([
             'id' => $courseId,
             'status' => 'active'
-        ])->get()->getRowArray();
+        ])->first();
 
         return $course !== null;
     }
@@ -233,14 +231,7 @@ class Course extends BaseController
      */
     private function getCourseDetails(int $courseId): array
     {
-        $builder = $this->db->table('courses');
-        $course = $builder
-            ->select('courses.*, users.name as instructor_name')
-            ->join('users', 'users.id = courses.instructor_id', 'left')
-            ->where('courses.id', $courseId)
-            ->get()
-            ->getRowArray();
-
+        $course = $this->courseModel->getCourseWithInstructor($courseId);
         return $course ?? [];
     }
 
@@ -250,14 +241,7 @@ class Course extends BaseController
     public function index()
     {
         // Get all active courses with instructor information
-        $builder = $this->db->table('courses');
-        $courses = $builder
-            ->select('courses.*, users.name as instructor_name')
-            ->join('users', 'users.id = courses.instructor_id', 'left')
-            ->where('courses.status', 'active')
-            ->orderBy('courses.title', 'ASC')
-            ->get()
-            ->getResultArray();
+        $courses = $this->courseModel->getActiveCourses();
 
         $data = [
             'title' => 'Course Search',
@@ -277,23 +261,12 @@ class Course extends BaseController
         // Get search term from GET or POST request
         $searchTerm = $this->request->getGet('search_term') ?? $this->request->getPost('search_term');
 
-        // Build query for courses with instructor information
-        $builder = $this->db->table('courses');
-        $builder->select('courses.*, users.name as instructor_name')
-                ->join('users', 'users.id = courses.instructor_id', 'left')
-                ->where('courses.status', 'active');
-
-        // If search term is provided, add LIKE conditions
+        // Use CourseModel to search courses
         if (!empty($searchTerm)) {
-            $builder->groupStart()
-                    ->like('courses.title', $searchTerm)
-                    ->orLike('courses.description', $searchTerm)
-                    ->groupEnd();
+            $courses = $this->courseModel->searchCourses($searchTerm);
+        } else {
+            $courses = $this->courseModel->getActiveCourses();
         }
-
-        $courses = $builder->orderBy('courses.title', 'ASC')
-                          ->get()
-                          ->getResultArray();
 
         // Check if this is an AJAX request
         if ($this->request->isAJAX()) {

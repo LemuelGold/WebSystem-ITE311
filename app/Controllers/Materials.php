@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CourseModel;
 use App\Models\MaterialModel;
 
 /**
@@ -11,12 +12,14 @@ class Materials extends BaseController
 {
     protected $session;
     protected $db;
+    protected $courseModel;
     protected $materialModel;
 
     public function __construct()
     {
         $this->session = \Config\Services::session();
         $this->db = \Config\Database::connect();
+        $this->courseModel = new CourseModel();
         $this->materialModel = new MaterialModel();
     }
 
@@ -36,11 +39,10 @@ class Materials extends BaseController
 
         // If teacher, verify they own this course
         if ($this->session->get('role') === 'teacher') {
-            $course = $this->db->table('courses')
-                              ->where('id', $course_id)
-                              ->where('instructor_id', $this->session->get('userID'))
-                              ->get()
-                              ->getRowArray();
+            $course = $this->courseModel
+                          ->where('id', $course_id)
+                          ->where('instructor_id', $this->session->get('userID'))
+                          ->first();
             
             if (!$course) {
                 $this->session->setFlashdata('error', 'Access denied. You can only upload materials to your own courses.');
@@ -49,7 +51,7 @@ class Materials extends BaseController
         }
 
         // Get course info
-        $course = $this->db->table('courses')->where('id', $course_id)->get()->getRowArray();
+        $course = $this->courseModel->find($course_id);
         
         if (!$course) {
             $this->session->setFlashdata('error', 'Course not found.');
