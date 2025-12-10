@@ -21,6 +21,33 @@
         .role-admin { background-color: #dc3545 !important; }
         .role-teacher { background-color: #ffc107 !important; color: #000 !important; }
         .role-student { background-color: #0d6efd !important; }
+        .notification-dropdown {
+            padding: 0;
+        }
+        .notification-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+        .notification-item.unread {
+            background-color: #e7f3ff;
+        }
+        .notification-item.unread:hover {
+            background-color: #d1e8ff;
+        }
+        .notification-message {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        .notification-time {
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
     </style>
 </head>
 <body class="bg-light">
@@ -57,11 +84,19 @@
                             </svg>
                             <span id="notificationBadge" class="badge bg-warning position-absolute top-0 start-100 translate-middle rounded-pill" style="display: none; font-size: 0.65rem;">0</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" style="width: 300px;">
-                            <div class="dropdown-header">Notifications</div>
-                            <div class="dropdown-divider"></div>
-                            <div class="text-center py-3 text-muted">
-                                <small>No notifications</small>
+                        <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationDropdown" style="width: 350px; max-height: 500px; overflow-y: auto;">
+                            <div class="dropdown-header d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; padding: 12px 16px;">
+                                <span class="fw-bold">Notifications</span>
+                                <button class="btn btn-sm btn-link text-decoration-none p-0" id="markAllRead" style="display: none; font-size: 0.85rem;">Mark all as read</button>
+                            </div>
+                            <div class="dropdown-divider m-0"></div>
+                            <div id="notificationList" class="notification-list">
+                                <div class="text-center py-4 text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-bell-slash mb-2 opacity-25" viewBox="0 0 16 16">
+                                        <path d="M5.164 14H15c-.299-.199-.557-.553-.78-1-.9-1.8-1.22-5.12-1.22-6 0-.264-.02-.523-.06-.776l-.938.938c.02.708.157 2.154.457 3.58.161.767.377 1.566.663 2.258H6.164l-1 1zm5.581-9.91a3.986 3.986 0 0 0-1.948-1.01L8 2.917l-.797.161A4.002 4.002 0 0 0 4 7c0 .628-.134 2.197-.459 3.742-.05.238-.105.479-.166.718l-1.653 1.653c.02-.037.04-.074.059-.113C2.679 11.2 3 7.88 3 7c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0c.942.19 1.788.645 2.457 1.284l-.707.707zM10 15a2 2 0 1 1-4 0h4zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75L.625 15.625z"/>
+                                    </svg>
+                                    <p class="mb-0 small">No notifications</p>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -363,5 +398,9 @@
             new bootstrap.Modal(document.getElementById('deleteUserModal')).show();
         }
     </script>
+    
+    <!-- jQuery and Notification Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="<?= base_url('public/js/notifications.js') ?>"></script>
 </body>
 </html>
