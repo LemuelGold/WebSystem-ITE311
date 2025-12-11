@@ -146,6 +146,62 @@
             </div>
         <?php endif; ?>
 
+        <!-- Pending Enrollment Requests Section -->
+        <?php if (!empty($pendingStudents)): ?>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow-sm border-warning">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">
+                            <i class="bi bi-person-plus"></i> Pending Enrollment Requests 
+                            <span class="badge bg-danger"><?= count($pendingStudents) ?></span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small mb-3">Students waiting for approval to join this course</p>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Student Name</th>
+                                        <th>Email</th>
+                                        <th>Request Date</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($pendingStudents as $student): ?>
+                                        <tr>
+                                            <td><strong><?= esc($student['student_name']) ?></strong></td>
+                                            <td><?= esc($student['student_email']) ?></td>
+                                            <td><?= date('M d, Y h:i A', strtotime($student['created_at'])) ?></td>
+                                            <td class="text-center">
+                                                <form method="POST" action="<?= base_url('teacher/enrollment/approve') ?>" class="d-inline" onsubmit="return confirm('Approve this enrollment request?');">
+                                                    <?= csrf_field() ?>
+                                                    <input type="hidden" name="enrollment_id" value="<?= $student['id'] ?>">
+                                                    <button type="submit" class="btn btn-sm btn-success">
+                                                        <i class="bi bi-check-circle"></i> Approve
+                                                    </button>
+                                                </form>
+                                                <form method="POST" action="<?= base_url('teacher/enrollment/reject') ?>" class="d-inline" onsubmit="return confirm('Reject this enrollment request?');">
+                                                    <?= csrf_field() ?>
+                                                    <input type="hidden" name="enrollment_id" value="<?= $student['id'] ?>">
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="bi bi-x-circle"></i> Reject
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <div class="row">
             <!-- Enrolled Students Section -->
             <div class="col-md-7">

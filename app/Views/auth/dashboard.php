@@ -322,8 +322,8 @@
                 <div class="col-md-3 mb-3">
                     <div class="card stat-card text-center">
                         <div class="card-body">
-                            <h3 class="text-warning"><?= $stats['pendingReviews'] ?></h3>
-                            <p class="mb-0">Pending Reviews</p>
+                            <h3 class="text-warning"><?= isset($stats['pendingEnrollments']) ? $stats['pendingEnrollments'] : $stats['pendingReviews'] ?></h3>
+                            <p class="mb-0"><?= isset($stats['pendingEnrollments']) ? 'Pending Enrollments' : 'Pending Reviews' ?></p>
                         </div>
                     </div>
                 </div>
@@ -493,6 +493,26 @@
                             <?php endif; ?>
                         </div>
                     </div>
+
+                    <!-- Pending Enrollment Requests -->
+                    <?php if (isset($stats['pendingEnrollments']) && $stats['pendingEnrollments'] > 0): ?>
+                    <div class="card mb-3">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0">
+                                <i class="bi bi-person-plus"></i> Pending Enrollment Requests
+                                <span class="badge bg-danger"><?= $stats['pendingEnrollments'] ?></span>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted mb-3">
+                                You have <?= $stats['pendingEnrollments'] ?> student(s) waiting for approval
+                            </p>
+                            <a href="<?= base_url('teacher/pending-enrollments') ?>" class="btn btn-warning w-100">
+                                <i class="bi bi-eye"></i> Review Requests
+                            </a>
+                        </div>
+                    </div>
+                    <?php endif; ?>
 
                     <!-- Pending reviews section -->
                     <div class="card">

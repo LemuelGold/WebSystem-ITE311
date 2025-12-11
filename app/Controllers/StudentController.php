@@ -48,10 +48,13 @@ class StudentController extends BaseController
     {
         $studentId = $this->session->get('userID');
         
-        // Get enrolled courses using EnrollmentModel
+        // Get enrolled courses using EnrollmentModel (approved only)
         $enrolledCourses = $this->enrollmentModel->getUserEnrollments($studentId);
         
-        // Get available courses (not enrolled in)
+        // Get pending enrollment requests
+        $pendingEnrollments = $this->enrollmentModel->getStudentPendingEnrollments($studentId);
+        
+        // Get available courses (not enrolled in and no pending requests)
         $availableCourses = $this->getAvailableCourses($studentId);
         
         // For now, empty arrays for these features (can be implemented later)
@@ -70,9 +73,11 @@ class StudentController extends BaseController
                 'enrolledCourses' => count($enrolledCourses),
                 'completedCourses' => 0,
                 'averageGrade' => $this->calculateAverageGrade($enrolledCourses),
-                'pendingAssignments' => count($upcomingDeadlines)
+                'pendingAssignments' => count($upcomingDeadlines),
+                'pendingEnrollments' => count($pendingEnrollments)
             ],
             'enrolledCourses' => $enrolledCourses,
+            'pendingEnrollments' => $pendingEnrollments,
             'availableCourses' => $availableCourses,
             'upcomingDeadlines' => $upcomingDeadlines,
             'recentGrades' => $recentGrades
@@ -93,7 +98,7 @@ class StudentController extends BaseController
     }
 
     /**
-     * Get available courses for enrollment (courses student is NOT enrolled in)
+     * Get available courses for enrollment (courses student has NOT enrolled in or requested)
      */
     private function getAvailableCourses(int $studentId): array
     {
@@ -102,9 +107,11 @@ class StudentController extends BaseController
             ->join('users', 'users.id = courses.instructor_id', 'left')
             ->where('courses.status', 'active')
             ->whereNotIn('courses.id', function($builder) use ($studentId) {
+                // Exclude courses with any enrollment status (pending, enrolled, etc.)
                 return $builder->select('course_id')
                               ->from('enrollments')
-                              ->where('student_id', $studentId);
+                              ->where('student_id', $studentId)
+                              ->whereIn('status', ['pending', 'enrolled', 'completed']);
             })
             ->orderBy('courses.title', 'ASC')
             ->findAll();

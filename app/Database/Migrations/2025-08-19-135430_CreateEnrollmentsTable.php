@@ -31,8 +31,8 @@ class CreateEnrollmentsTable extends Migration
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['enrolled', 'completed', 'dropped'],
-                'default'    => 'enrolled',
+                'constraint' => ['pending', 'enrolled', 'completed', 'dropped', 'rejected'],
+                'default'    => 'pending',
             ],
             'created_at' => [
                 'type' => 'DATETIME',

@@ -107,7 +107,7 @@ class Course extends BaseController
                 ])->setStatusCode(409); // Conflict status
             }
 
-            // Step 7: Insert new enrollment record with current timestamp
+            // Step 7: Insert new enrollment request with 'pending' status (requires teacher approval)
             $enrollmentData = [
                 'student_id' => (int)$userId,
                 'course_id' => (int)$courseId
@@ -124,27 +124,28 @@ class Course extends BaseController
                 
                 // Create notification for the student
                 $courseTitle = $courseDetails['title'] ?? 'Course';
-                $notificationMessage = "You have been successfully enrolled in {$courseTitle}";
+                $notificationMessage = "Your enrollment request for {$courseTitle} has been submitted and is pending teacher approval.";
                 $this->notificationModel->createNotification((int)$userId, $notificationMessage);
                 
-                // Create notification for the teacher
+                // Create notification for the teacher to review the request
                 $teacherId = $courseDetails['instructor_id'] ?? null;
                 if ($teacherId) {
-                    $teacherNotificationMessage = "{$studentName} has enrolled in your course: {$courseTitle}";
+                    $teacherNotificationMessage = "{$studentName} has requested to enroll in your course: {$courseTitle}. Please review and approve.";
                     $this->notificationModel->createNotification((int)$teacherId, $teacherNotificationMessage);
                 }
                 
-                // Log successful enrollment for security auditing
-                log_message('info', "User {$userId} successfully enrolled in course {$courseId}");
+                // Log enrollment request for security auditing
+                log_message('info', "User {$userId} submitted enrollment request for course {$courseId}");
 
                 return $this->response->setJSON([
                     'success' => true,
-                    'message' => 'Successfully enrolled in the course!',
+                    'message' => 'Enrollment request submitted! Waiting for teacher approval.',
                     'data' => [
                         'enrollment_id' => $enrollmentId,
                         'course_id' => (int)$courseId,
                         'course_title' => $courseTitle,
-                        'enrollment_date' => date('Y-m-d H:i:s')
+                        'status' => 'pending',
+                        'submitted_date' => date('Y-m-d H:i:s')
                     ]
                 ])->setStatusCode(200);
 

@@ -101,6 +101,9 @@ class TeacherController extends BaseController
         // Get student count from database
         $studentsBuilder = $this->db->table('users');
         $totalStudents = $studentsBuilder->where('role', 'student')->countAllResults();
+        
+        // Get pending enrollment requests count for this teacher
+        $pendingEnrollmentsCount = count($this->enrollmentModel->getPendingEnrollmentsByTeacher($teacherId));
 
         return [
             'title' => 'Teacher Dashboard - ITE311 FUNDAR',
@@ -114,7 +117,8 @@ class TeacherController extends BaseController
                 'totalCourses' => count($myCourses),
                 'activeCourses' => $activeCourses,
                 'totalStudents' => $totalStudents,
-                'pendingReviews' => count($pendingAssignments)
+                'pendingReviews' => count($pendingAssignments),
+                'pendingEnrollments' => $pendingEnrollmentsCount
             ],
             'myCourses' => $myCourses,
             'pendingAssignments' => $pendingAssignments,
@@ -209,11 +213,15 @@ class TeacherController extends BaseController
             ->countAllResults();
         $course['enrollment_count'] = $enrollmentCount;
 
-        // Get enrolled students
+        // Get pending enrollment requests
+        $pendingStudents = $this->enrollmentModel->getPendingEnrollments((int)$courseId);
+        
+        // Get enrolled students (approved only)
         $enrolledStudents = $this->db->table('enrollments')
-            ->select('users.id, users.name, users.email, enrollments.enrollment_date, enrollments.id as enrollment_id')
+            ->select('users.id, users.name, users.email, enrollments.enrollment_date, enrollments.id as enrollment_id, enrollments.status')
             ->join('users', 'users.id = enrollments.student_id', 'inner')
             ->where('enrollments.course_id', $courseId)
+            ->where('enrollments.status', 'enrolled')
             ->where('users.role', 'student')
             ->orderBy('enrollments.enrollment_date', 'DESC')
             ->get()
@@ -245,6 +253,7 @@ class TeacherController extends BaseController
             'title' => 'Manage Students - ' . $course['title'],
             'course' => $course,
             'enrolledStudents' => $enrolledStudents,
+            'pendingStudents' => $pendingStudents,
             'availableStudents' => $availableStudents,
             'user' => [
                 'userID' => $this->session->get('userID'),
@@ -391,6 +400,143 @@ class TeacherController extends BaseController
         return redirect()->to(base_url("teacher/course/{$courseId}/students"));
     }
     
+    /**
+     * Approve student enrollment request
+     */
+    public function approveEnrollment()
+    {
+        // Authorization check for teacher role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'teacher') {
+            $this->session->setFlashdata('error', 'Access denied. Teacher privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Only handle POST requests
+        if ($this->request->getMethod() === 'POST') {
+            $enrollmentId = $this->request->getPost('enrollment_id');
+            $teacherId = $this->session->get('userID');
+
+            // Get enrollment details and verify teacher owns this course
+            $enrollmentDetails = $this->enrollmentModel->getEnrollmentDetails((int)$enrollmentId);
+            
+            if (!$enrollmentDetails) {
+                $this->session->setFlashdata('error', 'Enrollment request not found.');
+                return redirect()->back();
+            }
+
+            // Verify this course belongs to the teacher
+            if ($enrollmentDetails['instructor_id'] != $teacherId) {
+                $this->session->setFlashdata('error', 'Access denied. You can only approve enrollments for your own courses.');
+                return redirect()->to(base_url('teacher/courses'));
+            }
+
+            // Approve the enrollment
+            if ($this->enrollmentModel->approveEnrollment((int)$enrollmentId)) {
+                $studentName = $enrollmentDetails['student_name'];
+                $courseTitle = $enrollmentDetails['course_title'];
+                $studentId = $enrollmentDetails['student_id'];
+                
+                // Create notification for the student
+                $studentNotificationMessage = "Your enrollment request for {$courseTitle} has been approved!";
+                $this->notificationModel->createNotification((int)$studentId, $studentNotificationMessage);
+                
+                // Create notification for the teacher
+                $teacherNotificationMessage = "You approved {$studentName}'s enrollment in {$courseTitle}";
+                $this->notificationModel->createNotification((int)$teacherId, $teacherNotificationMessage);
+                
+                log_message('info', "Teacher {$teacherId} approved enrollment {$enrollmentId}");
+                $this->session->setFlashdata('success', 'Enrollment request approved successfully!');
+            } else {
+                $this->session->setFlashdata('error', 'Failed to approve enrollment. Please try again.');
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * Reject student enrollment request
+     */
+    public function rejectEnrollment()
+    {
+        // Authorization check for teacher role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'teacher') {
+            $this->session->setFlashdata('error', 'Access denied. Teacher privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        // Only handle POST requests
+        if ($this->request->getMethod() === 'POST') {
+            $enrollmentId = $this->request->getPost('enrollment_id');
+            $teacherId = $this->session->get('userID');
+
+            // Get enrollment details and verify teacher owns this course
+            $enrollmentDetails = $this->enrollmentModel->getEnrollmentDetails((int)$enrollmentId);
+            
+            if (!$enrollmentDetails) {
+                $this->session->setFlashdata('error', 'Enrollment request not found.');
+                return redirect()->back();
+            }
+
+            // Verify this course belongs to the teacher
+            if ($enrollmentDetails['instructor_id'] != $teacherId) {
+                $this->session->setFlashdata('error', 'Access denied. You can only reject enrollments for your own courses.');
+                return redirect()->to(base_url('teacher/courses'));
+            }
+
+            // Reject the enrollment
+            if ($this->enrollmentModel->rejectEnrollment((int)$enrollmentId)) {
+                $studentName = $enrollmentDetails['student_name'];
+                $courseTitle = $enrollmentDetails['course_title'];
+                $studentId = $enrollmentDetails['student_id'];
+                
+                // Create notification for the student
+                $studentNotificationMessage = "Your enrollment request for {$courseTitle} has been declined.";
+                $this->notificationModel->createNotification((int)$studentId, $studentNotificationMessage);
+                
+                // Create notification for the teacher
+                $teacherNotificationMessage = "You declined {$studentName}'s enrollment request for {$courseTitle}";
+                $this->notificationModel->createNotification((int)$teacherId, $teacherNotificationMessage);
+                
+                log_message('info', "Teacher {$teacherId} rejected enrollment {$enrollmentId}");
+                $this->session->setFlashdata('success', 'Enrollment request rejected.');
+            } else {
+                $this->session->setFlashdata('error', 'Failed to reject enrollment. Please try again.');
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * View all pending enrollment requests for teacher's courses
+     */
+    public function viewPendingEnrollments()
+    {
+        // Authorization check for teacher role
+        if (!$this->isLoggedIn() || $this->session->get('role') !== 'teacher') {
+            $this->session->setFlashdata('error', 'Access denied. Teacher privileges required.');
+            return redirect()->to(base_url('login'));
+        }
+
+        $teacherId = $this->session->get('userID');
+        
+        // Get all pending enrollment requests for this teacher's courses
+        $pendingEnrollments = $this->enrollmentModel->getPendingEnrollmentsByTeacher($teacherId);
+
+        $data = [
+            'title' => 'Pending Enrollment Requests',
+            'pendingEnrollments' => $pendingEnrollments,
+            'user' => [
+                'userID' => $this->session->get('userID'),
+                'name'   => $this->session->get('name'),
+                'role'   => $this->session->get('role')
+            ]
+        ];
+
+        return view('teacher/pending_enrollments', $data);
+    }
+
     /**
      * Clean up duplicate courses for a teacher
      */
