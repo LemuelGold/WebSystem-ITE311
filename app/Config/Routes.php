@@ -33,6 +33,23 @@ $routes->group('admin', function($routes) {
     $routes->post('courses/create', 'AdminController::createCourse');
     $routes->post('courses/update', 'AdminController::updateCourse');
     $routes->post('courses/delete', 'AdminController::deleteCourse');
+    $routes->get('course/(:num)/students', 'AdminController::viewCourseStudents/$1');
+    $routes->post('course/student/remove', 'AdminController::removeStudentFromCourse');
+    $routes->post('course/student/invite', 'AdminController::inviteStudentToCourse');
+    $routes->post('enrollment/approve', 'AdminController::approveEnrollment');
+    $routes->post('enrollment/reject', 'AdminController::rejectEnrollment');
+    $routes->get('programs', 'AdminController::managePrograms');
+    $routes->post('programs/create', 'AdminController::createProgram');
+    $routes->post('programs/update', 'AdminController::updateProgram');
+    $routes->post('programs/delete', 'AdminController::deleteProgram');
+    $routes->get('program/(:num)/courses', 'AdminController::manageProgramCourses/$1');
+    $routes->post('program/(:num)/courses/add', 'AdminController::addCourseToProgram/$1');
+    $routes->post('program/courses/remove', 'AdminController::removeCourseFromProgram');
+    $routes->get('student-programs', 'AdminController::manageStudentPrograms');
+    $routes->post('student-programs/enroll', 'AdminController::enrollStudentInProgram');
+    $routes->post('student-programs/update', 'AdminController::updateStudentProgram');
+
+    $routes->get('debug-enrollments', 'AdminController::debugEnrollments');
     $routes->get('reports', 'AdminController::viewReports');
     // Material upload routes for admin
     $routes->get('course/(:num)/upload', 'Materials::upload/$1');
@@ -69,6 +86,8 @@ $routes->group('student', function($routes) {
     $routes->get('grades', 'StudentController::viewGrades');
     $routes->get('profile', 'StudentController::profile');
     $routes->get('materials', 'StudentController::viewMaterials');
+    $routes->post('enrollment/accept', 'StudentController::acceptEnrollment');
+    $routes->post('enrollment/decline', 'StudentController::declineEnrollment');
 });
 
 // Materials Routes (accessible to all authenticated users based on role)
@@ -80,16 +99,18 @@ $routes->get('materials/pending', 'Materials::pending');
 
 // Course Enrollment Routes 
 $routes->post('/course/enroll', 'Course::enroll');
+$routes->post('/course/cancel-enrollment', 'Course::cancelEnrollment');
 $routes->get('/course/available', 'Course::getAvailableCourses');
 
 // Course Search Routes
 $routes->get('/courses', 'Course::index');
+$routes->get('/courses/view/(:num)', 'Course::view/$1');
 $routes->get('/courses/search', 'Course::search');
 $routes->post('/courses/search', 'Course::search');
 
 $routes->get('/debug/database', 'DebugController::checkDatabase');
 
 // Notification Routes (AJAX API endpoints)
-$routes->get('/notifications', 'Notifications::get');
-$routes->post('/notifications/mark_read/(:num)', 'Notifications::mark_as_read/$1');
-$routes->post('/notifications/mark_all_read', 'Notifications::mark_all_as_read');
+$routes->get('/notifications', 'NotificationController::index');
+$routes->post('/notifications/mark_read/(:num)', 'NotificationController::markRead/$1');
+$routes->post('/notifications/mark_all_read', 'NotificationController::markAllRead');

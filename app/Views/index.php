@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage - ITE311 Project</title>
+    <title>LMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,160 +14,145 @@
         
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: white;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .main-container {
+            background-color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
         }
         
-        nav { 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 30px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
-            gap: 30px;
+        .navbar {
+            background-color: white;
+            box-shadow: none;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid #ddd;
         }
         
-        nav a { 
-            text-decoration: none; 
-            color: #333;
+        .navbar-brand {
+            font-weight: bold;
+            color: #333 !important;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-brand::before {
+            content: "🎓";
+            margin-right: 8px;
+        }
+        
+        .navbar-nav .nav-link {
+            color: #666 !important;
             font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            position: relative;
+            margin: 0 10px;
+            transition: color 0.3s ease;
         }
         
-        nav a:hover { 
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-            transform: translateY(-2px);
+        .navbar-nav .nav-link:hover {
+            color: #333 !important;
         }
         
-        .hero-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 60px 40px;
+        .content-wrapper {
+            background-color: white;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .content-box {
+            background-color: white;
+            border: 2px solid #000;
+            border-radius: 15px;
+            padding: 3rem 2rem;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-        
-        h1 { 
-            color: #333;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .welcome-text {
-            font-size: 1.2em;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .nav-hint {
-            color: #888;
-            font-style: italic;
-            margin-bottom: 40px;
-        }
-        
-        .author {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid rgba(102, 126, 234, 0.2);
-            color: #667eea;
-            font-weight: 600;
-            font-size: 1.1em;
-        }
-        
-        .floating-elements {
-            position: absolute;
+            max-width: 800px;
             width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: -1;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         
-        .floating-elements::before,
-        .floating-elements::after {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
+        .content-box h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 1rem;
+            font-weight: 300;
         }
         
-        .floating-elements::before {
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
+        .content-box h1::before {
+            content: "🎓";
+            margin-right: 15px;
+            font-size: 2.5rem;
         }
         
-        .floating-elements::after {
-            bottom: 10%;
-            right: 10%;
-            animation-delay: 3s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        .content-box p {
+            font-size: 1.2rem;
+            color: #666;
+            margin: 0 auto;
+            line-height: 1.6;
         }
         
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 15px;
+            .content-box h1 {
+                font-size: 2rem;
             }
             
-            .hero-section {
-                padding: 40px 20px;
+            .content-box p {
+                font-size: 1rem;
             }
             
-            h1 {
-                font-size: 2em;
+            .content-wrapper {
+                padding: 1rem;
+            }
+            
+            .content-box {
+                padding: 2rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="floating-elements"></div>
-    
-    <div class="container">
-        <nav>
-            <a href="<?= base_url('/') ?>">Home</a>
-            <a href="<?= base_url('/about') ?>">About</a>
-            <a href="<?= base_url('/contact') ?>">Contact</a>
-            <a href="<?= base_url('/login') ?>">Login</a>
+    <div class="main-container">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="<?= base_url('/') ?>">LMS</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('/') ?>">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('/about') ?>">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('/contact') ?>">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('/login') ?>">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
         
-        <div class="hero-section">
-            <h1>Welcome to ITE311 Project</h1>
-            <p class="welcome-text">This is the homepage of my CodeIgniter project.</p>
-            <p class="nav-hint">Use the navigation above to explore other pages and discover more features.</p>
-            <div class="author">Created by Carlo Fundar</div>
+        <div class="content-wrapper">
+            <div class="content-box">
+                <h1>Welcome to LMS</h1>
+                <p>Experience the power of modern learning with LMS, your all-in-one solution for seamless education management and exceptional learning outcomes.</p>
+            </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

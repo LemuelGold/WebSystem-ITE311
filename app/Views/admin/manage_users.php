@@ -4,10 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?? 'User Management - Admin Panel' ?></title>
-    <!-- Bootstrap for styling - keeping it simple for student project -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Force browser refresh -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <style>
-        /* Simple styling for the user management interface */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: none;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: #333 !important;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-brand::before {
+            content: "🎓";
+            margin-right: 8px;
+        }
+        
+        .navbar-nav .nav-link {
+            color: #666 !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #333 !important;
+        }
+        
         .user-card {
             transition: transform 0.2s;
         }
@@ -17,46 +64,15 @@
         .role-badge {
             font-size: 0.8em;
         }
-        /* Different colors for different roles */
         .role-admin { background-color: #dc3545 !important; }
         .role-teacher { background-color: #ffc107 !important; color: #000 !important; }
         .role-student { background-color: #0d6efd !important; }
-        .notification-dropdown {
-            padding: 0;
-        }
-        .notification-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid #e9ecef;
-            transition: background-color 0.2s;
-            cursor: pointer;
-        }
-        .notification-item:hover {
-            background-color: #f8f9fa;
-        }
-        .notification-item.unread {
-            background-color: #e7f3ff;
-        }
-        .notification-item.unread:hover {
-            background-color: #d1e8ff;
-        }
-        .notification-message {
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-            color: #333;
-        }
-        .notification-time {
-            font-size: 0.75rem;
-            color: #6c757d;
-        }
     </style>
 </head>
-<body class="bg-light">
-    <!-- Simple navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<body>
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="<?= base_url('admin/dashboard') ?>">
-                ITE311 FUNDAR LMS
-            </a>
+            <span class="navbar-brand" style="cursor: default;">LMS</span>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -65,56 +81,28 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="<?= base_url('admin/dashboard') ?>">Dashboard</a>
+                        <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white" href="<?= base_url('admin/users') ?>">Users</a>
+                        <a class="nav-link active" href="<?= base_url('admin/users') ?>">Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="<?= base_url('admin/courses') ?>">Courses</a>
-                    </li>
-                </ul>
-                
-                <!-- Notification Bell Icon -->
-                <ul class="navbar-nav ms-auto me-3">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link position-relative text-white" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-                            </svg>
-                            <span id="notificationBadge" class="badge bg-warning position-absolute top-0 start-100 translate-middle rounded-pill" style="display: none; font-size: 0.65rem;">0</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationDropdown" style="width: 350px; max-height: 500px; overflow-y: auto;">
-                            <div class="dropdown-header d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; padding: 12px 16px;">
-                                <span class="fw-bold">Notifications</span>
-                                <button class="btn btn-sm btn-link text-decoration-none p-0" id="markAllRead" style="display: none; font-size: 0.85rem;">Mark all as read</button>
-                            </div>
-                            <div class="dropdown-divider m-0"></div>
-                            <div id="notificationList" class="notification-list">
-                                <div class="text-center py-4 text-muted">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-bell-slash mb-2 opacity-25" viewBox="0 0 16 16">
-                                        <path d="M5.164 14H15c-.299-.199-.557-.553-.78-1-.9-1.8-1.22-5.12-1.22-6 0-.264-.02-.523-.06-.776l-.938.938c.02.708.157 2.154.457 3.58.161.767.377 1.566.663 2.258H6.164l-1 1zm5.581-9.91a3.986 3.986 0 0 0-1.948-1.01L8 2.917l-.797.161A4.002 4.002 0 0 0 4 7c0 .628-.134 2.197-.459 3.742-.05.238-.105.479-.166.718l-1.653 1.653c.02-.037.04-.074.059-.113C2.679 11.2 3 7.88 3 7c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0c.942.19 1.788.645 2.457 1.284l-.707.707zM10 15a2 2 0 1 1-4 0h4zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75L.625 15.625z"/>
-                                    </svg>
-                                    <p class="mb-0 small">No notifications</p>
-                                </div>
-                            </div>
-                        </div>
+                        <a class="nav-link" href="<?= base_url('admin/courses') ?>">Courses</a>
                     </li>
                 </ul>
                 
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            <?= esc($user['name']) ?? 'Admin Panel' ?>
-                            <span class="badge bg-light text-dark ms-2">ADMIN</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('logout') ?>">Logout</a>
                     </li>
                 </ul>
+            </div>
+        </div>
+    </nav>
+                        </div>
+                    </li>
+                </ul>
+
             </div>
         </div>
     </nav>
@@ -123,13 +111,12 @@
         <!-- Page header with add user button -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="card bg-danger text-white">
+                <div class="card" style="border: 2px solid #000;">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
-                            <h2 class="mb-0">User Management</h2>
-                            <p class="mb-0">Manage all system users - add, edit, and view user information</p>
+                            <h2 class="mb-0 text-dark">User Management</h2>
                         </div>
-                        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                        <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addUserModal">
                             Add New User
                         </button>
                     </div>
@@ -225,29 +212,32 @@
                                         </td>
                                         <td><?= date('M j, Y', strtotime($user['created_at'])) ?></td>
                                         <td>
-                                            <?php if ($user['id'] != $currentUserId): ?>
-                                                <!-- Can edit other users (including other admins) -->
-                                                <button class="btn btn-sm btn-primary" 
-                                                        onclick="editUser(<?= $user['id'] ?>, '<?= esc($user['name']) ?>', '<?= esc($user['email']) ?>', '<?= $user['role'] ?>')">
-                                                    Edit
+                                            <!-- All users can be edited -->
+                                            <button class="btn btn-sm btn-primary" 
+                                                    onclick="editUser(<?= $user['id'] ?>, '<?= esc($user['name']) ?>', '<?= esc($user['email']) ?>', '<?= $user['role'] ?>')"
+                                                    title="Edit User">
+                                                <i class="bi bi-pencil-square" style="font-size: 14px;"></i>
+                                            </button>
+                                            
+                                            <?php if ($user['role'] == 'admin'): ?>
+                                                <!-- Admin users cannot be deleted (role protected) -->
+                                                <button class="btn btn-sm btn-secondary" disabled 
+                                                        title="Admin accounts cannot be deleted">
+                                                    🔒
                                                 </button>
-                                                
-                                                <?php if ($user['role'] != 'admin'): ?>
-                                                    <!-- Can only delete non-admin users -->
-                                                    <button class="btn btn-sm btn-danger" 
-                                                            onclick="deleteUser(<?= $user['id'] ?>, '<?= esc($user['name']) ?>')">
-                                                        Delete
-                                                    </button>
-                                                <?php else: ?>
-                                                    <!-- Cannot delete admin accounts -->
-                                                    <button class="btn btn-sm btn-secondary" disabled 
-                                                            title="Admin accounts cannot be deleted">
-                                                        <i class="bi bi-shield-lock"></i> Protected
-                                                    </button>
-                                                <?php endif; ?>
+                                            <?php elseif ($user['id'] != $currentUserId): ?>
+                                                <!-- Can delete non-admin users -->
+                                                <button class="btn btn-sm btn-danger" 
+                                                        onclick="deleteUser(<?= $user['id'] ?>, '<?= esc($user['name']) ?>')"
+                                                        title="Delete User">
+                                                    <i class="bi bi-trash" style="font-size: 14px;"></i>
+                                                </button>
                                             <?php else: ?>
-                                                <!-- Current user - cannot edit or delete self -->
-                                                <span class="badge bg-secondary">Your Account (Protected)</span>
+                                                <!-- Cannot delete yourself -->
+                                                <button class="btn btn-sm btn-secondary" disabled 
+                                                        title="Cannot delete your own account">
+                                                    🔒
+                                                </button>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
@@ -355,20 +345,22 @@
     <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteUserModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title">Confirm Delete</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <div class="modal-content" style="border: 2px solid #000; background-color: white;">
+                <div class="modal-header" style="background-color: white; border-bottom: 2px solid #000;">
+                    <h5 class="modal-title text-dark"><i class="bi bi-trash"></i> Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete user <strong id="deleteUserName"></strong>?</p>
-                    <p class="text-danger mb-0"><i class="bi bi-exclamation-triangle"></i> This action cannot be undone.</p>
+                <div class="modal-body" style="background-color: white; padding: 1.5rem;">
+                    <p class="text-dark mb-3">Are you sure you want to delete user <strong id="deleteUserName" class="text-danger"></strong>?</p>
+                    <div class="alert alert-warning" style="border: 1px solid #ffc107; background-color: #fff3cd;">
+                        <i class="bi bi-exclamation-triangle text-warning"></i> This action cannot be undone.
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <div class="modal-footer" style="background-color: white; border-top: 1px solid #ddd;">
+                    <button type="button" class="btn" style="background-color: white; border: 2px solid #6c757d; color: #6c757d;" data-bs-dismiss="modal">Cancel</button>
                     <form action="<?= base_url('admin/users/delete') ?>" method="POST" style="display: inline;">
                         <input type="hidden" id="deleteUserId" name="user_id">
-                        <button type="submit" class="btn btn-danger">Delete User</button>
+                        <button type="submit" class="btn" style="background-color: white; border: 2px solid #dc3545; color: #dc3545;" onmouseover="this.style.backgroundColor='#dc3545'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#dc3545';">Delete User</button>
                     </form>
                 </div>
             </div>
@@ -385,6 +377,16 @@
             document.getElementById('editName').value = name;
             document.getElementById('editEmail').value = email;
             document.getElementById('editRole').value = role;
+            
+            // If admin user, disable the role field
+            const roleSelect = document.getElementById('editRole');
+            if (role === 'admin') {
+                roleSelect.disabled = true;
+                roleSelect.title = 'Admin role cannot be changed';
+            } else {
+                roleSelect.disabled = false;
+                roleSelect.title = '';
+            }
             
             // Show the edit modal
             new bootstrap.Modal(document.getElementById('editUserModal')).show();

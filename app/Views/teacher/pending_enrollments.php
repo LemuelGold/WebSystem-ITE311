@@ -7,21 +7,125 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
-        .navbar { background-color: #ffc107 !important; }
-        .navbar .nav-link, .navbar .navbar-brand { color: #000 !important; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white !important;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: white !important;
+            box-shadow: none;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: #333 !important;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-brand::before {
+            content: "🎓";
+            margin-right: 8px;
+        }
+        
+        .navbar-nav .nav-link {
+            color: #666 !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #333 !important;
+        }
+        
+        .page-header {
+            background: white;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h2 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .page-header h2::before {
+            content: "👥";
+            margin-right: 8px;
+        }
+        
+        .page-header p {
+            color: #666;
+            margin-bottom: 0;
+        }
+        
         .pending-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
+        
         .pending-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .no-requests-card {
+            background: white;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+        }
+        
+        .no-requests-card h4 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .no-requests-card p {
+            color: #666;
+        }
+        
+        .alert {
+            border-radius: 8px;
+        }
+        
+        .btn-success {
+            background-color: #198754;
+            border-color: #198754;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
         }
     </style>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-light">
+<body>
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="<?= base_url('teacher/dashboard') ?>">ITE311 FUNDAR LMS</a>
+            <a class="navbar-brand" href="<?= base_url('teacher/dashboard') ?>">LMS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,21 +134,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('teacher/dashboard') ?>">Dashboard</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('teacher/courses') ?>">My Courses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<?= base_url('teacher/pending-enrollments') ?>">Pending Requests</a>
-                    </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            <?= esc($user['name']) ?> <span class="badge bg-warning text-dark">TEACHER</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a></li>
-                        </ul>
+                    <!-- Notification Bell -->
+                    <?php include(APPPATH . 'Views/partials/notification_bell.php'); ?>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('logout') ?>">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -66,34 +162,28 @@
             </div>
         <?php endif; ?>
 
+        <!-- Page header -->
+        <div class="page-header">
+            <h2>Pending Enrollment Requests</h2>
+            <p>Waiting for students to accept your enrollment invitations</p>
+        </div>
+
         <div class="row mb-4">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header bg-warning text-dark">
-                        <h2 class="mb-0">
-                            <i class="bi bi-person-plus"></i> Pending Enrollment Requests
-                            <span class="badge bg-danger"><?= count($pendingEnrollments) ?></span>
-                        </h2>
+                <?php if (empty($pendingEnrollments)): ?>
+                    <div class="no-requests-card">
+                        <i class="bi bi-clock-history text-info" style="font-size: 4rem;"></i>
+                        <h4 class="mt-3">No Pending Student Responses</h4>
+                        <p>All students have responded to your enrollment invitations.</p>
+                        <a href="<?= base_url('teacher/dashboard') ?>" class="btn btn-primary mt-3">
+                            Back to Dashboard
+                        </a>
                     </div>
-                    <div class="card-body">
-                        <?php if (empty($pendingEnrollments)): ?>
-                            <div class="text-center py-5">
-                                <i class="bi bi-check-circle text-success" style="font-size: 4rem;"></i>
-                                <h4 class="mt-3 text-muted">No Pending Enrollment Requests</h4>
-                                <p class="text-muted">All enrollment requests have been processed.</p>
-                                <a href="<?= base_url('teacher/dashboard') ?>" class="btn btn-primary mt-3">
-                                    Back to Dashboard
-                                </a>
-                            </div>
-                        <?php else: ?>
-                            <p class="text-muted mb-4">
-                                Review and approve or reject enrollment requests from students for your courses.
-                            </p>
-
-                            <div class="row">
-                                <?php foreach ($pendingEnrollments as $enrollment): ?>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card pending-card border-warning">
+                <?php else: ?>
+                    <div class="row">
+                        <?php foreach ($pendingEnrollments as $enrollment): ?>
+                            <div class="col-md-6 mb-3">
+                                <div class="card pending-card">
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                                     <div>
@@ -105,7 +195,7 @@
                                                             <i class="bi bi-envelope"></i> <?= esc($enrollment['student_email']) ?>
                                                         </p>
                                                     </div>
-                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                    <span class="badge bg-info text-white">Waiting for Response</span>
                                                 </div>
 
                                                 <div class="mb-3">
@@ -118,38 +208,28 @@
                                                 <div class="mb-3">
                                                     <small class="text-muted">
                                                         <i class="bi bi-clock"></i> 
-                                                        Requested: <?= date('M d, Y h:i A', strtotime($enrollment['created_at'])) ?>
+                                                        Invitation sent: <?= date('M d, Y h:i A', strtotime($enrollment['created_at'])) ?>
                                                     </small>
                                                 </div>
 
-                                                <div class="d-flex gap-2">
-                                                    <form method="POST" action="<?= base_url('teacher/enrollment/approve') ?>" class="flex-fill" onsubmit="return confirm('Approve this enrollment request?');">
-                                                        <?= csrf_field() ?>
-                                                        <input type="hidden" name="enrollment_id" value="<?= $enrollment['id'] ?>">
-                                                        <button type="submit" class="btn btn-success w-100">
-                                                            <i class="bi bi-check-circle"></i> Approve
-                                                        </button>
-                                                    </form>
-                                                    <form method="POST" action="<?= base_url('teacher/enrollment/reject') ?>" class="flex-fill" onsubmit="return confirm('Reject this enrollment request?');">
-                                                        <?= csrf_field() ?>
-                                                        <input type="hidden" name="enrollment_id" value="<?= $enrollment['id'] ?>">
-                                                        <button type="submit" class="btn btn-danger w-100">
-                                                            <i class="bi bi-x-circle"></i> Reject
-                                                        </button>
-                                                    </form>
+                                                <div class="alert alert-info mb-0 py-2">
+                                                    <i class="bi bi-hourglass-split"></i>
+                                                    <small>Waiting for student to accept invitation</small>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery and Notification Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="<?= base_url('public/js/notifications.js') ?>"></script>
 </body>
 </html>

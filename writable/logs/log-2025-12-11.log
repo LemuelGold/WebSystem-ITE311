@@ -89,3 +89,882 @@ in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
  7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
  8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 02:53:38 --> CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+[Method: POST, Route: teacher/enrollment/reject]
+in SYSTEMPATH\BaseModel.php on line 1008.
+ 1 SYSTEMPATH\BaseModel.php(1008): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH\Models\EnrollmentModel.php(254): CodeIgniter\Model->update(2, [...])
+ 4 APPPATH\Controllers\TeacherController.php(488): App\Models\EnrollmentModel->rejectEnrollment(2)
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TeacherController->rejectEnrollment()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TeacherController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 08:53:29 --> ErrorException: Cannot declare class App\Database\Migrations\CreateUsersTable, because the name is already in use
+[Method: CLI, Route: migrate]
+in APPPATH\Database\Migrations\2025-09-02-093404_CreateUsersTable.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+ERROR - 2025-12-11 08:54:40 --> mysqli_sql_exception: Table 'users' already exists in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `u...', 0)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `u...')
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `u...')
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `u...')
+#4 C:\xampp\htdocs\ITE311-RESTAURO\app\Database\Migrations\2025-09-02-093404_CreateUsersTable.php(45): CodeIgniter\Database\Forge->createTable('users')
+#5 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateUsersTable->up()
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-RESTAURO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-12-11 08:58:38 --> ErrorException: Cannot declare class App\Database\Migrations\CreateUsersTable, because the name is already in use
+[Method: CLI, Route: migrate]
+in APPPATH\Database\Migrations\2025-09-02-093404_CreateUsersTable.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+ERROR - 2025-12-11 09:32:52 --> mysqli_sql_exception: Table 'users' already exists in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `u...', 0)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `u...')
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `u...')
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `u...')
+#4 C:\xampp\htdocs\ITE311-RESTAURO\app\Database\Migrations\2025-09-02-093404_CreateUsersTable.php(45): CodeIgniter\Database\Forge->createTable('users')
+#5 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateUsersTable->up()
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-RESTAURO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-11 09:43:56 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`lms_restaurodb`.`courses`, CONSTRAINT `courses_instructor_id_foreign` FOREIGN KEY (`instructor_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', NULL, false)
+#4 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\ITE311-RESTAURO\app\Database\Seeds\CourseSeeder.php(66): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\Seeder.php(149): App\Database\Seeds\CourseSeeder->run()
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-RESTAURO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-11 09:44:28 --> mysqli_sql_exception: Table 'users' already exists in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `u...', 0)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `u...')
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `u...')
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `u...')
+#4 C:\xampp\htdocs\ITE311-RESTAURO\app\Database\Migrations\2025-09-02-093404_CreateUsersTable.php(45): CodeIgniter\Database\Forge->createTable('users')
+#5 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateUsersTable->up()
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-RESTAURO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-11 09:47:41 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`lms_restaurodb`.`courses`, CONSTRAINT `courses_instructor_id_foreign` FOREIGN KEY (`instructor_id`) REFERENCES `users` (`id`)) in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', NULL, false)
+#4 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\ITE311-RESTAURO\app\Database\Seeds\CourseSeeder.php(66): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\Seeder.php(149): App\Database\Seeds\CourseSeeder->run()
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-RESTAURO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-11 09:49:25 --> mysqli_sql_exception: Unknown column 'academic_year' in 'field list' in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', NULL, false)
+#4 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\ITE311-RESTAURO\app\Database\Seeds\CoursesSeeder.php(123): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\Seeder.php(149): App\Database\Seeds\CoursesSeeder->run()
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-RESTAURO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-11 09:52:43 --> mysqli_sql_exception: Unknown column 'end_date' in 'field list' in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', NULL, false)
+#4 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\ITE311-RESTAURO\app\Database\Seeds\CoursesSeeder.php(116): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\Seeder.php(149): App\Database\Seeds\CoursesSeeder->run()
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-RESTAURO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+DEBUG - 2025-12-11 09:58:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 09:58:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 10:02:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:02:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:07:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:13:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:16:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:17:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:19:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:21:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:23:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:27:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:27:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:40:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:42:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:43:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-12-11 14:43:00 --> Failed login attempt for: admin@gmail.com from IP: ::1
+DEBUG - 2025-12-11 14:43:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-11 14:43:49 --> User login successful: admin@lms.com from IP: ::1
+DEBUG - 2025-12-11 14:43:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:43:49 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:43:49 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:44:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:44:10 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:44:10 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:44:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:44:17 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:44:17 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:46:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:46:15 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:46:15 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:46:15 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:46:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:46:22 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:46:22 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:46:22 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:47:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:04 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:04 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:47:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:08 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:08 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:47:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:10 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:10 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:47:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:12 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:12 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:47:12 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:47:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:13 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:13 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:47:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:16 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:16 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:47:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:17 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:17 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:47:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:45 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users/delete | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:45 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:47:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:45 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:45 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:47:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:52 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users/delete | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:52 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:47:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:47:53 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:47:53 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:50:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:50:26 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:50:26 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:50:27 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:50:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:50:29 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:50:29 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:50:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:50:31 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:50:31 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:50:31 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:55:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:55:52 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:55:52 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:55:52 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:55:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:55:54 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:55:54 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:55:54 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:56:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:04 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:04 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:56:04 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:56:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:04 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:04 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:56:04 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:56:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:04 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:04 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:56:04 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:56:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:07 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:07 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:56:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:08 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:08 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:56:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:11 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:11 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:56:11 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:56:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:24 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:24 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:56:24 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:56:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:27 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:27 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:56:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:28 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:28 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:56:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:32 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:32 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:56:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-11 14:56:41 --> User login successful: admin@lms.com from IP: ::1
+DEBUG - 2025-12-11 14:56:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:42 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:42 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:56:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:46 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:46 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 14:56:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:56:47 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:56:47 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:56:47 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 14:59:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 14:59:11 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 14:59:11 --> RoleFilter - Allowing admin to access their own area
+CRITICAL - 2025-12-11 14:59:11 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: admin/courses]
+in APPPATH\Views\admin\manage_courses.php on line 216.
+ 1 APPPATH\Views\admin\manage_courses.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php', 216)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-RESTAURO\\app\\Views\\admin\\manage_courses.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_courses', [], true)
+ 5 APPPATH\Controllers\AdminController.php(393): view('admin/manage_courses', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageCourses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-11 15:05:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:05:02 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:05:02 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:18:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:18:58 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:18:58 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:19:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:19:17 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:19:17 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:19:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:19:28 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:19:28 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:19:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:19:31 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:19:31 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:19:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:19:32 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:19:32 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:19:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:19:36 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:19:36 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:19:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:19:38 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:19:38 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:19:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:19:40 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:19:40 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:19:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:19:46 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:19:46 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:20:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:20:37 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:20:37 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:20:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:20:40 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:20:40 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:20:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:20:43 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:20:43 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:29:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:29:31 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:29:31 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:29:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:29:36 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:29:36 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:29:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:29:40 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:29:40 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:29:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:29:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:30:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-11 15:30:01 --> User login successful: admin@lms.com from IP: ::1
+DEBUG - 2025-12-11 15:30:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:30:01 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:30:01 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:30:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:30:06 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:30:06 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:30:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:30:09 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:30:09 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:30:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:30:13 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:30:13 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:30:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:30:18 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:30:18 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:30:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:30:32 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:30:32 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:30:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:30:38 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:30:38 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:30:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:30:49 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:30:49 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:31:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:31:00 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:31:00 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:31:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:31:58 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:31:58 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:32:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:32:04 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:32:04 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:33:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:33:02 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:33:02 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:33:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:33:05 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:33:05 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:33:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:33:08 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:33:08 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:33:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:33:56 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:33:56 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:34:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:34:00 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:34:00 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:34:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:34:06 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:34:06 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:34:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:34:11 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:34:11 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:39:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:39:27 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:39:27 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:42:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:42:24 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:42:24 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:42:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:42:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:42:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-11 15:42:41 --> User login successful: admin@lms.com from IP: ::1
+DEBUG - 2025-12-11 15:42:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:42:41 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:42:41 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:42:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:42:47 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:42:47 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:43:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:43:53 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:43:53 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:44:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:44:37 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:44:37 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:48:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:48:33 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:48:33 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:50:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:50:40 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:50:40 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:51:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:51:09 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:51:09 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:51:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:51:10 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:51:10 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:51:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:51:11 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:51:11 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:51:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:51:12 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:51:12 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:51:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:51:12 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:51:12 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:51:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:51:13 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:51:13 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:51:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:51:13 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:51:13 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:51:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:51:45 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:51:45 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:52:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:52:40 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:52:40 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:53:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:53:59 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:53:59 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:54:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:54:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:54:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:54:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-11 15:54:17 --> User login successful: admin@lms.com from IP: ::1
+DEBUG - 2025-12-11 15:54:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:54:17 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:54:17 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:54:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:54:24 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:54:24 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:57:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:57:53 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:57:53 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:59:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:59:35 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:59:35 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:59:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:59:39 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:59:39 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:59:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:59:40 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:59:40 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:59:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:59:43 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:59:43 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:59:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:59:47 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:59:47 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:59:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:59:47 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:59:47 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:59:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:59:48 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:59:48 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 15:59:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 15:59:59 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 15:59:59 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:00:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:00:00 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:00:00 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:14 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:14 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:17 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:17 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:20 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:20 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:21 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:21 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:22 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:22 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:23 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:23 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:24 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:24 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:25 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:25 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:25 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:25 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:25 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:25 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:25 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:25 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:55 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:55 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:02:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:02:58 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:02:58 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:04:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:04:06 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:04:06 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:04:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:04:12 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:04:12 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:04:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:04:17 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:04:17 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:04:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:04:25 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:04:25 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:06:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:06:39 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:06:39 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:06:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:06:52 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:06:52 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:06:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:06:58 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/courses | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:06:58 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:07:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:07:00 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:07:00 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:07:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:07:02 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/dashboard | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:07:02 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:08:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:08:17 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:08:17 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:16:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:16:02 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:16:02 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:18:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:18:46 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:18:46 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:19:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:19:08 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:19:08 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:25:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:25:29 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:25:29 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:26:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:26:25 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users/update | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:26:25 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:26:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:26:25 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:26:25 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:26:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:26:38 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users/update | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:26:38 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:26:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:26:38 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:26:38 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:28:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:28:45 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:28:45 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:30:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:30:24 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:30:24 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:30:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:30:31 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:30:31 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:32:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:32:13 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:32:13 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:32:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:32:18 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:32:18 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:32:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:32:30 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:32:30 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:33:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:33:51 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:33:51 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:33:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:33:58 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:33:58 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:35:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:35:53 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:35:53 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:37:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:37:56 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:37:56 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:39:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:39:02 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users/create | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:39:02 --> RoleFilter - Allowing admin to access their own area
+DEBUG - 2025-12-11 16:39:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 16:39:03 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 16:39:03 --> RoleFilter - Allowing admin to access their own area
+ERROR - 2025-12-11 17:49:25 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_restaurodb', 3306, '', 0)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(1525): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#4 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(1545): CodeIgniter\Database\BaseConnection->listTables()
+#5 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(768): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(162): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-RESTAURO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(1525): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(1545): CodeIgniter\Database\BaseConnection->listTables()
+#4 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(768): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#5 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MigrationRunner.php(162): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp\htdocs\ITE311-RESTAURO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+DEBUG - 2025-12-11 18:03:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-11 18:03:44 --> RoleFilter - URL: http://localhost/ITE311-RESTAURO/admin/users | Segment1: admin | User Role: admin
+DEBUG - 2025-12-11 18:03:44 --> RoleFilter - Allowing admin to access their own area
+ERROR - 2025-12-11 18:03:48 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_restaurodb', 3306, '', 0)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-RESTAURO\app\Controllers\AdminController.php(116): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-RESTAURO\system\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\ITE311-RESTAURO\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\ITE311-RESTAURO\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\ITE311-RESTAURO\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\ITE311-RESTAURO\app\Controllers\AdminController.php(116): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\ITE311-RESTAURO\system\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+#5 C:\xampp\htdocs\ITE311-RESTAURO\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#6 C:\xampp\htdocs\ITE311-RESTAURO\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\ITE311-RESTAURO\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\ITE311-RESTAURO\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-12-11 18:03:48 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: GET, Route: admin/users]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `deleted_at` IS NULL
+ORDER BY `created_at` DESC', [], false)
+ 3 APPPATH\Controllers\AdminController.php(116): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

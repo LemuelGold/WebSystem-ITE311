@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
         // Insert sample users matching the users table structure
         $data = [
             [
-                'name'       => 'System Administrator',
-                'email'      => 'admin@lms.com',
+                'name'       => 'ADMIN',
+                'email'      => 'admin@gmail.com',
                 'password'   => password_hash('admin123', PASSWORD_DEFAULT),
                 'role'       => 'admin',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -23,68 +23,21 @@ class UserSeeder extends Seeder
             ],
             [
                 'name'       => 'John Smith',
-                'email'      => 'john@lms.com',
-                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'email'      => 'john@gmail.com',
+                'password'   => password_hash('student123', PASSWORD_DEFAULT),
                 'role'       => 'student',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'name'       => 'Jane Doe',
-                'email'      => 'jane@lms.com',
-                'password'   => password_hash('user123', PASSWORD_DEFAULT),
+                'name'       => 'Dale Doe',
+                'email'      => 'Dale_Doe@gmail.com',
+                'password'   => password_hash('teacher123', PASSWORD_DEFAULT),
                 'role'       => 'teacher',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
-            [
-                'name'       => 'Bob Johnson',
-                'email'      => 'bob@lms.com',
-                'password'   => password_hash('user123', PASSWORD_DEFAULT),
-                'role'       => 'teacher',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'name'       => 'Sarah Martinez',
-                'email'      => 'sarah@lms.com',
-                'password'   => password_hash('user123', PASSWORD_DEFAULT),
-                'role'       => 'teacher',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'name'       => 'Michael Chen',
-                'email'      => 'michael@lms.com',
-                'password'   => password_hash('user123', PASSWORD_DEFAULT),
-                'role'       => 'teacher',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'name'       => 'Emily Brown',
-                'email'      => 'emily@lms.com',
-                'password'   => password_hash('user123', PASSWORD_DEFAULT),
-                'role'       => 'student',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'name'       => 'David Wilson',
-                'email'      => 'david@lms.com',
-                'password'   => password_hash('user123', PASSWORD_DEFAULT),
-                'role'       => 'student',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'name'       => 'Lisa Anderson',
-                'email'      => 'lisa@lms.com',
-                'password'   => password_hash('user123', PASSWORD_DEFAULT),
-                'role'       => 'student',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
+          
         ];
 
         // Insert data into users table

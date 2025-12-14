@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\CourseModel;
 use App\Models\MaterialModel;
+use App\Models\NotificationModel;
 
 /**
  * Materials Controller - Handles file upload, download, and deletion for course materials
@@ -14,6 +15,7 @@ class Materials extends BaseController
     protected $db;
     protected $courseModel;
     protected $materialModel;
+    protected $notificationModel;
 
     public function __construct()
     {
@@ -21,6 +23,7 @@ class Materials extends BaseController
         $this->db = \Config\Database::connect();
         $this->courseModel = new CourseModel();
         $this->materialModel = new MaterialModel();
+        $this->notificationModel = new NotificationModel();
     }
 
     /**
@@ -95,7 +98,15 @@ class Materials extends BaseController
         $validationRules = [
             'material_file' => [
                 'label' => 'File',
-                'rules' => 'uploaded[material_file]|max_size[material_file,10240]|ext_in[material_file,pdf,doc,docx,ppt,pptx,txt,zip,rar]',
+                'rules' => 'uploaded[material_file]|max_size[material_file,10240]|ext_in[material_file,pdf,doc,docx]',
+            ],
+            'period' => [
+                'label' => 'Academic Period',
+                'rules' => 'required|in_list[Prelim,Midterm,Final]',
+            ],
+            'material_title' => [
+                'label' => 'Material Title',
+                'rules' => 'permit_empty|max_length[100]',
             ],
         ];
 
@@ -122,20 +133,48 @@ class Materials extends BaseController
                 // Only other roles would need approval (if added in future)
                 $status = 'approved';
                 
+                // Get form data
+                $period = $this->request->getPost('period');
+                $materialTitle = $this->request->getPost('material_title');
+                
+                // Use material title if provided, otherwise use original filename
+                $displayTitle = !empty($materialTitle) ? $materialTitle : $file->getClientName();
+                
+                // Set default period if not provided
+                if (empty($period)) {
+                    $period = null;
+                }
+                
                 // Prepare data for database
                 $materialData = [
                     'course_id' => $course_id,
                     'uploaded_by' => $this->session->get('userID'),
                     'file_name' => $file->getClientName(),
                     'file_path' => 'uploads/materials/' . $newName,
+                    'period' => $period,
+                    'material_title' => $displayTitle,
                     'status' => $status,
                     'approved_by' => $this->session->get('userID'),
-                    'approved_at' => date('Y-m-d H:i:s')
+                    'approved_at' => date('Y-m-d H:i:s'),
+                    'created_at' => date('Y-m-d H:i:s')
                 ];
 
                 // Save to database
                 if ($this->materialModel->insertMaterial($materialData)) {
-                    $this->session->setFlashdata('success', 'Material uploaded successfully!');
+                    // Send notifications to all enrolled students
+                    $this->sendMaterialNotifications($course_id, $displayTitle, $period);
+                    
+                    if (!empty($period)) {
+                        $periodIcon = '';
+                        switch($period) {
+                            case 'Prelim': $periodIcon = '📖'; break;
+                            case 'Midterm': $periodIcon = '📚'; break;
+                            case 'Final': $periodIcon = '🎓'; break;
+                        }
+                        $this->session->setFlashdata('success', "Material uploaded successfully for {$periodIcon} {$period} period! Students have been notified.");
+                    } else {
+                        $this->session->setFlashdata('success', "Material uploaded successfully! Students have been notified.");
+                    }
                 } else {
                     // Delete uploaded file if database insert fails
                     unlink($uploadPath . $newName);
@@ -239,7 +278,7 @@ class Materials extends BaseController
         // Student must be enrolled in the course
         elseif ($this->session->get('role') === 'student') {
             $enrollment = $this->db->table('enrollments')
-                                   ->where('student_id', $this->session->get('userID'))
+                                   ->where('user_id', $this->session->get('userID'))
                                    ->where('course_id', $material['course_id'])
                                    ->get()
                                    ->getRowArray();
@@ -343,6 +382,53 @@ class Materials extends BaseController
         ];
 
         return view('materials/pending', $data);
+    }
+
+    /**
+     * Send notifications to enrolled students when material is uploaded
+     */
+    private function sendMaterialNotifications($course_id, $materialTitle, $period = null)
+    {
+        // Get course information
+        $course = $this->courseModel->find($course_id);
+        if (!$course) return;
+        
+        // Get all confirmed enrolled students for this course
+        $enrolledStudents = $this->db->table('enrollments')
+            ->select('enrollments.user_id, users.name as student_name')
+            ->join('users', 'users.id = enrollments.user_id')
+            ->where('enrollments.course_id', $course_id)
+            ->where('enrollments.status', 'confirmed')
+            ->where('users.role', 'student')
+            ->where('users.deleted_at IS NULL')
+            ->get()
+            ->getResultArray();
+        
+        if (empty($enrolledStudents)) return;
+        
+        // Prepare notification message
+        $periodText = '';
+        if (!empty($period)) {
+            $periodIcon = '';
+            switch($period) {
+                case 'Prelim': $periodIcon = '📖'; break;
+                case 'Midterm': $periodIcon = '📚'; break;
+                case 'Final': $periodIcon = '🎓'; break;
+            }
+            $periodText = " for {$periodIcon} {$period} period";
+        }
+        
+        $uploaderName = $this->session->get('name');
+        $uploaderRole = ucfirst($this->session->get('role'));
+        
+        $message = "📄 New material uploaded: \"{$materialTitle}\"{$periodText} in {$course['title']} by {$uploaderRole} {$uploaderName}.";
+        
+        // Send notification to each enrolled student
+        foreach ($enrolledStudents as $student) {
+            $this->notificationModel->createNotification($student['user_id'], $message);
+        }
+        
+        log_message('info', "Material notifications sent to " . count($enrolledStudents) . " students for course {$course_id}");
     }
 
     /**

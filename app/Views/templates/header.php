@@ -13,8 +13,8 @@ $userName = $session->get('name');
 
 <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="<?= base_url() ?>">
-            ITE311 FUNDAR LMS
+        <a class="navbar-brand fw-bold text-dark" href="<?= base_url() ?>">
+            🎓 LMS
         </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

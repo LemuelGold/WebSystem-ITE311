@@ -1,0 +1,84 @@
+CRITICAL - 2025-10-22 00:35:30 --> ErrorException: Undefined variable $role
+[Method: GET, Route: admin/users]
+in APPPATH\Views\admin\manage_users.php on line 141.
+ 1 APPPATH\Views\admin\manage_users.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role', 'C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php', 141)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_users', [], true)
+ 5 APPPATH\Controllers\AdminController.php(120): view('admin/manage_users', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-22 00:35:35 --> ErrorException: Undefined variable $role
+[Method: GET, Route: admin/users]
+in APPPATH\Views\admin\manage_users.php on line 141.
+ 1 APPPATH\Views\admin\manage_users.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role', 'C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php', 141)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_users', [], true)
+ 5 APPPATH\Controllers\AdminController.php(120): view('admin/manage_users', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-22 00:35:45 --> ErrorException: Undefined variable $role
+[Method: GET, Route: admin/users]
+in APPPATH\Views\admin\manage_users.php on line 141.
+ 1 APPPATH\Views\admin\manage_users.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role', 'C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php', 141)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_users', [], true)
+ 5 APPPATH\Controllers\AdminController.php(120): view('admin/manage_users', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-22 00:35:45 --> ErrorException: Undefined variable $role
+[Method: GET, Route: admin/users]
+in APPPATH\Views\admin\manage_users.php on line 141.
+ 1 APPPATH\Views\admin\manage_users.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role', 'C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php', 141)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_users', [], true)
+ 5 APPPATH\Controllers\AdminController.php(120): view('admin/manage_users', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-22 00:35:45 --> ErrorException: Undefined variable $role
+[Method: GET, Route: admin/users]
+in APPPATH\Views\admin\manage_users.php on line 141.
+ 1 APPPATH\Views\admin\manage_users.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role', 'C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php', 141)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_users', [], true)
+ 5 APPPATH\Controllers\AdminController.php(120): view('admin/manage_users', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-22 00:36:44 --> ErrorException: Undefined variable $role
+[Method: GET, Route: admin/users]
+in APPPATH\Views\admin\manage_users.php on line 141.
+ 1 APPPATH\Views\admin\manage_users.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role', 'C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php', 141)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-Fundar\\app\\Views\\admin\\manage_users.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/manage_users', [], true)
+ 5 APPPATH\Controllers\AdminController.php(120): view('admin/manage_users', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AdminController->manageUsers()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

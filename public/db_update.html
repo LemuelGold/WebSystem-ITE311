@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Update - Add Materials Columns</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .sql-box { background: #f4f4f4; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .code { font-family: monospace; background: #333; color: #fff; padding: 15px; border-radius: 5px; }
+        .step { background: #e7f3ff; padding: 15px; margin: 10px 0; border-left: 4px solid #2196F3; }
+        .warning { background: #fff3cd; padding: 15px; margin: 10px 0; border-left: 4px solid #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Database Update Required</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Important:</strong> The materials period system needs database columns to work properly.
+        </div>
+        
+        <h2>📋 Manual Database Update Steps</h2>
+        
+        <div class="step">
+            <strong>Step 1:</strong> Open phpMyAdmin or your MySQL management tool
+        </div>
+        
+        <div class="step">
+            <strong>Step 2:</strong> Select the <code>lms_restaurodb</code> database
+        </div>
+        
+        <div class="step">
+            <strong>Step 3:</strong> Click on the <strong>SQL</strong> tab
+        </div>
+        
+        <div class="step">
+            <strong>Step 4:</strong> Copy and paste the following SQL commands:
+        </div>
+        
+        <div class="sql-box">
+            <h3>SQL Commands to Run:</h3>
+            <div class="code">
+-- Add period column to materials table<br>
+ALTER TABLE materials ADD COLUMN period ENUM('Prelim', 'Midterm', 'Final') NULL AFTER file_path;<br><br>
+
+-- Add material_title column to materials table<br>
+ALTER TABLE materials ADD COLUMN material_title VARCHAR(100) NULL AFTER period;
+            </div>
+        </div>
+        
+        <div class="step">
+            <strong>Step 5:</strong> Click <strong>Go</strong> to execute the commands
+        </div>
+        
+        <div class="step">
+            <strong>Step 6:</strong> Refresh your materials upload page to test the period system
+        </div>
+        
+        <h2>✅ After Update, You'll Have:</h2>
+        <ul>
+            <li>📖 <strong>Prelim materials</strong> - Properly categorized and displayed</li>
+            <li>📚 <strong>Midterm materials</strong> - Separate from other periods</li>
+            <li>🎓 <strong>Final materials</strong> - Organized by period</li>
+            <li>🎯 <strong>Student view</strong> - Materials separated by tabs (Prelim, Midterm, Final)</li>
+        </ul>
+        
+        <h2>🔍 Verification</h2>
+        <p>After running the SQL commands, you can verify the columns were added by running:</p>
+        <div class="code">
+DESCRIBE materials;
+        </div>
+        
+        <p>You should see <code>period</code> and <code>material_title</code> columns in the results.</p>
+        
+        <div class="warning">
+            <strong>Note:</strong> Existing materials will show as "General" until you re-upload them with a specific period selected.
+        </div>
+    </div>
+</body>
+</html>

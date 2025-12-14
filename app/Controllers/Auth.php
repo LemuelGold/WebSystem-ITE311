@@ -206,13 +206,20 @@ class Auth extends BaseController
             // If user exists, verify the submitted password against the stored hash
             if ($user && password_verify($password, $user['password'])) {
                 
+                // Check if user account is soft deleted
+                if (!empty($user['deleted_at'])) {
+                    $this->session->setFlashdata('error', 'This account has been deactivated. Please contact administrator.');
+                    return view('auth/login');
+                }
+                
                 $sessionData = [
-                    'userID'     => $user['id'],
-                    'name'       => $user['name'],
-                    'email'      => $user['email'],
-                    'role'       => $user['role'],
-                    'isLoggedIn' => true,
-                    'loginTime'  => time() // Track login time for security
+                    'userID'       => $user['id'],
+                    'name'         => $user['name'],
+                    'email'        => $user['email'],
+                    'role'         => $user['role'],
+                    'isLoggedIn'   => true,
+                    'loginTime'    => time(), // Track login time for security
+                    'sessionToken' => $user['session_token'] ?? null // Store session token for validation
                 ];
 
                 $this->session->set($sessionData);
@@ -278,10 +285,12 @@ class Auth extends BaseController
 
         // Redirect to role-based dashboard controllers
         $role = $this->session->get('role');
+        log_message('debug', 'Auth::dashboard() - User role: ' . $role);
         switch ($role) {
             case 'admin':
                 return redirect()->to(base_url('admin/dashboard'));
             case 'teacher':
+                log_message('debug', 'Auth::dashboard() - Redirecting teacher to teacher/dashboard');
                 return redirect()->to(base_url('teacher/dashboard'));
             case 'student':
                 return redirect()->to(base_url('student/dashboard'));

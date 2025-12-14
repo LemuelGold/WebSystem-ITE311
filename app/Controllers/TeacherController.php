@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\CourseModel;
 use App\Models\EnrollmentModel;
 use App\Models\NotificationModel;
+use App\Models\StudentProgramModel;
 
 /**
  * TeacherController - Handles teacher-specific functionality and dashboard
@@ -16,6 +17,7 @@ class TeacherController extends BaseController
     protected $courseModel;
     protected $enrollmentModel;
     protected $notificationModel;
+    protected $studentProgramModel;
 
     public function __construct()
     {
@@ -25,6 +27,7 @@ class TeacherController extends BaseController
         $this->courseModel = new CourseModel();
         $this->enrollmentModel = new EnrollmentModel();
         $this->notificationModel = new NotificationModel();
+        $this->studentProgramModel = new StudentProgramModel();
     }
 
     /**
@@ -38,10 +41,16 @@ class TeacherController extends BaseController
             return redirect()->to(base_url('login'));
         }
 
+        // Debug: Log that we're in the TeacherController dashboard
+        log_message('debug', 'TeacherController::dashboard() called for user: ' . $this->session->get('name'));
+
         // Prepare teacher-specific dashboard data
         $data = $this->prepareTeacherDashboardData();
         
-        return view('auth/dashboard', $data);
+        // Debug: Log that we're loading the teacher/dashboard view
+        log_message('debug', 'Loading teacher/dashboard view');
+        
+        return view('teacher/dashboard', $data);
     }
 
     /**
@@ -76,10 +85,11 @@ class TeacherController extends BaseController
             log_message('debug', 'Course ID: ' . $debugCourse['id'] . ' - ' . $debugCourse['title']);
         }
         
-        // Get enrollment count for each course
+        // Get enrollment count for each course (only confirmed enrollments)
         foreach ($myCourses as &$course) {
             $enrollmentCount = $this->db->table('enrollments')
                 ->where('course_id', $course['id'])
+                ->where('status', 'confirmed')
                 ->countAllResults();
             $course['students'] = $enrollmentCount;
             $course['name'] = $course['title']; // Add name field for compatibility
@@ -106,7 +116,7 @@ class TeacherController extends BaseController
         $pendingEnrollmentsCount = count($this->enrollmentModel->getPendingEnrollmentsByTeacher($teacherId));
 
         return [
-            'title' => 'Teacher Dashboard - ITE311 FUNDAR',
+            'title' => 'Teacher Dashboard - RESTAURO LMS',
             'user' => [
                 'userID' => $this->session->get('userID'),
                 'name'   => $this->session->get('name'),
@@ -127,11 +137,36 @@ class TeacherController extends BaseController
     }
 
     /**
-     * Check if user is logged in
+     * Check if user is logged in and session is valid
      */
     private function isLoggedIn(): bool
     {
-        return $this->session->get('isLoggedIn') === true;
+        if ($this->session->get('isLoggedIn') !== true) {
+            return false;
+        }
+        
+        // Check if session token is still valid (for auto-logout on profile changes)
+        $userId = $this->session->get('userID');
+        $sessionToken = $this->session->get('sessionToken');
+        
+        if ($userId) {
+            $usersBuilder = $this->db->table('users');
+            $user = $usersBuilder->where('id', $userId)->get()->getRowArray();
+            
+            // If user doesn't exist or is soft deleted, invalidate session
+            if (!$user || !empty($user['deleted_at'])) {
+                $this->session->destroy();
+                return false;
+            }
+            
+            // If session token exists in database but doesn't match current session, user was logged out
+            if (!empty($user['session_token']) && $user['session_token'] !== $sessionToken) {
+                $this->session->destroy();
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     /**
@@ -219,33 +254,108 @@ class TeacherController extends BaseController
         // Get enrolled students (approved only)
         $enrolledStudents = $this->db->table('enrollments')
             ->select('users.id, users.name, users.email, enrollments.enrollment_date, enrollments.id as enrollment_id, enrollments.status')
-            ->join('users', 'users.id = enrollments.student_id', 'inner')
+            ->join('users', 'users.id = enrollments.user_id', 'inner')
             ->where('enrollments.course_id', $courseId)
-            ->where('enrollments.status', 'enrolled')
+            ->where('enrollments.status', 'confirmed')
             ->where('users.role', 'student')
             ->orderBy('enrollments.enrollment_date', 'DESC')
             ->get()
             ->getResultArray();
         
-        // Get available students (not enrolled)
-        $enrolledIds = $this->db->table('enrollments')
-            ->select('student_id')
-            ->where('course_id', $courseId)
+        // Get available students (not actively enrolled in ANY section of this course)
+        // Only exclude students with pending, approved, or confirmed enrollments
+        // Allow re-inviting students who rejected/declined previous invitations
+        
+        // First, get all course IDs that have the same course_code as the current course
+        $sameCourseIds = $this->db->table('courses')
+            ->select('id')
+            ->where('course_code', $course['course_code'])
             ->get()
             ->getResultArray();
         
-        $enrolledStudentIds = array_column($enrolledIds, 'student_id');
+        $sameCourseIdsList = array_column($sameCourseIds, 'id');
         
-        // Get all students not in the enrolled list
+        // Now get students enrolled in ANY section of this course
+        $activeEnrollmentIds = $this->db->table('enrollments')
+            ->select('user_id')
+            ->whereIn('course_id', $sameCourseIdsList)
+            ->whereIn('status', ['pending', 'approved', 'confirmed'])
+            ->get()
+            ->getResultArray();
+        
+        $activeEnrollmentStudentIds = array_column($activeEnrollmentIds, 'user_id');
+        
+        // Debug: Check all students in programs that contain ANY course with same course_code (without enrollment exclusion)
+        $debugStudentsBuilder = $this->db->table('users');
+        $allProgramStudents = $debugStudentsBuilder->select('users.id, users.name, users.email, programs.program_code, programs.program_name, student_programs.current_year_level, student_programs.current_semester')
+            ->join('student_programs', 'student_programs.student_id = users.id', 'inner')
+            ->join('programs', 'programs.id = student_programs.program_id', 'inner')
+            ->join('program_courses', 'program_courses.program_id = programs.id', 'inner')
+            ->join('courses', 'courses.id = program_courses.course_id', 'inner')
+            ->where('users.role', 'student')
+            ->where('users.deleted_at IS NULL')
+            ->where('student_programs.status', 'active')
+            ->where('courses.course_code', $course['course_code'])
+            ->orderBy('users.name', 'ASC')
+            ->get()
+            ->getResultArray();
+        
+        log_message('debug', 'All Program Students (before enrollment exclusion): ' . json_encode($allProgramStudents));
+
+        // Get students enrolled in programs that contain ANY course with the same course_code
         $studentsBuilder = $this->db->table('users');
-        $studentsBuilder->select('id, name, email')
-            ->where('role', 'student');
+        $studentsBuilder->select('users.id, users.name, users.email, programs.program_code, programs.program_name, student_programs.current_year_level, student_programs.current_semester')
+            ->join('student_programs', 'student_programs.student_id = users.id', 'inner')
+            ->join('programs', 'programs.id = student_programs.program_id', 'inner')
+            ->join('program_courses', 'program_courses.program_id = programs.id', 'inner')
+            ->join('courses', 'courses.id = program_courses.course_id', 'inner')
+            ->where('users.role', 'student')
+            ->where('users.deleted_at IS NULL')
+            ->where('student_programs.status', 'active')
+            ->where('courses.course_code', $course['course_code']);
         
-        if (!empty($enrolledStudentIds)) {
-            $studentsBuilder->whereNotIn('id', $enrolledStudentIds);
+        if (!empty($activeEnrollmentStudentIds)) {
+            $studentsBuilder->whereNotIn('users.id', $activeEnrollmentStudentIds);
         }
         
-        $availableStudents = $studentsBuilder->orderBy('name', 'ASC')
+        $availableStudents = $studentsBuilder->orderBy('users.name', 'ASC')
+            ->get()
+            ->getResultArray();
+
+        // Debug: Log the query and results
+        // Debug: Check if this course exists in program_courses table
+        $programCoursesCheck = $this->db->table('program_courses')
+            ->select('program_courses.*, programs.program_code, programs.program_name')
+            ->join('programs', 'programs.id = program_courses.program_id', 'inner')
+            ->where('program_courses.course_id', $courseId)
+            ->get()
+            ->getResultArray();
+            
+        // Debug: Check what courses with same course_code are in program_courses
+        $allSameCoursePrograms = $this->db->table('program_courses')
+            ->select('program_courses.*, programs.program_code, programs.program_name, courses.id as course_id, courses.section')
+            ->join('programs', 'programs.id = program_courses.program_id', 'inner')
+            ->join('courses', 'courses.id = program_courses.course_id', 'inner')
+            ->where('courses.course_code', $course['course_code'])
+            ->get()
+            ->getResultArray();
+        
+        log_message('debug', 'Course ID: ' . $courseId);
+        log_message('debug', 'Course Code: ' . $course['course_code']);
+        log_message('debug', 'Program Courses for this course: ' . json_encode($programCoursesCheck));
+        log_message('debug', 'All courses with same course_code in programs: ' . json_encode($allSameCoursePrograms));
+        log_message('debug', 'Same Course IDs: ' . json_encode($sameCourseIdsList));
+        log_message('debug', 'Active Enrollment Student IDs: ' . json_encode($activeEnrollmentStudentIds));
+        log_message('debug', 'Available Students Count: ' . count($availableStudents));
+        log_message('debug', 'Available Students: ' . json_encode($availableStudents));
+
+        // Get other sections of the same course that this teacher handles
+        $otherSections = $this->db->table('courses')
+            ->select('id, section, schedule_time, room')
+            ->where('course_code', $course['course_code'])
+            ->where('instructor_id', $teacherId)
+            ->where('id !=', $courseId)
+            ->orderBy('section', 'ASC')
             ->get()
             ->getResultArray();
 
@@ -255,6 +365,16 @@ class TeacherController extends BaseController
             'enrolledStudents' => $enrolledStudents,
             'pendingStudents' => $pendingStudents,
             'availableStudents' => $availableStudents,
+            'otherSections' => $otherSections,
+            'debug_info' => [
+                'course_id' => $courseId,
+                'course_code' => $course['course_code'],
+                'program_courses' => $programCoursesCheck,
+                'all_same_course_programs' => $allSameCoursePrograms,
+                'all_program_students' => $allProgramStudents,
+                'active_enrollments' => $activeEnrollmentStudentIds,
+                'same_course_ids' => $sameCourseIdsList
+            ],
             'user' => [
                 'userID' => $this->session->get('userID'),
                 'name'   => $this->session->get('name'),
@@ -279,7 +399,7 @@ class TeacherController extends BaseController
         // Only handle POST requests
         if ($this->request->getMethod() === 'POST') {
             $courseId = $this->request->getPost('course_id');
-            $studentId = $this->request->getPost('student_id');
+            $studentId = $this->request->getPost('user_id');
             $teacherId = $this->session->get('userID');
 
             // Verify this course belongs to the teacher
@@ -306,6 +426,13 @@ class TeacherController extends BaseController
                 return redirect()->to(base_url("teacher/course/{$courseId}/students"));
             }
 
+            // Check if student is enrolled in any program
+            $studentProgram = $this->studentProgramModel->getStudentProgram($studentId);
+            if (!$studentProgram) {
+                $this->session->setFlashdata('error', 'Cannot add student. Student must be enrolled in an academic program first.');
+                return redirect()->to(base_url("teacher/course/{$courseId}/students"));
+            }
+
             // Check if already enrolled
             if ($this->enrollmentModel->isAlreadyEnrolled($studentId, $courseId)) {
                 $this->session->setFlashdata('error', 'Student is already enrolled in this course.');
@@ -314,7 +441,7 @@ class TeacherController extends BaseController
 
             // Enroll student
             $enrollmentData = [
-                'student_id' => $studentId,
+                'user_id' => $studentId,
                 'course_id' => $courseId
             ];
 
@@ -355,7 +482,7 @@ class TeacherController extends BaseController
         // Only handle POST requests
         if ($this->request->getMethod() === 'POST') {
             $courseId = $this->request->getPost('course_id');
-            $studentId = $this->request->getPost('student_id');
+            $studentId = $this->request->getPost('user_id');
             $teacherId = $this->session->get('userID');
 
             // Verify this course belongs to the teacher
@@ -434,7 +561,7 @@ class TeacherController extends BaseController
             if ($this->enrollmentModel->approveEnrollment((int)$enrollmentId)) {
                 $studentName = $enrollmentDetails['student_name'];
                 $courseTitle = $enrollmentDetails['course_title'];
-                $studentId = $enrollmentDetails['student_id'];
+                $studentId = $enrollmentDetails['user_id'];
                 
                 // Create notification for the student
                 $studentNotificationMessage = "Your enrollment request for {$courseTitle} has been approved!";
@@ -484,21 +611,30 @@ class TeacherController extends BaseController
                 return redirect()->to(base_url('teacher/courses'));
             }
 
-            // Reject the enrollment
-            if ($this->enrollmentModel->rejectEnrollment((int)$enrollmentId)) {
+            // Reject the enrollment and increment attempt count
+            if ($this->enrollmentModel->incrementAttemptCount((int)$enrollmentId)) {
                 $studentName = $enrollmentDetails['student_name'];
                 $courseTitle = $enrollmentDetails['course_title'];
-                $studentId = $enrollmentDetails['student_id'];
+                $studentId = $enrollmentDetails['user_id'];
+                
+                // Get current attempt count to show in notification
+                $enrollment = $this->enrollmentModel->find((int)$enrollmentId);
+                $attemptCount = $enrollment['attempt_count'] ?? 1;
+                $remainingAttempts = 3 - $attemptCount;
                 
                 // Create notification for the student
-                $studentNotificationMessage = "Your enrollment request for {$courseTitle} has been declined.";
+                if ($remainingAttempts > 0) {
+                    $studentNotificationMessage = "Your enrollment request for {$courseTitle} has been declined. You have {$remainingAttempts} attempt(s) remaining.";
+                } else {
+                    $studentNotificationMessage = "Your enrollment request for {$courseTitle} has been declined. You have reached the maximum number of attempts (3) for this course.";
+                }
                 $this->notificationModel->createNotification((int)$studentId, $studentNotificationMessage);
                 
                 // Create notification for the teacher
                 $teacherNotificationMessage = "You declined {$studentName}'s enrollment request for {$courseTitle}";
                 $this->notificationModel->createNotification((int)$teacherId, $teacherNotificationMessage);
                 
-                log_message('info', "Teacher {$teacherId} rejected enrollment {$enrollmentId}");
+                log_message('info', "Teacher {$teacherId} rejected enrollment {$enrollmentId}, attempt count: {$attemptCount}");
                 $this->session->setFlashdata('success', 'Enrollment request rejected.');
             } else {
                 $this->session->setFlashdata('error', 'Failed to reject enrollment. Please try again.');

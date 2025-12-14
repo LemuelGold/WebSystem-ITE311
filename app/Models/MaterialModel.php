@@ -18,7 +18,7 @@ class MaterialModel extends Model
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
-        'course_id', 'uploaded_by', 'file_name', 'file_path', 'status', 'approved_by', 'approved_at', 'created_at'
+        'course_id', 'uploaded_by', 'file_name', 'file_path', 'period', 'material_title', 'status', 'approved_by', 'approved_at', 'created_at'
     ];
 
     protected $useTimestamps = false;
@@ -52,6 +52,15 @@ class MaterialModel extends Model
         // Add timestamp
         $data['created_at'] = date('Y-m-d H:i:s');
         
+        // Check if new columns exist before trying to insert them
+        $columns = $this->db->getFieldNames($this->table);
+        if (!in_array('period', $columns)) {
+            unset($data['period']);
+        }
+        if (!in_array('material_title', $columns)) {
+            unset($data['material_title']);
+        }
+        
         $result = $this->insert($data);
         
         if ($result) {
@@ -77,7 +86,20 @@ class MaterialModel extends Model
             $builder = $builder->where('status', $status);
         }
         
-        return $builder->orderBy('created_at', 'DESC')->findAll();
+        $materials = $builder->orderBy('created_at', 'DESC')->findAll();
+        
+        // Add default values for missing columns
+        $columns = $this->db->getFieldNames($this->table);
+        foreach ($materials as &$material) {
+            if (!in_array('period', $columns)) {
+                $material['period'] = null;
+            }
+            if (!in_array('material_title', $columns)) {
+                $material['material_title'] = null;
+            }
+        }
+        
+        return $materials;
     }
 
     /**
@@ -112,10 +134,23 @@ class MaterialModel extends Model
     {
         $builder = $this->db->table($this->table);
         
-        return $builder->select('materials.*, courses.title as course_title, courses.id as course_id')
+        // Check if new columns exist and select accordingly
+        $columns = $this->db->getFieldNames($this->table);
+        $selectFields = 'materials.*, courses.title as course_title, courses.id as course_id';
+        
+        // Add new fields if they exist
+        if (in_array('period', $columns)) {
+            $selectFields .= ', materials.period';
+        }
+        if (in_array('material_title', $columns)) {
+            $selectFields .= ', materials.material_title';
+        }
+        
+        return $builder->select($selectFields)
                       ->join('courses', 'courses.id = materials.course_id')
                       ->join('enrollments', 'enrollments.course_id = courses.id')
-                      ->where('enrollments.student_id', $student_id)
+                      ->where('enrollments.user_id', $student_id)
+                      ->where('enrollments.status', 'confirmed')  // Only confirmed enrollments
                       ->where('materials.status', 'approved')  // Only show approved materials to students
                       ->orderBy('materials.created_at', 'DESC')
                       ->get()

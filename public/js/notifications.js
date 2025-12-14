@@ -7,7 +7,7 @@
     'use strict';
 
     // Base URL for API calls
-    const baseUrl = window.location.origin + '/ITE311-Fundar';
+    const baseUrl = window.location.origin + '/ITE311-RESTAURO';
     
     // Notification manager object
     const NotificationManager = {

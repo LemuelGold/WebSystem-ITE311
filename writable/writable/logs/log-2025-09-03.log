@@ -1,0 +1,429 @@
+ERROR - 2025-09-03 00:58:52 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_fundar', 3306, '', 0)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#8 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#9 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#14 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#15 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#8 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#9 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-09-03 00:58:52 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'lms_fundar'
+[Method: POST, Route: register]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...])
+ 5 SYSTEMPATH\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...], null, 'email')
+ 6 SYSTEMPATH\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofundar@gmail.com', [...], [...], 'email')
+ 7 SYSTEMPATH\Controller.php(138): CodeIgniter\Validation\Validation->run()
+ 8 APPPATH\Controllers\Auth.php(65): CodeIgniter\Controller->validate([...], [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->register()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 00:59:49 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_fundar', 3306, '', 0)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#8 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#9 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#14 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#15 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#8 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#9 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-09-03 00:59:49 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'lms_fundar'
+[Method: POST, Route: register]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...])
+ 5 SYSTEMPATH\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...], null, 'email')
+ 6 SYSTEMPATH\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofundar@gmail.com', [...], [...], 'email')
+ 7 SYSTEMPATH\Controller.php(138): CodeIgniter\Validation\Validation->run()
+ 8 APPPATH\Controllers\Auth.php(65): CodeIgniter\Controller->validate([...], [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->register()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 01:03:23 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_fundar', 3306, '', 0)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#8 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#9 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#14 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#15 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#8 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#9 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-09-03 01:03:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'lms_fundar'
+[Method: POST, Route: register]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...])
+ 5 SYSTEMPATH\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...], null, 'email')
+ 6 SYSTEMPATH\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofundar@gmail.com', [...], [...], 'email')
+ 7 SYSTEMPATH\Controller.php(138): CodeIgniter\Validation\Validation->run()
+ 8 APPPATH\Controllers\Auth.php(65): CodeIgniter\Controller->validate([...], [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->register()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 01:05:06 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_fundar', 3306, '', 0)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#8 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#9 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#14 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#15 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#8 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#9 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-09-03 01:05:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'lms_fundar'
+[Method: POST, Route: register]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...])
+ 5 SYSTEMPATH\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...], null, 'email')
+ 6 SYSTEMPATH\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofundar@gmail.com', [...], [...], 'email')
+ 7 SYSTEMPATH\Controller.php(138): CodeIgniter\Validation\Validation->run()
+ 8 APPPATH\Controllers\Auth.php(65): CodeIgniter\Controller->validate([...], [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->register()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 01:05:55 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_fundar', 3306, '', 0)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#8 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#9 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#14 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#15 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#8 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#9 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-09-03 01:05:55 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'lms_fundar'
+[Method: POST, Route: register]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...])
+ 5 SYSTEMPATH\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...], null, 'email')
+ 6 SYSTEMPATH\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofundar@gmail.com', [...], [...], 'email')
+ 7 SYSTEMPATH\Controller.php(138): CodeIgniter\Validation\Validation->run()
+ 8 APPPATH\Controllers\Auth.php(65): CodeIgniter\Controller->validate([...], [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->register()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 01:08:06 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_fundar', 3306, '', 0)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#8 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#9 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#14 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#15 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#8 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#9 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-09-03 01:08:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'lms_fundar'
+[Method: POST, Route: register]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...])
+ 5 SYSTEMPATH\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...], null, 'email')
+ 6 SYSTEMPATH\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofundar@gmail.com', [...], [...], 'email')
+ 7 SYSTEMPATH\Controller.php(138): CodeIgniter\Validation\Validation->run()
+ 8 APPPATH\Controllers\Auth.php(65): CodeIgniter\Controller->validate([...], [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->register()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 01:15:59 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'lms_fundar', 3306, '', 0)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#8 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#9 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#14 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#15 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'lms_fundar' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofund...', 'users.email', Array)
+#5 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofund...', 'users.email', Array, NULL, 'email')
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofund...', Array, Array, 'email')
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Controller.php(138): CodeIgniter\Validation\Validation->run()
+#8 C:\xampp\htdocs\ITE311-FUNDAR\app\Controllers\Auth.php(65): CodeIgniter\Controller->validate(Array, Array)
+#9 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(933): App\Controllers\Auth->register()
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\ITE311-FUNDAR\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-09-03 01:15:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'lms_fundar'
+[Method: POST, Route: register]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...])
+ 5 SYSTEMPATH\Validation\Validation.php(336): CodeIgniter\Validation\StrictRules\Rules->is_unique('carloangelofundar@gmail.com', 'users.email', [...], null, 'email')
+ 6 SYSTEMPATH\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('email', 'email', 'carloangelofundar@gmail.com', [...], [...], 'email')
+ 7 SYSTEMPATH\Controller.php(138): CodeIgniter\Validation\Validation->run()
+ 8 APPPATH\Controllers\Auth.php(65): CodeIgniter\Controller->validate([...], [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->register()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 01:23:48 --> mysqli_sql_exception: Unknown column 'first_name' in 'field list' in C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', NULL, false)
+#4 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\ITE311-FUNDAR\app\Database\Seeds\UserSeeder.php(52): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\ITE311-FUNDAR\system\Database\Seeder.php(149): App\Database\Seeds\UserSeeder->run()
+#7 C:\xampp\htdocs\ITE311-FUNDAR\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\ITE311-FUNDAR\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\ITE311-FUNDAR\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-FUNDAR\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-FUNDAR\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}

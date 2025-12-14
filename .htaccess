@@ -44,13 +44,16 @@ ServerSignature Off
     RewriteRule ^(.*)$ - [F,L]
     
     # Block access to sensitive directories
-    RewriteRule ^(app|system|writable|tests|vendor|node_modules)/.*$ - [F,L]
+    RewriteRule ^(app|system|writable|tests|vendor|node_modules|dashboard)/.*$ - [F,L]
     
     # Block access to specific sensitive files by URL path
     RewriteRule ^(env|\.env|spark|spark\.php|composer\.json|composer\.lock|package\.json|\.gitignore|README\.md|LICENSE)$ - [F,L]
     
     # Block access to files starting with dot
     RewriteRule ^\..*$ - [F,L]
+    
+    # Block access to XAMPP dashboard and related paths
+    RewriteRule ^(dashboard|xampp|phpmyadmin|webalizer|server-status|server-info).*$ - [F,L]
     
     # If you installed CodeIgniter in a subfolder, you will need to
     # change the following line to match the subfolder you need.
@@ -81,12 +84,15 @@ ServerSignature Off
     RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
     RewriteRule ^(.*)$ - [F,L]
 
+    # Redirect root directory access to LMS
+    RewriteRule ^$ public/index.php [L]
+    
     # Checks to see if the user is attempting to access a valid file,
     # such as an image or css document, if this isn't true it sends the
-    # request to the front controller, index.php
+    # request to the front controller, public/index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^([\s\S]*)$ index.php/$1 [L,NC,QSA]
+    RewriteRule ^([\s\S]*)$ public/index.php/$1 [L,NC,QSA]
 
     # Ensure Authorization header is passed along
     RewriteCond %{HTTP:Authorization} .
